@@ -8,15 +8,29 @@ void matrix_init_user() {
 	set_unicode_input_mode(UC_LNX);
 };
 
+// Layer names
 #define _COLEMAK_DHM 0
-#define _LOWER 1
+#define _SYM 1
 #define _NAV 2
 #define _GNAV 3
 #define _ACCENTS 4
 #define _MOUSE 5
-#define _ADJUST 6
+#define _UPPER 6
+#define _LOWER 7
+#define _ADJUST 8
 
-#define LW_ENT LT(_LOWER, KC_ENT)
+// Layer keys
+#define NAV MO(_NAV)
+#define GNAV MO(_GNAV)
+#define SYM MO(_SYM)
+#define ACCENTS OSL(_ACCENTS)
+#define MOUSE MO(_MOUSE)
+#define ADJUST MO(_ADJUST)
+#define SYM_ENT LT(_SYM, KC_ENT)
+#define LW_SPC LT(_LOWER, KC_SPC)
+#define UP_BSPC LT(_UPPER, KC_BSPC)
+
+// Miscellaneous keyboard shortcuts in direct access
 #define UNDO LCTL(KC_Z)
 #define CUT LCTL(KC_X)
 #define COPY LCTL(KC_C)
@@ -24,12 +38,17 @@ void matrix_init_user() {
 #define REDO LCTL(KC_Y)
 #define D_EOF LCTL(KC_D)
 
-#define NAV MO(_NAV)
-#define GNAV MO(_GNAV)
-#define LOWER MO(_LOWER)
-#define ACCENTS OSL(_ACCENTS)
-#define MOUSE MO(_MOUSE)
-#define ADJUST MO(_ADJUST)
+// Left-hand home row mods
+#define HOME_A LGUI_T(KC_A)
+#define HOME_R LALT_T(KC_R)
+#define HOME_S LSFT_T(KC_S)
+#define HOME_T LCTL_T(KC_T)
+
+// Right-hand home row mods
+#define HOME_O LGUI_T(KC_O)
+#define HOME_I LALT_T(KC_I)
+#define HOME_E RSFT_T(KC_E)
+#define HOME_N LCTL_T(KC_N)
 
 enum unicode_names {
         e_ACUT,
@@ -97,8 +116,20 @@ enum custom_keycodes {
     G_END
 };
 
+// Initialize variable holding the binary
+// representation of active modifiers.
+uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+    mod_state = get_mods();
+    switch (keycode) {
+
+    case HOME_N:
+        if (record->event.pressed) {
+            // when RCTL is activated
+        } else {
+            // when "n" is tapped
+        }
+        break;
 
     case ARROW_R:
       if (record->event.pressed) {
@@ -117,7 +148,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_DOWN);
         }
-		break;
+	  break;
 
     case G_UP:
         if (record->event.pressed) {
@@ -127,7 +158,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_UP);
         }
-		break;
+	  break;
 
     case G_HOME:
         if (record->event.pressed) {
@@ -137,7 +168,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_HOME);
         }
-		break;
+	  break;
 
     case G_END:
         if (record->event.pressed) {
@@ -149,8 +180,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
 		break;
 
-  }
-  return true;
+    }
+    return true;
 };
 
 enum {
@@ -198,9 +229,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [ZX_BCKSLSH] = COMBO_ACTION(Z_X_COMBO),
 };
 
-// Initialize variable holding the binary
-// representation of active modifiers.
-uint8_t mod_state;
 void process_combo_event(uint8_t combo_index, bool pressed) {
     mod_state = get_mods();
     switch(combo_index) {
@@ -252,21 +280,37 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     }
 }
 
+const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
+    {{5, 7}, {4, 7}, {3, 7}, {2, 7}, {1, 7}, {0, 7}},
+    {{5, 8}, {4, 8}, {3, 8}, {2, 8}, {1, 8}, {0, 8}},
+    {{5, 9}, {4, 9}, {3, 9}, {2, 9}, {1, 9}, {0, 9}},
+    {{5,10}, {4,10}, {3,10}, {2,10}, {1,10}, {0,10}},
+    {{5,11}, {4,11}, {3,11}, {2,11}, {1,11}, {0,11}},
+
+    {{5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
+    {{5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
+    {{5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
+    {{5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
+    {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
+    {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}}
+};
+
 /*MAKE SURE THAT ADJUST AND RESET ARE ACCESSIBLE !!*/
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT_5x6(
         REDO, UNDO  , CUT   , COPY  , D_EOF , PASTE ,                         KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
      KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
-KC_ESC, LGUI_T(KC_A),LALT_T(KC_R),LSFT_T(KC_S),LCTL_T(KC_T), KC_G,      KC_M  , LCTL_T(KC_N),RSFT_T(KC_E),LALT_T(KC_I),LGUI_T(KC_O),KC_QUOT,
-   KC_BSLASH, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,                         KC_K  , KC_H  ,KC_COMM,TD(TD_DOT) ,KC_SLSH, KC_GRV,
+      KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,                         KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
+   KC_BSLASH, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,                         KC_K  , KC_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
                      KC_CAPS,ARROW_R,                                                       KC_RALT, KC_APP,
-                                      NAV  ,  KC_SPC  ,                       KC_BSPC, LW_ENT,
+                                      NAV  ,  KC_SPC,                         KC_BSPC, SYM_ENT,
                                       ACCENTS, MOUSE  ,                       KC_DEL ,OSM(MOD_RSFT),
-                                      KC_LALT, KC_LGUI,                       KC_LCTL,KC_LSFT
+                                      KC_LALT, KC_LGUI,                       KC_LCTL,SH_OS
   ),
 
-  [_LOWER] = LAYOUT_5x6(
+  [_SYM] = LAYOUT_5x6(
 
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                      KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
         KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                      KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_COMM,
@@ -319,6 +363,28 @@ KC_ESC, LGUI_T(KC_A),LALT_T(KC_R),LSFT_T(KC_S),LCTL_T(KC_T), KC_G,      KC_M  , 
         _______,_______,_______,_______,_______,_______,    _______,KC_BTN3,KC_WH_D,KC_WH_U,_______,_______,
                         _______,_______,                                    _______,_______,
                                         _______,_______,    KC_BTN1,KC_BTN2,
+                                        _______,_______,    _______,_______,
+                                        _______,_______,    _______,_______
+    ),
+
+    [_UPPER] = LAYOUT_5x6(
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+        KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,     KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+                        _______,_______,                                    _______,_______,
+                                        _______,_______,    KC_BSPC,_______,
+                                        _______,_______,    _______,_______,
+                                        _______,_______,    _______,_______
+    ),
+
+    [_LOWER] = LAYOUT_5x6(
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+      KC_BSLASH, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,     KC_K  , KC_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+                        _______,_______,                                    _______,_______,
+                                        _______,_______,    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    _______,_______
     ),
