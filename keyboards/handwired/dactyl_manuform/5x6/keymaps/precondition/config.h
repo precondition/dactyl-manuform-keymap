@@ -9,6 +9,7 @@
 
 // Default tapping term is 200
 #define TAPPING_TERM 180
+#define TAPPING_TERM_PER_KEY
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -18,8 +19,9 @@
  
 // This prevents short hold periods to be interpreted as individual taps when typing quickly.
 #define PERMISSIVE_HOLD
+//#define PERMISSIVE_HOLD_PER_KEY
 
-#define COMBO_COUNT 3
+#define COMBO_COUNT 4
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
 // Assume the screen refresh rate is 60 Htz or higher
@@ -34,3 +36,5 @@
 // The default is 300. Let's try and make this as low as possible while keeping the cursor responsive
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY 100
+
+

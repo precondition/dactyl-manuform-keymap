@@ -217,16 +217,19 @@ enum combo_events {
   UY_PRN,
   YCLN_PRN,
   ZX_BCKSLSH,
+  SPCU_YOU,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM SPC_U_COMBO[] = {KC_SPC, KC_U, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
   [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
   [ZX_BCKSLSH] = COMBO_ACTION(Z_X_COMBO),
+  [SPCU_YOU] = COMBO_ACTION(SPC_U_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -277,6 +280,32 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             unregister_code(KC_BSLASH);
           }
           break;
+        case SPCU_YOU:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("You");
+                set_mods(mod_state);
+            } else {
+              send_string("you");
+              }
+          } else {
+          }
+          break;
+    }
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HOME_I:
+            return TAPPING_TERM + 220;
+        case HOME_S:
+            return TAPPING_TERM - 30;
+        case HOME_E:
+            return TAPPING_TERM - 30;
+        default:
+            return TAPPING_TERM;
     }
 }
 
