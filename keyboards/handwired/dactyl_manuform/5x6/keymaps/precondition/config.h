@@ -21,8 +21,8 @@
 #define PERMISSIVE_HOLD
 //#define PERMISSIVE_HOLD_PER_KEY
 
-#define COMBO_COUNT 4
-#define COMBO_TERM 80
+#define COMBO_COUNT 6
+#define COMBO_TERM 110
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
 // Assume the screen refresh rate is 60 Htz or higher

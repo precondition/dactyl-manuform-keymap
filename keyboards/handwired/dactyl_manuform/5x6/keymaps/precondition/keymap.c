@@ -212,18 +212,26 @@ enum combo_events {
   YCLN_PRN,
   ZX_BCKSLSH,
   BSPCU_YOU,
+  BSPCA_AND,
+  BSPCN_NOT,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
+// To do : Change to KC_# to HOME_# once combos work with mod taps
+// See this PR https://github.com/qmk/qmk_firmware/pull/8591
+const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
+const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, KC_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
   [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
   [ZX_BCKSLSH] = COMBO_ACTION(Z_X_COMBO),
   [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
+  [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
+  [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -287,13 +295,45 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
           } else {
           }
           break;
+        case BSPCA_AND:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("And ");
+                set_mods(mod_state);
+            } else {
+              send_string("and ");
+              }
+          } else {
+          }
+          break;
+        case BSPCN_NOT:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("Not ");
+                set_mods(mod_state);
+            } else if (mod_state & MOD_MASK_CTRL) {
+                unregister_code(KC_LCTL);
+                unregister_code(KC_RCTL);
+                send_string("n't ");
+                set_mods(mod_state);
+            } else {
+              send_string("not ");
+              }
+          } else {
+          }
+          break;
+
     }
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HOME_I:
-            return TAPPING_TERM + 220;
+            return TAPPING_TERM + 200;
         case HOME_S:
             return TAPPING_TERM - 30;
         case HOME_E:
