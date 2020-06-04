@@ -123,14 +123,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     switch (keycode) {
 
-    case HOME_N:
-        if (record->event.pressed) {
-            // when RCTL is activated
-        } else {
-            // when "n" is tapped
-        }
-        break;
-
     case ARROW_R:
       if (record->event.pressed) {
         // when keycode ARROW_R is pressed
@@ -188,6 +180,8 @@ enum {
     TD_DOT = 0
 };
 
+// To do: Look into more advanced tap dance functions
+// that have a callback to each tap
 void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     /* Detect double tap of TD_DOT */
     if (state->count == 2) {
@@ -217,19 +211,19 @@ enum combo_events {
   UY_PRN,
   YCLN_PRN,
   ZX_BCKSLSH,
-  SPCU_YOU,
+  BSPCU_YOU,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM SPC_U_COMBO[] = {KC_SPC, KC_U, COMBO_END};
+const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
   [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
   [ZX_BCKSLSH] = COMBO_ACTION(Z_X_COMBO),
-  [SPCU_YOU] = COMBO_ACTION(SPC_U_COMBO),
+  [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -280,7 +274,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             unregister_code(KC_BSLASH);
           }
           break;
-        case SPCU_YOU:
+        case BSPCU_YOU:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
                 unregister_code(KC_LSHIFT);
