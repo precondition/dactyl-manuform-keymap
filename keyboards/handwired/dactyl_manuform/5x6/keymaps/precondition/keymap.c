@@ -128,6 +128,7 @@ enum custom_keycodes {
 // Initialize variable holding the binary
 // representation of active modifiers.
 uint8_t mod_state;
+static bool has_typed_accent;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     switch (keycode) {
@@ -192,6 +193,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         // Else, let QMK process the KC_ESC keycode as usual
         return true;
+
+    case XP(c_CDIL, C_CDIL_U):
+        if (record->event.pressed) {
+            if (has_typed_accent) {
+                register_code(KC_C);
+                return false;
+            }
+            has_typed_accent = true;
+        } else {
+            if (has_typed_accent) {
+                unregister_code(KC_C);
+            }
+        }
+        return true;
+
+    case XP(e_ACUT, E_ACUT_U):
+        if (record->event.pressed) {
+            if (has_typed_accent) {
+                register_code(KC_E);
+                return false;
+            }
+            has_typed_accent = true;
+        } else {
+            if (has_typed_accent) {
+                unregister_code(KC_E);
+            }
+        }
+        return true;
+
     case HOME_D:
     // Let HOME_D act as an autorepeatable KC_D when CTRL is held
     {
@@ -210,6 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
     }
+        has_typed_accent = false;
         return true;
 
     }
@@ -385,10 +416,10 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
                 unregister_code(KC_LSHIFT);
                 unregister_code(KC_RSHIFT);
-                send_string("Just ");
+                send_string("Just");
                 set_mods(mod_state);
             } else {
-              send_string("just ");
+              send_string("just");
               }
           } else {
           }
