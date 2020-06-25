@@ -556,6 +556,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             // My ring finger tends to linger on the key 
             // This tapping term allows me to type "ion" effortlessly.
             return TAPPING_TERM + 200;
+        case HOME_O:
+            return TAPPING_TERM + 10;
         case SYM_ENT:
             // Very low tapping term to make sure I don't hit Enter accidentally.
             return TAPPING_TERM - 65;
@@ -652,12 +654,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_5x6(
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,_______,    _______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______,
+        _______,_______,_______,_______,_______,_______,    _______,KC_WBAK,KC_MS_U,KC_WFWD,_______,_______,
         _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,_______,    _______,KC_MS_L,KC_MS_D,KC_MS_R,_______,_______,
         _______,_______,_______,_______,_______,_______,    _______,KC_BTN3,KC_WH_D,KC_WH_U,_______,_______,
                         _______,_______,                                    _______,_______,
                                         _______,_______,    KC_BTN1,KC_BTN2,
-                                        _______,_______,    _______,_______,
+                                        _______,_______,    KC_BTN3,_______,
                                         _______,_______,    _______,_______
     ),
 
