@@ -192,6 +192,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         // Else, let QMK process the KC_ESC keycode as usual
         return true;
+    case HOME_D:
+    // Let HOME_D act as an autorepeatable KC_D when CTRL is held
+    {
+        static bool d_registered;
+        if (record->event.pressed) {
+            if (mod_state & MOD_MASK_CTRL) {
+                register_code(KC_D);
+                d_registered = true;
+                return false;
+            }
+        } else {
+            if (d_registered) {
+                unregister_code(KC_D);
+                d_registered = false;
+                return false;
+            }
+        }
+    }
+        return true;
 
     }
     return true;
@@ -202,7 +221,7 @@ enum {
     CA_CC_CV
 };
 
-// define a type containing as many tapdance states as you need
+// Tap dance states
 typedef enum {
   SINGLE_TAP,
   SINGLE_HOLD,
@@ -212,9 +231,7 @@ typedef enum {
 // create a global instance of the tapdance state type
 static td_state_t td_state;
 
-// declare your tapdance functions:
-
-// function to determine the current tapdance state
+// function to track the current tapdance state
 int cur_dance (qk_tap_dance_state_t *state);
 
 // `finished` function for each tapdance keycode
@@ -243,19 +260,30 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// determine the tapdance state to return
+
+// `finished` function for each tapdance keycode
+void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
+
+// track the tapdance state to return
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
-    if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
-    else { return SINGLE_HOLD; }
+    if (state->interrupted || !state->pressed) {
+        return SINGLE_TAP;
+    } else {
+        return SINGLE_HOLD;
+    }
   }
-  if (state->count == 2) { return DOUBLE_SINGLE_TAP; }
-  else { return 3; } // any number higher than the maximum state value you return above
+  if (state->count == 2) {
+      return DOUBLE_SINGLE_TAP;
+  }
+  else {
+      return 3; // any number higher than the maximum state value you return above
+  }
 }
 
 // handle the possible states for each tapdance keycode you define:
 
-void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data) {
+void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -418,15 +446,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HOME_I:
             return TAPPING_TERM + 200;
         case HOME_S:
-            return TAPPING_TERM - 19;
-        case HOME_E:
             return TAPPING_TERM - 25;
+        case HOME_E:
+            return TAPPING_TERM - 22;
         case SYM_ENT:
             return TAPPING_TERM - 65;
         case HOME_D:
-            return TAPPING_TERM - 10;
+            return TAPPING_TERM - 16;
         case HOME_H:
-            return TAPPING_TERM - 10;
+            return TAPPING_TERM - 16;
         default:
             return TAPPING_TERM;
     }
@@ -458,8 +486,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,                         KC_K  , HOME_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
                      KC_CAPS,ARROW_R,                                                       KC_RALT, KC_APP,
                                        NAV   ,KC_SPC,                         KC_BSPC, SYM_ENT,
-                                TD(CA_CC_CV), MOUSE,                         KC_DEL ,ACCENTS,
-                                      KC_LALT,   MOUSE,                       SH_OS, KC_LCTL
+                                TD(CA_CC_CV), MOUSE,                         KC_DEL , KC_APP,
+                                      KC_LALT,KC_CAPS,                       SH_OS, KC_LCTL
   ),
 
   [_SYM] = LAYOUT_5x6(
@@ -475,10 +503,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_5x6(
-       _______,_______,_______,_______,_______,_______,                        KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
+       _______,_______,_______,_______,_______,_______,                        _______,_______,_______,_______,_______,_______,
        _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,                        KC_PGUP,KC_PGDN, KC_UP ,KC_WH_D,KC_WH_U,KC_MUTE,
        _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,                        KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
-       _______,_______,_______,_______,_______,KC_SLCK,                        _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
+       _______,_______,_______,_______,_______,_______,                        _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
                        _______,_______,                                                        KC_BRID,KC_BRIU,
                                                _______,_______,            _______,_______,
                                                _______,_______,            _______,_______,
@@ -498,8 +526,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [_ACCENTS] = LAYOUT_5x6(
-        _______,_______,_______,_______,_______,_______,     _______,_______,XP(u_CIRC,U_CIRC_U),_______,_______,_______,
-        _______,XP(a_CIRC,A_CIRC_U),_______,_______,_______,_______,    _______,_______,XP(u_GRAV,U_GRAV_U),XP(i_UML,I_UML_U),XP(o_UML,O_UML_U),_______,
+        _______,_______,_______,_______,_______,_______,            _______,_______,_______,_______,_______,_______,
+        _______,XP(a_CIRC,A_CIRC_U),_______,_______,_______,_______,    _______,_______,XP(u_CIRC,U_CIRC_U),XP(i_UML,I_UML_U),XP(o_UML,O_UML_U),_______,
         _______,XP(a_GRAV,A_GRAV_U),_______,_______,_______,KC_B,    KC_J,XP(e_GRAV,E_GRAV_U),XP(e_ACUT,E_ACUT_U),XP(i_CIRC,I_CIRC_U),XP(o_CIRC,O_CIRC_U),_______,
         _______,_______,_______,XP(c_CDIL,C_CDIL_U),_______,_______,      _______,_______,XP(e_CIRC,E_CIRC_U),_______,_______,_______,
         _______,_______,                                    _______,_______,
