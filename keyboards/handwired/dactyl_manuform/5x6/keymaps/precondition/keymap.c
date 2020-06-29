@@ -230,20 +230,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
 
-    case HOME_N:
+    case HOME_I:
         // This piece of code nullifies the effect of Right Shift when
-        // tapping the HOME_N key. This helps rolling over HOME_E and HOME_N 
-        // to obtain the intended "en" instead of "N". Consequently, capital N can 
-        // only be obtained by tapping HOME_N and holding HOME_S (which is the left shift mod tap).
+        // tapping the HOME_I key. This helps rolling over HOME_E and HOME_I 
+        // to obtain the intended "ei" instead of "I". Consequently, capital I can 
+        // only be obtained by tapping HOME_I and holding HOME_S (which is the left shift mod tap).
         if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
             if (mod_state & MOD_BIT(KC_RSHIFT)) {
                 unregister_code(KC_RSHIFT);
+                tap_code(KC_E);
+                tap_code(KC_I);
+                set_mods(mod_state);
+                return false;
+            }
+        }
+        // else process HOME_I as usual.
+        return true;
+
+
+    case HOME_N:
+         /*This piece of code nullifies the effect of Right Shift when*/
+         /*tapping the HOME_N key. This helps rolling over HOME_E and HOME_N */
+         /*to obtain the intended "en" instead of "N". Consequently, capital N can */
+         /*only be obtained by tapping HOME_N and holding HOME_S (which is the left shift mod tap).*/
+        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
+            if (mod_state & MOD_BIT(KC_RSHIFT)) {
+                unregister_code(KC_RSHIFT);
+                tap_code(KC_E);
                 tap_code(KC_N);
                 set_mods(mod_state);
                 return false;
             }
         }
-        // else process HOME_N as usual.
+         /*else process HOME_N as usual.*/
         return true;
 
     case HOME_D:
@@ -274,6 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 enum {
     TD_DOT = 0,
+    TD_EXCLM,
     CA_CC_CV
 };
 
@@ -302,7 +322,7 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
         /* Check that Shift is inactive */
             SEND_STRING(". ");
             /* Internal code of OSM(MOD_LSFT) */
-            set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
+            set_oneshot_mods(MOD_LSFT | get_oneshot_mods()); // NOTE: Watch out for nullified shift for rolling home row keys
         } else { // shift is active, so send '>>'
             tap_code(KC_DOT);
             tap_code(KC_DOT);
@@ -312,6 +332,17 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
         /* send KC_DOT as many times as I have tapped the TD_DOT key */
         for (uint8_t i = state->count; i > 0; i--) {
             tap_code(KC_DOT);
+        }
+    }
+}
+
+void exclamative_sentence_end(qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+            SEND_STRING("! ");
+            set_oneshot_mods(MOD_LSFT | get_oneshot_mods()); // NOTE: Watch out for nullified shift for rolling home row keys
+    } else {
+        for (uint8_t i = state->count; i > 0; i--) {
+            tap_code16(KC_EXLM);
         }
     }
 }
@@ -355,6 +386,7 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_DOT] = ACTION_TAP_DANCE_FN (sentence_end),
+    [TD_EXCLM] = ACTION_TAP_DANCE_FN (exclamative_sentence_end),
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
 };
 
@@ -567,14 +599,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_BSLASH,ARROW_R,                                   KC_RALT, KC_APP,
                                           NAV  , KC_SPC,    KC_BSPC, SYM_ENT,
                                    TD(CA_CC_CV), MOUSE ,    KC_DEL , KC_APP ,
-                                        KC_LALT,KC_CAPS,    SH_OS  , KC_LCTL
+                                        KC_LALT,KC_CAPS,    SH_OS  , OSM(MOD_LSFT)
   ),
 
   [_SYM] = LAYOUT_5x6(
 
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
         KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,    KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
-        KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
+        KC_TILD,TD(TD_EXCLM), KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
                         _______,_______,                                    _______,_______, 
                                         _______,KC_UNDS,    _______,_______,
