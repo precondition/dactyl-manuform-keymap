@@ -133,6 +133,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     switch (keycode) {
 
+    case HOME_N:
+        // if tapped
+        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
+            if (mod_state & MOD_BIT(KC_RSHIFT)) {
+                unregister_code(KC_RSHIFT);
+                tap_code(KC_N);
+                set_mods(mod_state);
+                return false;
+            }
+        }
+        return true;
+
     case ARROW_R:
       if (record->event.pressed) {
         // when keycode ARROW_R is pressed
@@ -273,8 +285,8 @@ void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
 void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     /* Detect double tap of TD_DOT */
     if (state->count == 2) {
-        /* Check that Shift is inactive */
         if (!(get_mods() & MOD_MASK_SHIFT)) {
+        /* Check that Shift is inactive */
             SEND_STRING(". ");
             /* Internal code of OSM(MOD_LSFT) */
             set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
@@ -348,6 +360,7 @@ const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
+const uint16_t PROGMEM BSPC_W_COMBO[] = {KC_BSPC, KC_W, COMBO_END};
 // To do : Change from KC_# to HOME_# once combos work with mod taps
 // See this PR https://github.com/qmk/qmk_firmware/pull/8591
 const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
@@ -361,6 +374,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
   [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
   [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
+  [BSPCW_WITH] = COMBO_ACTION(BSPC_W_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -437,6 +451,19 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
           } else {
           }
           break;
+        case BSPCW_WITH:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("With");
+                set_mods(mod_state);
+            } else {
+              send_string("with");
+              }
+          } else {
+          }
+          break;
         case BSPCA_AND:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
@@ -477,9 +504,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HOME_I:
             return TAPPING_TERM + 200;
         case HOME_S:
-            return TAPPING_TERM - 25;
+            return TAPPING_TERM - 28;
         case HOME_E:
-            return TAPPING_TERM - 22;
+            return TAPPING_TERM - 26;
         case SYM_ENT:
             return TAPPING_TERM - 65;
         case HOME_D:
@@ -515,7 +542,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
       KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,                         KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
    KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,                         KC_K  , HOME_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
-                     KC_CAPS,ARROW_R,                                                       KC_RALT, KC_APP,
+                    KC_BSLASH,ARROW_R,                                                       KC_RALT, KC_APP,
                                        NAV   ,KC_SPC,                         KC_BSPC, SYM_ENT,
                                 TD(CA_CC_CV), MOUSE,                         KC_DEL , KC_APP,
                                       KC_LALT,KC_CAPS,                       SH_OS, KC_LCTL
@@ -524,7 +551,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_SYM] = LAYOUT_5x6(
 
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                      KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
-        KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                      KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_COMM,
+        KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                      KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
         KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                      KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
         _______,_______,_______,_______,_______,_______,                      _______,_______,_______,_______,_______,_______,
                         _______,_______,                                                      _______,_______, 

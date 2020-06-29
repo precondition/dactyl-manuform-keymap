@@ -21,7 +21,9 @@
 #define PERMISSIVE_HOLD
 //#define PERMISSIVE_HOLD_PER_KEY
 
-#define COMBO_COUNT 7
+//#define PERMISSIVE_HOLD_PER_KEY
+
+#define COMBO_COUNT 8
 #define COMBO_TERM 70
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
@@ -37,5 +39,3 @@
 // The default is 300. Let's try and make this as low as possible while keeping the cursor responsive
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY 100
-
-
