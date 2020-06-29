@@ -171,6 +171,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_END);
         }
 		break;
+    case KC_ESC:
+        // Home row alt-tabbing.
+        if (mod_state & MOD_MASK_ALT) {
+            if (record->event.pressed) {
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            return false;
+        }
+        // Else, let QMK process the KC_ESC keycode as usual
+        return true;
 
     }
     return true;
@@ -214,11 +226,26 @@ enum combo_events {
   BSPCU_YOU,
   BSPCA_AND,
   BSPCN_NOT,
+  BSPCU_YOU,
+  BSPCA_AND,
+  BSPCN_NOT,
+  SPCU_YOU,
+  JU_JUST,
+  BSPCU_YOU,
+  BSPCA_AND,
+  BSPCN_NOT,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
+const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
+// To do : Change to KC_# to HOME_# once combos work with mod taps
+// See this PR https://github.com/qmk/qmk_firmware/pull/8591
+const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
+const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, KC_N, COMBO_END};
+const uint16_t PROGMEM SPC_U_COMBO[] = {KC_SPC, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
 
 // To do : Change from KC_# to HOME_# once combos work with mod taps
@@ -230,6 +257,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
   [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
   [ZX_BCKSLSH] = COMBO_ACTION(Z_X_COMBO),
+  [JU_JUST] = COMBO_ACTION(J_U_COMBO),
   [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
   [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
   [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
@@ -281,6 +309,19 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             register_code(KC_BSLASH);  
           } else {
             unregister_code(KC_BSLASH);
+          }
+          break;
+        case JU_JUST:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("Just ");
+                set_mods(mod_state);
+            } else {
+              send_string("just ");
+              }
+          } else {
           }
           break;
         case BSPCU_YOU:
@@ -340,7 +381,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HOME_E:
             return TAPPING_TERM - 25;
         case SYM_ENT:
-            return TAPPING_TERM - 70;
+            return TAPPING_TERM - 65;
         default:
             return TAPPING_TERM;
     }
@@ -381,8 +422,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                      KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
         KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                      KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_COMM,
         KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                      KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
-        _______,_______,KC_LBRC,KC_LCBR,KC_LPRN,_______,                      _______,KC_RPRN,KC_RCBR,KC_RBRC,_______,_______,
-                        _______,_______,                                                      KC_PLUS, KC_EQL, 
+        _______,_______,_______,_______,_______,_______,                      _______,_______,_______,_______,_______,_______,
+                        _______,_______,                                                      _______,_______, 
                                         _______,KC_UNDS,                      _______,_______,
                                         _______,_______,                      _______,_______,
                                         _______,_______,                      ADJUST, ADJUST
