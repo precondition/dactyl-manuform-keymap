@@ -220,7 +220,8 @@ const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
-// To do : Change to KC_# to HOME_# once combos work with mod taps
+
+// To do : Change from KC_# to HOME_# once combos work with mod taps
 // See this PR https://github.com/qmk/qmk_firmware/pull/8591
 const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
 const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, KC_N, COMBO_END};
@@ -335,9 +336,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HOME_I:
             return TAPPING_TERM + 200;
         case HOME_S:
-            return TAPPING_TERM - 30;
+            return TAPPING_TERM - 25;
         case HOME_E:
-            return TAPPING_TERM - 30;
+            return TAPPING_TERM - 25;
+        case SYM_ENT:
+            return TAPPING_TERM - 70;
         default:
             return TAPPING_TERM;
     }
