@@ -395,17 +395,24 @@ enum combo_events {
   YCLN_PRN,
   ZX_BCKSLSH,
   JU_JUST,
+  HV_HAVE,
   BSPCU_YOU,
   BSPCA_AND,
   BSPCN_NOT,
+  BSPCW_WITH,
+  BSPCF_FOR,
+  BSPCH_HERE,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
+const uint16_t PROGMEM H_V_COMBO[] = {KC_H, KC_V, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_W_COMBO[] = {KC_BSPC, KC_W, COMBO_END};
+const uint16_t PROGMEM BSPC_F_COMBO[] = {KC_BSPC, KC_F, COMBO_END};
+const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, KC_H, COMBO_END};
 // To do : Change from KC_# to HOME_# once combos work with mod taps
 // See this PR https://github.com/qmk/qmk_firmware/pull/8591
 // Currently utterly useless as I don't have KC_A or KC_N in my keymap.
@@ -417,10 +424,13 @@ combo_t key_combos[COMBO_COUNT] = {
   [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
   [ZX_BCKSLSH] = COMBO_ACTION(Z_X_COMBO),
   [JU_JUST] = COMBO_ACTION(J_U_COMBO),
+  [HV_HAVE] = COMBO_ACTION(H_V_COMBO),
   [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
   [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
   [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
   [BSPCW_WITH] = COMBO_ACTION(BSPC_W_COMBO),
+  [BSPCF_FOR] = COMBO_ACTION(BSPC_F_COMBO),
+  [BSPCH_HERE] = COMBO_ACTION(BSPC_H_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -448,6 +458,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             }
           }
           break;
+
         case YCLN_PRN:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
@@ -464,6 +475,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             }
           }
           break;
+
         case ZX_BCKSLSH:
           if (pressed) {
             register_code(KC_BSLASH);  
@@ -471,6 +483,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             unregister_code(KC_BSLASH);
           }
           break;
+
         case JU_JUST:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
@@ -484,6 +497,35 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
           } else {
           }
           break;
+
+        case HV_HAVE:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("Have ");
+                set_mods(mod_state);
+            } else {
+              send_string("have ");
+              }
+          } else {
+          }
+          break;
+
+        case BSPCH_HERE:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("Here");
+                set_mods(mod_state);
+            } else {
+              send_string("here");
+              }
+          } else {
+          }
+          break;
+
         case BSPCU_YOU:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
@@ -497,6 +539,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
           } else {
           }
           break;
+
         case BSPCW_WITH:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
@@ -510,6 +553,21 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
           } else {
           }
           break;
+
+        case BSPCF_FOR:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("For");
+                set_mods(mod_state);
+            } else {
+              send_string("for");
+              }
+          } else {
+          }
+          break;
+          
         case BSPCA_AND:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
@@ -523,6 +581,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
           } else {
           }
           break;
+
         case BSPCN_NOT:
           if (pressed) {
             if (mod_state & MOD_MASK_SHIFT) {
@@ -606,7 +665,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYM] = LAYOUT_5x6(
 
-        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
+        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_BSPC,
         KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,    KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
         KC_TILD,TD(TD_EXCLM), KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
