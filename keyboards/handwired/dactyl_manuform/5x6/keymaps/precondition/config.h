@@ -19,12 +19,12 @@
  
 // This prevents short hold periods to be interpreted as individual taps when typing quickly.
 #define PERMISSIVE_HOLD
-//#define PERMISSIVE_HOLD_PER_KEY
-
-//#define PERMISSIVE_HOLD_PER_KEY
 
 #define COMBO_COUNT 8
 #define COMBO_TERM 70
+
+
+//Shamelessly stolen mouse key settings from @pierrechevalier83:
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
 // Assume the screen refresh rate is 60 Htz or higher

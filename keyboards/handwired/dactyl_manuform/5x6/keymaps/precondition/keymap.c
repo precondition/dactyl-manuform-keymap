@@ -32,11 +32,7 @@ void matrix_init_user() {
 
 // Miscellaneous keyboard shortcuts in direct access
 #define UNDO LCTL(KC_Z)
-#define CUT LCTL(KC_X)
-#define COPY LCTL(KC_C)
-#define PASTE LCTL(KC_V)
 #define REDO LCTL(KC_Y)
-#define D_EOF LCTL(KC_D)
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -128,6 +124,8 @@ enum custom_keycodes {
 // Initialize variable holding the binary
 // representation of active modifiers.
 uint8_t mod_state;
+// Initialize boolean variable which
+// tells if the last key hit was an accented letter.
 static bool has_typed_accent;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
@@ -147,10 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case ARROW_R:
       if (record->event.pressed) {
-        // when keycode ARROW_R is pressed
         SEND_STRING("->");
-      } else {
-        // when keycode ARROW_R is released
       }
       break;
 
@@ -193,6 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_END);
         }
 		break;
+
     case KC_ESC:
         // Home row alt-tabbing.
         if (mod_state & MOD_MASK_ALT) {
@@ -234,6 +230,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
 
+    case HOME_N:
+        // This piece of code nullifies the effect of Right Shift when
+        // tapping the HOME_N key. This helps rolling over HOME_E and HOME_N 
+        // to obtain the intended "en" instead of "N". Consequently, capital N can 
+        // only be obtained by tapping HOME_N and holding HOME_S (which is the left shift mod tap).
+        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
+            if (mod_state & MOD_BIT(KC_RSHIFT)) {
+                unregister_code(KC_RSHIFT);
+                tap_code(KC_N);
+                set_mods(mod_state);
+                return false;
+            }
+        }
+        // else process HOME_N as usual.
+        return true;
+
     case HOME_D:
     // Let HOME_D act as an autorepeatable KC_D when CTRL is held
     {
@@ -252,8 +264,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
     }
-        has_typed_accent = false;
-        return true;
+
+    // Toggle off boolean if any other non-accent key is hit.
+    has_typed_accent = false;
 
     }
     return true;
@@ -363,6 +376,7 @@ const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_W_COMBO[] = {KC_BSPC, KC_W, COMBO_END};
 // To do : Change from KC_# to HOME_# once combos work with mod taps
 // See this PR https://github.com/qmk/qmk_firmware/pull/8591
+// Currently utterly useless as I don't have KC_A or KC_N in my keymap.
 const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
 const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, KC_N, COMBO_END};
 
@@ -499,16 +513,24 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     }
 }
 
+/*
+ * Per key tapping term settings
+ */
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HOME_I:
+            // My ring finger tends to linger on the key 
+            // This tapping term allows me to type "ion" effortlessly.
             return TAPPING_TERM + 200;
+        case SYM_ENT:
+            // Very low tapping term to make sure I don't hit Enter accidentally.
+            return TAPPING_TERM - 65;
+        // These next mod taps are used very frequently during typing.
+        // As such, the lower the tapping term, the faster the typing.
         case HOME_S:
             return TAPPING_TERM - 28;
         case HOME_E:
             return TAPPING_TERM - 26;
-        case SYM_ENT:
-            return TAPPING_TERM - 65;
         case HOME_D:
             return TAPPING_TERM - 16;
         case HOME_H:
@@ -538,37 +560,37 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT_5x6(
-        REDO, UNDO  , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                         KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
-     KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
-      KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,                         KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-   KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,                         KC_K  , HOME_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
-                    KC_BSLASH,ARROW_R,                                                       KC_RALT, KC_APP,
-                                       NAV   ,KC_SPC,                         KC_BSPC, SYM_ENT,
-                                TD(CA_CC_CV), MOUSE,                         KC_DEL , KC_APP,
-                                      KC_LALT,KC_CAPS,                       SH_OS, KC_LCTL
+           REDO, UNDO  , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
+         KC_TAB, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
+         KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
+      KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K  , HOME_H,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
+                      KC_BSLASH,ARROW_R,                                   KC_RALT, KC_APP,
+                                          NAV  , KC_SPC,    KC_BSPC, SYM_ENT,
+                                   TD(CA_CC_CV), MOUSE ,    KC_DEL , KC_APP ,
+                                        KC_LALT,KC_CAPS,    SH_OS  , KC_LCTL
   ),
 
   [_SYM] = LAYOUT_5x6(
 
-        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                      KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
-        KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                      KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
-        KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                      KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
-        _______,_______,_______,_______,_______,_______,                      _______,_______,_______,_______,_______,_______,
-                        _______,_______,                                                      _______,_______, 
-                                        _______,KC_UNDS,                      _______,_______,
-                                        _______,_______,                      _______,_______,
-                                        _______,_______,                      ADJUST, ADJUST
+        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
+        KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,    KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
+        KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+                        _______,_______,                                    _______,_______, 
+                                        _______,KC_UNDS,    _______,_______,
+                                        _______,_______,    _______,_______,
+                                        _______,_______,    ADJUST, ADJUST
   ),
 
   [_NAV] = LAYOUT_5x6(
-       _______,_______,_______,_______,_______,_______,                        _______,_______,_______,_______,_______,_______,
-       _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,                        KC_PGUP,KC_PGDN, KC_UP ,KC_WH_D,KC_WH_U,KC_MUTE,
-       _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,                        KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
-       _______,_______,_______,_______,_______,_______,                        _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
-                       _______,_______,                                                        KC_BRID,KC_BRIU,
-                                               _______,_______,            _______,_______,
-                                               _______,_______,            _______,_______,
-                                                 ADJUST,ADJUST,            _______,_______
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+        _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,    KC_PGUP,KC_PGDN, KC_UP ,KC_WH_D,KC_WH_U,KC_MUTE,
+        _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
+        _______,_______,_______,_______,_______,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
+                        _______,_______,                                    KC_BRID,KC_BRIU,
+                                         _______,_______,   _______,_______,
+                                         _______,_______,   _______,_______,
+                                           ADJUST,ADJUST,   _______,_______
   ),
 
     [_GNAV] = LAYOUT_5x6(
@@ -631,7 +653,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,RESET,      _______,_______,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______, RESET ,    _______,_______,_______,_______,_______,_______,
                         _______,_______,                                    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    _______,_______,
