@@ -43,12 +43,21 @@ void matrix_init_user() {
 #define HOME_R LALT_T(KC_R)
 #define HOME_S LSFT_T(KC_S)
 #define HOME_T LCTL_T(KC_T)
+#define HOME_D LT(_ACCENTS, KC_D)
 
 // Right-hand home row mods
 #define HOME_O LGUI_T(KC_O)
 #define HOME_I LALT_T(KC_I)
 #define HOME_E RSFT_T(KC_E)
 #define HOME_N LCTL_T(KC_N)
+#define HOME_H LT(_ACCENTS, KC_H)
+
+#define NAV MO(_NAV)
+#define GNAV MO(_GNAV)
+#define LOWER MO(_LOWER)
+#define ACCENTS OSL(_ACCENTS)
+#define MOUSE MO(_MOUSE)
+#define ADJUST MO(_ADJUST)
 
 enum unicode_names {
         e_ACUT,
@@ -189,8 +198,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 enum {
-    TD_DOT = 0
+    TD_DOT = 0,
+    CA_CC_CV
 };
+
+// define a type containing as many tapdance states as you need
+typedef enum {
+  SINGLE_TAP,
+  SINGLE_HOLD,
+  DOUBLE_SINGLE_TAP
+} td_state_t;
+
+// create a global instance of the tapdance state type
+static td_state_t td_state;
+
+// declare your tapdance functions:
+
+// function to determine the current tapdance state
+int cur_dance (qk_tap_dance_state_t *state);
+
+// `finished` function for each tapdance keycode
+void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
 
 // To do: Look into more advanced tap dance functions
 // that have a callback to each tap
@@ -215,21 +243,41 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// determine the tapdance state to return
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
+    else { return SINGLE_HOLD; }
+  }
+  if (state->count == 2) { return DOUBLE_SINGLE_TAP; }
+  else { return 3; } // any number higher than the maximum state value you return above
+}
+
+// handle the possible states for each tapdance keycode you define:
+
+void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data) {
+  td_state = cur_dance(state);
+  switch (td_state) {
+    case SINGLE_TAP:
+      tap_code16(C(KC_C));
+      break;
+    case SINGLE_HOLD:
+      tap_code16(C(KC_A));
+      break;
+    case DOUBLE_SINGLE_TAP: 
+      tap_code16(C(KC_V));
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
- [TD_DOT] = ACTION_TAP_DANCE_FN (sentence_end)
+    [TD_DOT] = ACTION_TAP_DANCE_FN (sentence_end),
+    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
 };
 
 enum combo_events {
   UY_PRN,
   YCLN_PRN,
   ZX_BCKSLSH,
-  BSPCU_YOU,
-  BSPCA_AND,
-  BSPCN_NOT,
-  BSPCU_YOU,
-  BSPCA_AND,
-  BSPCN_NOT,
-  SPCU_YOU,
   JU_JUST,
   BSPCU_YOU,
   BSPCA_AND,
@@ -241,13 +289,6 @@ const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
-// To do : Change to KC_# to HOME_# once combos work with mod taps
-// See this PR https://github.com/qmk/qmk_firmware/pull/8591
-const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
-const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, KC_N, COMBO_END};
-const uint16_t PROGMEM SPC_U_COMBO[] = {KC_SPC, KC_U, COMBO_END};
-const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
-
 // To do : Change from KC_# to HOME_# once combos work with mod taps
 // See this PR https://github.com/qmk/qmk_firmware/pull/8591
 const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
@@ -377,11 +418,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HOME_I:
             return TAPPING_TERM + 200;
         case HOME_S:
-            return TAPPING_TERM - 25;
+            return TAPPING_TERM - 19;
         case HOME_E:
             return TAPPING_TERM - 25;
         case SYM_ENT:
             return TAPPING_TERM - 65;
+        case HOME_D:
+            return TAPPING_TERM - 10;
+        case HOME_H:
+            return TAPPING_TERM - 10;
         default:
             return TAPPING_TERM;
     }
@@ -407,14 +452,14 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT_5x6(
-        REDO, UNDO  , CUT   , COPY  , D_EOF , PASTE ,                         KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
+        REDO, UNDO  , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                         KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
      KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,                         KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
       KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,                         KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-   KC_BSLASH, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,                         KC_K  , KC_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
+   KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,                         KC_K  , HOME_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
                      KC_CAPS,ARROW_R,                                                       KC_RALT, KC_APP,
-                                      NAV  ,  KC_SPC,                         KC_BSPC, SYM_ENT,
-                                      ACCENTS, MOUSE  ,                       KC_DEL ,OSM(MOD_RSFT),
-                                      KC_LALT, KC_LGUI,                       KC_LCTL,SH_OS
+                                       NAV   ,KC_SPC,                         KC_BSPC, SYM_ENT,
+                                TD(CA_CC_CV), MOUSE,                         KC_DEL ,ACCENTS,
+                                      KC_LALT,   MOUSE,                       SH_OS, KC_LCTL
   ),
 
   [_SYM] = LAYOUT_5x6(
@@ -455,7 +500,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ACCENTS] = LAYOUT_5x6(
         _______,_______,_______,_______,_______,_______,     _______,_______,XP(u_CIRC,U_CIRC_U),_______,_______,_______,
         _______,XP(a_CIRC,A_CIRC_U),_______,_______,_______,_______,    _______,_______,XP(u_GRAV,U_GRAV_U),XP(i_UML,I_UML_U),XP(o_UML,O_UML_U),_______,
-        _______,XP(a_GRAV,A_GRAV_U),_______,_______,_______,_______,    _______,XP(e_GRAV,E_GRAV_U),XP(e_ACUT,E_ACUT_U),XP(i_CIRC,I_CIRC_U),XP(o_CIRC,O_CIRC_U),_______,
+        _______,XP(a_GRAV,A_GRAV_U),_______,_______,_______,KC_B,    KC_J,XP(e_GRAV,E_GRAV_U),XP(e_ACUT,E_ACUT_U),XP(i_CIRC,I_CIRC_U),XP(o_CIRC,O_CIRC_U),_______,
         _______,_______,_______,XP(c_CDIL,C_CDIL_U),_______,_______,      _______,_______,XP(e_CIRC,E_CIRC_U),_______,_______,_______,
         _______,_______,                                    _______,_______,
                                         _______,_______,    _______,_______,
