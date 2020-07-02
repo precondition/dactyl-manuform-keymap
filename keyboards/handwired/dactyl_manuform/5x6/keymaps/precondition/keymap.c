@@ -131,18 +131,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     switch (keycode) {
 
-    case HOME_N:
-        // if tapped
-        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
-            if (mod_state & MOD_BIT(KC_RSHIFT)) {
-                unregister_code(KC_RSHIFT);
-                tap_code(KC_N);
-                set_mods(mod_state);
-                return false;
-            }
-        }
-        return true;
-
     case ARROW_R:
       if (record->event.pressed) {
         SEND_STRING("->");
