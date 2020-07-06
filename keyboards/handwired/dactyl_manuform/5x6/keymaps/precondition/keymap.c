@@ -9,15 +9,17 @@ void matrix_init_user() {
 };
 
 // Layer names
-#define _COLEMAK_DHM 0
-#define _SYM 1
-#define _NAV 2
-#define _GNAV 3
-#define _ACCENTS 4
-#define _MOUSE 5
-#define _UPPER 6
-#define _LOWER 7
-#define _ADJUST 8
+enum layer_names {
+    _COLEMAK_DHM = 0,
+    _SYM,
+    _NAV,
+    _GNAV,
+    _ACCENTS,
+    _MOUSE,
+    _UPPER,
+    _LOWER,
+    _ADJUST,
+}
 
 // Layer keys
 #define NAV MO(_NAV)
