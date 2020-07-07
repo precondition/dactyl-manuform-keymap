@@ -8,7 +8,6 @@ void matrix_init_user() {
 	set_unicode_input_mode(UC_LNX);
 };
 
-// Layer names
 enum layer_names {
     _COLEMAK_DHM = 0,
     _SYM,
@@ -19,7 +18,7 @@ enum layer_names {
     _UPPER,
     _LOWER,
     _ADJUST,
-}
+};
 
 // Layer keys
 #define NAV MO(_NAV)
@@ -392,22 +391,21 @@ enum combo_events {
   BSPCW_WITH,
   BSPCF_FOR,
   BSPCH_HERE,
+  BSPCT_THE,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
-const uint16_t PROGMEM H_V_COMBO[] = {KC_H, KC_V, COMBO_END};
+const uint16_t PROGMEM H_V_COMBO[] = {HOME_H, KC_V, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_W_COMBO[] = {KC_BSPC, KC_W, COMBO_END};
 const uint16_t PROGMEM BSPC_F_COMBO[] = {KC_BSPC, KC_F, COMBO_END};
-const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, KC_H, COMBO_END};
-// To do : Change from KC_# to HOME_# once combos work with mod taps
-// See this PR https://github.com/qmk/qmk_firmware/pull/8591
-// Currently utterly useless as I don't have KC_A or KC_N in my keymap.
-const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, KC_A, COMBO_END};
-const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, KC_N, COMBO_END};
+const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, HOME_H, COMBO_END};
+const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, HOME_A, COMBO_END};
+const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, HOME_N, COMBO_END};
+const uint16_t PROGMEM BSPC_T_COMBO[] = {KC_BSPC, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
@@ -421,6 +419,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [BSPCW_WITH] = COMBO_ACTION(BSPC_W_COMBO),
   [BSPCF_FOR] = COMBO_ACTION(BSPC_F_COMBO),
   [BSPCH_HERE] = COMBO_ACTION(BSPC_H_COMBO),
+  [BSPCT_THE] = COMBO_ACTION(BSPC_T_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -567,6 +566,20 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 set_mods(mod_state);
             } else {
               send_string("and ");
+              }
+          } else {
+          }
+          break;
+
+        case BSPCT_THE:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("The");
+                set_mods(mod_state);
+            } else {
+              send_string("the");
               }
           } else {
           }
