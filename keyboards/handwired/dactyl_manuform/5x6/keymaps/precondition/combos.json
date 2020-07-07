@@ -1,0 +1,79 @@
+{
+    "UY_PRN": {
+        "keys":["KC_U", "KC_Y"],
+        "noMods":"(",
+        "shift":"[",
+        "control":"{"
+    },
+
+    "YCLN_PRN": {
+        "keys":["KC_Y", "KC_SCLN"],
+        "noMods":")",
+        "shift":"]",
+        "control":"}"
+    },
+
+    "JU_JUST": {
+        "keys":["KC_J", "KC_U"],
+        "noMods":"just",
+        "shift":"Just",
+        "control":""
+    },
+
+    "HV_HAVE": {
+        "keys":["HOME_H", "KC_V"],
+        "noMods":"have ",
+        "shift":"Have ",
+        "control":""
+    },
+
+    "BSPCU_YOU": {
+        "keys":["KC_BSPC", "KC_U"],
+        "noMods":"you",
+        "shift":"You",
+        "control":""
+    },
+
+    "BSPCA_A": {
+        "keys":["KC_BSPC", "KC_A"],
+        "noMods":"and ",
+        "shift":"And ",
+        "control":""
+    },
+
+    "BSPCN_N": {
+        "keys":["KC_BSPC", "KC_N"],
+        "noMods":"not ",
+        "shift":"Not ",
+        "control":"n't "
+    },
+
+    "BSPCW_W": {
+        "keys":["KC_BSPC", "KC_W"],
+        "noMods":"with",
+        "shift":"With",
+        "control":""
+    },
+
+    "BSPCF_F": {
+        "keys":["KC_BSPC", "KC_F"],
+        "noMods":"for",
+        "shift":"For",
+        "control":""
+    },
+
+    "BSPCH_H": {
+        "keys":["KC_BSPC", "KC_H"],
+        "noMods":"here",
+        "shift":"Here",
+        "control":""
+    },
+
+    "BSPCT_T": {
+        "keys":["KC_BSPC", "KC_T"],
+        "noMods":"the",
+        "shift":"The",
+        "control":""
+    }
+
+}
