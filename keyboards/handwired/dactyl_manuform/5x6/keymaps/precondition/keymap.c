@@ -392,6 +392,8 @@ enum combo_events {
   BSPCF_FOR,
   BSPCH_HERE,
   BSPCT_THE,
+  BSPCM_MENT,
+  DELT_THIS,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
@@ -406,6 +408,8 @@ const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, HOME_H, COMBO_END};
 const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, HOME_A, COMBO_END};
 const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, HOME_N, COMBO_END};
 const uint16_t PROGMEM BSPC_T_COMBO[] = {KC_BSPC, HOME_T, COMBO_END};
+const uint16_t PROGMEM BSPC_M_COMBO[] = {KC_BSPC, KC_M, COMBO_END};
+const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
@@ -420,6 +424,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [BSPCF_FOR] = COMBO_ACTION(BSPC_F_COMBO),
   [BSPCH_HERE] = COMBO_ACTION(BSPC_H_COMBO),
   [BSPCT_THE] = COMBO_ACTION(BSPC_T_COMBO),
+  [BSPCM_MENT] = COMBO_ACTION(BSPC_M_COMBO),
+  [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -599,6 +605,34 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 set_mods(mod_state);
             } else {
               send_string("not ");
+              }
+          } else {
+          }
+          break;
+
+        case BSPCM_MENT:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("Ment");
+                set_mods(mod_state);
+            } else {
+              send_string("ment");
+              }
+          } else {
+          }
+          break;
+
+        case DELT_THIS:
+          if (pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                unregister_code(KC_LSHIFT);
+                unregister_code(KC_RSHIFT);
+                send_string("This");
+                set_mods(mod_state);
+            } else {
+              send_string("this");
               }
           } else {
           }

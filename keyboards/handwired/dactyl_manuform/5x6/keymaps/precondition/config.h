@@ -8,7 +8,7 @@
 // Rows are doubled-up
 
 // Default tapping term is 200
-#define TAPPING_TERM 180
+#define TAPPING_TERM 170
 #define TAPPING_TERM_PER_KEY
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
@@ -20,7 +20,7 @@
 // This prevents short hold periods to be interpreted as individual taps when typing quickly.
 #define PERMISSIVE_HOLD
 
-#define COMBO_COUNT 12
+#define COMBO_COUNT 14
 #define COMBO_TERM 70
 
 
