@@ -39,38 +39,39 @@ combo_t_key_combos += "};\n"
 def combo_case(combo_name, combo_shift, combo_control, combo_no_mods):
 
     shift_condition = \
-    f"""\t\tif (mod_state & MOD_MASK_SHIFT) {{
-    \t\t\tunregister_code(KC_LSHIFT);
-    \t\t\tunregister_code(KC_RSHIFT);
-    \t\t\tsend_string("{combo_shift}");
-    \t\t\tset_mods(mod_state);
-    \t\t}}
+    f"""\t\t\tif (mod_state & MOD_MASK_SHIFT) {{
+    \t\t\t\tunregister_code(KC_LSHIFT);
+    \t\t\t\tunregister_code(KC_RSHIFT);
+    \t\t\t\tsend_string("{combo_shift}");
+    \t\t\t\tset_mods(mod_state);
+    \t\t\t}}
     """.expandtabs(4)
 
     control_condition = \
-    f"""\t\telse if (mod_state & MOD_MASK_CTRL) {{
-    \t\t\tunregister_code(KC_LCTL);
-    \t\t\tunregister_code(KC_RCTL);
-    \t\t\tsend_string("{combo_control}");
-    \t\t\tset_mods(mod_state);
-    \t\t}}
+    f"""\t\t\telse if (mod_state & MOD_MASK_CTRL) {{
+    \t\t\t\tunregister_code(KC_LCTL);
+    \t\t\t\tunregister_code(KC_RCTL);
+    \t\t\t\tsend_string("{combo_control}");
+    \t\t\t\tset_mods(mod_state);
+    \t\t\t}}
     """.expandtabs(4)
 
     no_mods_condition = \
-    f"""\t\telse {{
-    \t\t\tsend_string("{combo_no_mods}");
-    \t\t}}
+    f"""\t\t\telse {{
+    \t\t\t\tsend_string("{combo_no_mods}");
+    \t\t\t}}
     """.expandtabs(4)
 
     case_code_block = \
     f"""\t\tcase {combo_name}:
+    \t\tif (pressed) {{
     """.expandtabs(4)
 
     case_code_block += shift_condition
     if len(combo_control) > 0:
         case_code_block += control_condition
     case_code_block += no_mods_condition
-    case_code_block += "\t\tbreak;\n\n".expandtabs(4)
+    case_code_block += "\t}\n\t\tbreak;\n\n".expandtabs(4)
     return case_code_block
 
 process_combo_event = "void process_combo_event(uint8_t combo_index, bool pressed) {\n    mod_state = get_mods();\n    switch(combo_index) {\n"
