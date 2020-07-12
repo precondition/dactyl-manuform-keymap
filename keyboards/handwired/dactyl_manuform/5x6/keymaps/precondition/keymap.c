@@ -379,267 +379,278 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
 };
 
+/*** THIS COMBO-ACTION CODE WAS GENERATED WITH combo_action_generator.py ***/
+
 enum combo_events {
-  UY_PRN,
-  YCLN_PRN,
-  ZX_BCKSLSH,
-  JU_JUST,
-  HV_HAVE,
-  BSPCU_YOU,
-  BSPCA_AND,
-  BSPCN_NOT,
-  BSPCW_WITH,
-  BSPCF_FOR,
-  BSPCH_HERE,
-  BSPCT_THE,
-  BSPCM_MENT,
-  DELT_THIS,
+    UY_PRN,
+    YCLN_PRN,
+    JU_JUST,
+    HV_HAVE,
+    BSPCU_YOU,
+    BSPCA_AND,
+    BSPCN_NOT,
+    BSPCW_WITH,
+    BSPCF_FOR,
+    BSPCH_HERE,
+    BSPCT_THE,
+    BSPCM_MENT,
+    BSPCG_ING,
+    DELT_THIS,
 };
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
 const uint16_t PROGMEM H_V_COMBO[] = {HOME_H, KC_V, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
+const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, HOME_A, COMBO_END};
+const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, HOME_N, COMBO_END};
 const uint16_t PROGMEM BSPC_W_COMBO[] = {KC_BSPC, KC_W, COMBO_END};
 const uint16_t PROGMEM BSPC_F_COMBO[] = {KC_BSPC, KC_F, COMBO_END};
 const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, HOME_H, COMBO_END};
-const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, HOME_A, COMBO_END};
-const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, HOME_N, COMBO_END};
 const uint16_t PROGMEM BSPC_T_COMBO[] = {KC_BSPC, HOME_T, COMBO_END};
 const uint16_t PROGMEM BSPC_M_COMBO[] = {KC_BSPC, KC_M, COMBO_END};
+const uint16_t PROGMEM BSPC_G_COMBO[] = {KC_BSPC, KC_G, COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
-  [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
-  [ZX_BCKSLSH] = COMBO_ACTION(Z_X_COMBO),
-  [JU_JUST] = COMBO_ACTION(J_U_COMBO),
-  [HV_HAVE] = COMBO_ACTION(H_V_COMBO),
-  [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
-  [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
-  [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
-  [BSPCW_WITH] = COMBO_ACTION(BSPC_W_COMBO),
-  [BSPCF_FOR] = COMBO_ACTION(BSPC_F_COMBO),
-  [BSPCH_HERE] = COMBO_ACTION(BSPC_H_COMBO),
-  [BSPCT_THE] = COMBO_ACTION(BSPC_T_COMBO),
-  [BSPCM_MENT] = COMBO_ACTION(BSPC_M_COMBO),
-  [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
+    [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
+    [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
+    [JU_JUST] = COMBO_ACTION(J_U_COMBO),
+    [HV_HAVE] = COMBO_ACTION(H_V_COMBO),
+    [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
+    [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
+    [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
+    [BSPCW_WITH] = COMBO_ACTION(BSPC_W_COMBO),
+    [BSPCF_FOR] = COMBO_ACTION(BSPC_F_COMBO),
+    [BSPCH_HERE] = COMBO_ACTION(BSPC_H_COMBO),
+    [BSPCT_THE] = COMBO_ACTION(BSPC_T_COMBO),
+    [BSPCM_MENT] = COMBO_ACTION(BSPC_M_COMBO),
+    [BSPCG_ING] = COMBO_ACTION(BSPC_G_COMBO),
+    [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
     mod_state = get_mods();
     switch(combo_index) {
         case UY_PRN:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                // First canceling both shifts so that shift isn't applied
-                // to the KC_LBRC keycode since that would result in
-                // a "{" instead of a "[".
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                tap_code16(KC_LBRC);
-                // "resuming" *the* shift so that you can hold shift 
-                // and the square brackets combo still works without
-                // having to re-press shift every time.
-                set_mods(mod_state);
-            } else if (mod_state & MOD_MASK_CTRL) {
-                unregister_code(KC_LCTL);
-                tap_code16(KC_LCBR);
-                set_mods(mod_state);
-            } else {
-                tap_code16(KC_LPRN);
-            }
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("[");
+                    set_mods(mod_state);
+                }
+                else if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code(KC_LCTL);
+                    unregister_code(KC_RCTL);
+                    send_string("{");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("(");
+                }
+        }
+        break;
 
         case YCLN_PRN:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                tap_code16(KC_RBRC);
-                set_mods(mod_state);
-            } else if (mod_state & MOD_MASK_CTRL) {
-                unregister_code(KC_LCTL);
-                tap_code16(KC_RCBR);
-                set_mods(mod_state);
-            } else {
-                tap_code16(KC_RPRN);
-            }
-          }
-          break;
-
-        case ZX_BCKSLSH:
-          if (pressed) {
-            register_code(KC_BSLASH);  
-          } else {
-            unregister_code(KC_BSLASH);
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("]");
+                    set_mods(mod_state);
+                }
+                else if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code(KC_LCTL);
+                    unregister_code(KC_RCTL);
+                    send_string("}");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string(")");
+                }
+        }
+        break;
 
         case JU_JUST:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("Just");
-                set_mods(mod_state);
-            } else {
-              send_string("just");
-              }
-          } else {
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Just");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("just");
+                }
+        }
+        break;
 
         case HV_HAVE:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("Have ");
-                set_mods(mod_state);
-            } else {
-              send_string("have ");
-              }
-          } else {
-          }
-          break;
-
-        case BSPCH_HERE:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("Here");
-                set_mods(mod_state);
-            } else {
-              send_string("here");
-              }
-          } else {
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Have");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("have");
+                }
+        }
+        break;
 
         case BSPCU_YOU:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("You");
-                set_mods(mod_state);
-            } else {
-              send_string("you");
-              }
-          } else {
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("You");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("you");
+                }
+        }
+        break;
 
-        case BSPCW_WITH:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("With");
-                set_mods(mod_state);
-            } else {
-              send_string("with");
-              }
-          } else {
-          }
-          break;
-
-        case BSPCF_FOR:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("For");
-                set_mods(mod_state);
-            } else {
-              send_string("for");
-              }
-          } else {
-          }
-          break;
-          
         case BSPCA_AND:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("And ");
-                set_mods(mod_state);
-            } else {
-              send_string("and ");
-              }
-          } else {
-          }
-          break;
-
-        case BSPCT_THE:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("The");
-                set_mods(mod_state);
-            } else {
-              send_string("the");
-              }
-          } else {
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("And");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("and");
+                }
+        }
+        break;
 
         case BSPCN_NOT:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("Not ");
-                set_mods(mod_state);
-            } else if (mod_state & MOD_MASK_CTRL) {
-                unregister_code(KC_LCTL);
-                unregister_code(KC_RCTL);
-                send_string("n't ");
-                set_mods(mod_state);
-            } else {
-              send_string("not ");
-              }
-          } else {
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Not");
+                    set_mods(mod_state);
+                }
+                else if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code(KC_LCTL);
+                    unregister_code(KC_RCTL);
+                    send_string("n't ");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("not");
+                }
+        }
+        break;
+
+        case BSPCW_WITH:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("With");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("with");
+                }
+        }
+        break;
+
+        case BSPCF_FOR:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("For");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("for");
+                }
+        }
+        break;
+
+        case BSPCH_HERE:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Here");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("here");
+                }
+        }
+        break;
+
+        case BSPCT_THE:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("The");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("the");
+                }
+        }
+        break;
 
         case BSPCM_MENT:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("Ment");
-                set_mods(mod_state);
-            } else {
-              send_string("ment");
-              }
-          } else {
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Ment");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("ment");
+                }
+        }
+        break;
+
+        case BSPCG_ING:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Ing");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("ing");
+                }
+        }
+        break;
 
         case DELT_THIS:
-          if (pressed) {
-            if (mod_state & MOD_MASK_SHIFT) {
-                unregister_code(KC_LSHIFT);
-                unregister_code(KC_RSHIFT);
-                send_string("This");
-                set_mods(mod_state);
-            } else {
-              send_string("this");
-              }
-          } else {
-          }
-          break;
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("This");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("this");
+                }
+        }
+        break;
 
     }
 }
+
+/*** COMBO-ACTION CODE WAS GENERATED WITH combo_action_generator.py ***/
 
 /*
  * Per key tapping term settings
