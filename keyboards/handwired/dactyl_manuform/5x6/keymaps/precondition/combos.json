@@ -22,8 +22,8 @@
 
     "HV_HAVE": {
         "keys":["HOME_H", "KC_V"],
-        "noMods":"have ",
-        "shift":"Have ",
+        "noMods":"have",
+        "shift":"Have",
         "control":""
     },
 
@@ -34,45 +34,66 @@
         "control":""
     },
 
-    "BSPCA_A": {
-        "keys":["KC_BSPC", "KC_A"],
-        "noMods":"and ",
-        "shift":"And ",
+    "BSPCA_AND": {
+        "keys":["KC_BSPC", "HOME_A"],
+        "noMods":"and",
+        "shift":"And",
         "control":""
     },
 
-    "BSPCN_N": {
-        "keys":["KC_BSPC", "KC_N"],
-        "noMods":"not ",
-        "shift":"Not ",
+    "BSPCN_NOT": {
+        "keys":["KC_BSPC", "HOME_N"],
+        "noMods":"not",
+        "shift":"Not",
         "control":"n't "
     },
 
-    "BSPCW_W": {
+    "BSPCW_WITH": {
         "keys":["KC_BSPC", "KC_W"],
         "noMods":"with",
         "shift":"With",
         "control":""
     },
 
-    "BSPCF_F": {
+    "BSPCF_FOR": {
         "keys":["KC_BSPC", "KC_F"],
         "noMods":"for",
         "shift":"For",
         "control":""
     },
 
-    "BSPCH_H": {
-        "keys":["KC_BSPC", "KC_H"],
+    "BSPCH_HERE": {
+        "keys":["KC_BSPC", "HOME_H"],
         "noMods":"here",
         "shift":"Here",
         "control":""
     },
 
-    "BSPCT_T": {
-        "keys":["KC_BSPC", "KC_T"],
+    "BSPCT_THE": {
+        "keys":["KC_BSPC", "HOME_T"],
         "noMods":"the",
         "shift":"The",
+        "control":""
+    },
+
+    "BSPCM_MENT": {
+        "keys":["KC_BSPC", "KC_M"],
+        "noMods":"ment",
+        "shift":"Ment",
+        "control":""
+    },
+
+    "BSPCG_ING": {
+        "keys":["KC_BSPC", "KC_G"],
+        "noMods":"ing",
+        "shift":"Ing",
+        "control":""
+    },
+
+    "DELT_THIS": {
+        "keys":["KC_DEL", "HOME_T"],
+        "noMods":"this",
+        "shift":"This",
         "control":""
     }
 
