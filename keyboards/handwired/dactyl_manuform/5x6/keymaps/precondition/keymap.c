@@ -395,8 +395,12 @@ enum combo_events {
     BSPCT_THE,
     BSPCM_MENT,
     BSPCG_ING,
+    PT_B,
+    TD_V,
     DELT_THIS,
+    COMBO_LENGTH
 };
+int COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
@@ -411,6 +415,8 @@ const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, HOME_H, COMBO_END};
 const uint16_t PROGMEM BSPC_T_COMBO[] = {KC_BSPC, HOME_T, COMBO_END};
 const uint16_t PROGMEM BSPC_M_COMBO[] = {KC_BSPC, KC_M, COMBO_END};
 const uint16_t PROGMEM BSPC_G_COMBO[] = {KC_BSPC, KC_G, COMBO_END};
+const uint16_t PROGMEM P_T_COMBO[] = {KC_P, HOME_T, COMBO_END};
+const uint16_t PROGMEM D_T_COMBO[] = {HOME_D, HOME_T, COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -427,6 +433,8 @@ combo_t key_combos[COMBO_COUNT] = {
     [BSPCT_THE] = COMBO_ACTION(BSPC_T_COMBO),
     [BSPCM_MENT] = COMBO_ACTION(BSPC_M_COMBO),
     [BSPCG_ING] = COMBO_ACTION(BSPC_G_COMBO),
+    [PT_B] = COMBO_ACTION(P_T_COMBO),
+    [TD_V] = COMBO_ACTION(D_T_COMBO),
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
@@ -540,7 +548,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 else if (mod_state & MOD_MASK_CTRL) {
                     unregister_code(KC_LCTL);
                     unregister_code(KC_RCTL);
-                    send_string("n't ");
+                    send_string("n't");
                     set_mods(mod_state);
                 }
                 else {
@@ -633,6 +641,34 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         }
         break;
 
+        case PT_B:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("B");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("b");
+                }
+        }
+        break;
+
+        case TD_V:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("V");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("v");
+                }
+        }
+        break;
+
         case DELT_THIS:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
@@ -650,7 +686,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     }
 }
 
-/*** COMBO-ACTION CODE WAS GENERATED WITH combo_action_generator.py ***/
+/*** THIS COMBO-ACTION CODE WAS GENERATED WITH combo_action_generator.py ***/
 
 /*
  * Per key tapping term settings
