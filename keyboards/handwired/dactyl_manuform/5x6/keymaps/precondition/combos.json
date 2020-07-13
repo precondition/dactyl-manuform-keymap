@@ -45,7 +45,7 @@
         "keys":["KC_BSPC", "HOME_N"],
         "noMods":"not",
         "shift":"Not",
-        "control":"n't "
+        "control":"n't"
     },
 
     "BSPCW_WITH": {
@@ -87,6 +87,20 @@
         "keys":["KC_BSPC", "KC_G"],
         "noMods":"ing",
         "shift":"Ing",
+        "control":""
+    },
+
+    "PT_B": {
+        "keys":["KC_P", "HOME_T"],
+        "noMods":"b",
+        "shift":"B",
+        "control":""
+    },
+
+    "TD_V": {
+        "keys":["HOME_D", "HOME_T"],
+        "noMods":"v",
+        "shift":"V",
         "control":""
     },
 
