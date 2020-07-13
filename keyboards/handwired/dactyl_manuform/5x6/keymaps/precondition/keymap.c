@@ -710,6 +710,18 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+/*
+ * Per key force hold settings
+ */
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case NAV:
+            return false;
+        default:
+            return true;
+    }
+}
+
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
     {{5, 7}, {4, 7}, {3, 7}, {2, 7}, {1, 7}, {0, 7}},

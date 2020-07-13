@@ -15,7 +15,10 @@
 #define IGNORE_MOD_TAP_INTERRUPT
  
 // This prevents accidental repeats of the tap-hold keys when typing quickly.
-#define TAPPING_FORCE_HOLD
+#define TAPPING_FORCE_HOLD_PER_KEY
+// The reason this above setting is per key is because of TT()
+// The setting below defines how many times you need to tap a TT() to toggle the layer.
+#define TAPPING_TOGGLE 3
  
 // This prevents short hold periods to be interpreted as individual taps when typing quickly.
 #define PERMISSIVE_HOLD
