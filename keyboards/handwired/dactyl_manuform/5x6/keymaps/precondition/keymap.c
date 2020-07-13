@@ -49,13 +49,6 @@ enum layer_names {
 #define HOME_N LCTL_T(KC_N)
 #define HOME_H LT(_ACCENTS, KC_H)
 
-#define NAV MO(_NAV)
-#define GNAV MO(_GNAV)
-#define LOWER MO(_LOWER)
-#define ACCENTS OSL(_ACCENTS)
-#define MOUSE MO(_MOUSE)
-#define ADJUST MO(_ADJUST)
-
 enum unicode_names {
         e_ACUT,
         E_ACUT_U,
