@@ -390,6 +390,10 @@ enum combo_events {
     BSPCG_ING,
     PT_B,
     TD_V,
+    NH_K,
+    LN_J,
+    RST_G,
+    IET_M,
     DELT_THIS,
     COMBO_LENGTH
 };
@@ -410,6 +414,10 @@ const uint16_t PROGMEM BSPC_M_COMBO[] = {KC_BSPC, KC_M, COMBO_END};
 const uint16_t PROGMEM BSPC_G_COMBO[] = {KC_BSPC, KC_G, COMBO_END};
 const uint16_t PROGMEM P_T_COMBO[] = {KC_P, HOME_T, COMBO_END};
 const uint16_t PROGMEM D_T_COMBO[] = {HOME_D, HOME_T, COMBO_END};
+const uint16_t PROGMEM N_H_COMBO[] = {HOME_N, HOME_H, COMBO_END};
+const uint16_t PROGMEM L_N_COMBO[] = {KC_L, HOME_N, COMBO_END};
+const uint16_t PROGMEM R_S_T_COMBO[] = {HOME_R, HOME_S, HOME_T, COMBO_END};
+const uint16_t PROGMEM I_E_T_COMBO[] = {HOME_I, HOME_E, HOME_N, COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -428,6 +436,10 @@ combo_t key_combos[COMBO_COUNT] = {
     [BSPCG_ING] = COMBO_ACTION(BSPC_G_COMBO),
     [PT_B] = COMBO_ACTION(P_T_COMBO),
     [TD_V] = COMBO_ACTION(D_T_COMBO),
+    [NH_K] = COMBO_ACTION(N_H_COMBO),
+    [LN_J] = COMBO(L_N_COMBO, KC_J),
+    [RST_G] = COMBO(R_S_T_COMBO, KC_G),
+    [IET_M] = COMBO(I_E_T_COMBO, KC_M),
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
@@ -658,6 +670,34 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("v");
+                }
+        }
+        break;
+
+        case NH_K:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("K");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("k");
+                }
+        }
+        break;
+
+        case LN_J:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("J");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("j");
                 }
         }
         break;

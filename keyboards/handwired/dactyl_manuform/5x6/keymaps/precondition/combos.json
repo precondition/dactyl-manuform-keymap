@@ -104,6 +104,20 @@
         "control":""
     },
 
+    "NH_K": {
+        "keys":["HOME_N", "HOME_H"],
+        "noMods":"k",
+        "shift":"K",
+        "control":""
+    },
+
+    "LN_J": {
+        "keys":["KC_L", "HOME_N"],
+        "noMods":"j",
+        "shift":"J",
+        "control":""
+    },
+
     "DELT_THIS": {
         "keys":["KC_DEL", "HOME_T"],
         "noMods":"this",
