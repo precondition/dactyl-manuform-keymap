@@ -799,7 +799,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TILD,TD(TD_EXCLM), KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
         _______,_______,_______,_______,_______,_______,    _______,_______,_______, KC_DOT,_______,_______,
                         _______,_______,                                    _______,_______, 
-                                        _______,KC_UNDS,    _______,_______,
+                                        KC_UNDS,_______,    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    ADJUST, ADJUST
   ),
