@@ -391,6 +391,8 @@ enum combo_events {
     BSPCT_THE,
     BSPCM_MENT,
     BSPCG_ING,
+    BSPCO_OUGH,
+    BSPCI_ION,
     PT_B,
     TD_V,
     NH_K,
@@ -415,6 +417,8 @@ const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, HOME_H, COMBO_END};
 const uint16_t PROGMEM BSPC_T_COMBO[] = {KC_BSPC, HOME_T, COMBO_END};
 const uint16_t PROGMEM BSPC_M_COMBO[] = {KC_BSPC, KC_M, COMBO_END};
 const uint16_t PROGMEM BSPC_G_COMBO[] = {KC_BSPC, KC_G, COMBO_END};
+const uint16_t PROGMEM BSPC_O_COMBO[] = {KC_BSPC, HOME_O, COMBO_END};
+const uint16_t PROGMEM BSPC_I_COMBO[] = {KC_BSPC, HOME_I, COMBO_END};
 const uint16_t PROGMEM P_T_COMBO[] = {KC_P, HOME_T, COMBO_END};
 const uint16_t PROGMEM D_T_COMBO[] = {HOME_D, HOME_T, COMBO_END};
 const uint16_t PROGMEM N_H_COMBO[] = {HOME_N, HOME_H, COMBO_END};
@@ -437,6 +441,8 @@ combo_t key_combos[COMBO_COUNT] = {
     [BSPCT_THE] = COMBO_ACTION(BSPC_T_COMBO),
     [BSPCM_MENT] = COMBO_ACTION(BSPC_M_COMBO),
     [BSPCG_ING] = COMBO_ACTION(BSPC_G_COMBO),
+    [BSPCO_OUGH] = COMBO_ACTION(BSPC_O_COMBO),
+    [BSPCI_ION] = COMBO_ACTION(BSPC_I_COMBO),
     [PT_B] = COMBO_ACTION(P_T_COMBO),
     [TD_V] = COMBO_ACTION(D_T_COMBO),
     [NH_K] = COMBO_ACTION(N_H_COMBO),
@@ -466,8 +472,8 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 else {
                     send_string("(");
                 }
-        }
-        break;
+            }
+            break;
 
         case YCLN_PRN:
             if (pressed) {
@@ -645,6 +651,34 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("ing");
+                }
+        }
+        break;
+
+        case BSPCO_OUGH:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Ough");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("ough");
+                }
+        }
+        break;
+
+        case BSPCI_ION:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Ion");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("ion");
                 }
         }
         break;
