@@ -32,6 +32,7 @@ enum layer_names {
 // Miscellaneous keyboard shortcuts in direct access
 #define UNDO LCTL(KC_Z)
 #define REDO LCTL(KC_Y)
+#define DED_CIR ALGR(KC_6)
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -116,9 +117,6 @@ enum custom_keycodes {
 // Initialize variable holding the binary
 // representation of active modifiers.
 uint8_t mod_state;
-// Initialize boolean variable which
-// tells if the last key hit was an accented letter.
-static bool has_typed_accent;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     switch (keycode) {
@@ -180,34 +178,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         // Else, let QMK process the KC_ESC keycode as usual
-        return true;
-
-    case XP(c_CDIL, C_CDIL_U):
-        if (record->event.pressed) {
-            if (has_typed_accent) {
-                register_code(KC_C);
-                return false;
-            }
-            has_typed_accent = true;
-        } else {
-            if (has_typed_accent) {
-                unregister_code(KC_C);
-            }
-        }
-        return true;
-
-    case XP(e_ACUT, E_ACUT_U):
-        if (record->event.pressed) {
-            if (has_typed_accent) {
-                register_code(KC_E);
-                return false;
-            }
-            has_typed_accent = true;
-        } else {
-            if (has_typed_accent) {
-                unregister_code(KC_E);
-            }
-        }
         return true;
 
     case HOME_I:
@@ -413,6 +383,8 @@ enum combo_events {
     RST_G,
     IET_M,
     DELT_THIS,
+    ZX_ACUTE,
+    DOTSLASH_GRAVE,
     COMBO_LENGTH
 };
 int COMBO_LEN = COMBO_LENGTH;
@@ -440,6 +412,8 @@ const uint16_t PROGMEM N_H_I_COMBO[] = {HOME_N, HOME_H, HOME_I, COMBO_END};
 const uint16_t PROGMEM L_N_COMBO[] = {KC_L, HOME_N, COMBO_END};
 const uint16_t PROGMEM R_S_T_COMBO[] = {HOME_R, HOME_S, HOME_T, COMBO_END};
 const uint16_t PROGMEM I_E_T_COMBO[] = {HOME_I, HOME_E, HOME_N, COMBO_END};
+const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM DOT_SLASH_COMBO[] = {TD_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -466,6 +440,8 @@ combo_t key_combos[COMBO_COUNT] = {
     [LN_J] = COMBO(L_N_COMBO, KC_J),
     [RST_G] = COMBO(R_S_T_COMBO, KC_G),
     [IET_M] = COMBO(I_E_T_COMBO, KC_M),
+    [ZX_ACUTE] = COMBO_ACTION(Z_X_COMBO),
+    [DOTSLASH_GRAVE] = COMBO_ACTION(DOT_SLASH_COMBO),
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
@@ -700,60 +676,44 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         }
         break;
 
-        case PT_B:
+        case BSPCTA_THAT:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSHIFT);
                     unregister_code(KC_RSHIFT);
-                    send_string("B");
+                    send_string("That");
                     set_mods(mod_state);
                 }
                 else {
-                    send_string("b");
+                    send_string("that");
                 }
         }
         break;
 
-        case TD_V:
+        case NHI_KI:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSHIFT);
                     unregister_code(KC_RSHIFT);
-                    send_string("V");
+                    send_string("Ki");
                     set_mods(mod_state);
                 }
                 else {
-                    send_string("v");
+                    send_string("ki");
                 }
         }
         break;
 
-        case NH_K:
+        case ZX_ACUTE:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
-                    send_string("K");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("k");
-                }
-        }
+                tap_code16(ALGR(KC_QUOT));
+            }
         break;
 
-        case LN_J:
+        case DOTSLASH_GRAVE:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
-                    send_string("J");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("j");
-                }
-        }
+                tap_code16(ALGR(KC_GRV));
+            }
         break;
 
         case DELT_THIS:
@@ -849,9 +809,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_BSPC,
         KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,    KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
-        KC_TILD,TD(TD_EXCLM), KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______, KC_DOT,_______,_______,
-                        _______,_______,                                    _______,_______, 
+        KC_TILD,TD_XCLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
+        _______,_______,_______,_______,DED_CIR,_______,    _______,DED_CIR,_______, KC_DOT,_______,_______,
+                        _______,_______,                                    _______,_______,
                                         KC_UNDS,_______,    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    ADJUST, ADJUST
@@ -861,7 +821,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,    KC_PGUP,KC_PGDN, KC_UP ,KC_WH_D,KC_WH_U,KC_MUTE,
         _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
-        _______,_______,_______,_______,_______,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
+        _______,_______,_______,_______,DED_CIR,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
                         _______,_______,                                    KC_BRID,KC_BRIU,
                                          _______,_______,   _______,_______,
                                          _______,_______,   _______,_______,
