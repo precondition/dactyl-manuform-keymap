@@ -1,5 +1,4 @@
-/* A standard layout for the Dactyl Manuform 5x6 Keyboard */ 
-/* The last/lowest row of keys on the keyboard seems to be mixed up within each split. */
+/* A standard layout for the Dactyl Manuform 5x6 Keyboard */
 
 #include QMK_KEYBOARD_H
 
@@ -15,8 +14,6 @@ enum layer_names {
     _GNAV,
     _ACCENTS,
     _MOUSE,
-    _UPPER,
-    _LOWER,
     _PLOVER,
     _ADJUST,
 };
@@ -30,8 +27,6 @@ enum layer_names {
 #define MOUSE MO(_MOUSE)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
-#define LW_SPC LT(_LOWER, KC_SPC)
-#define UP_BSPC LT(_UPPER, KC_BSPC)
 #define PLOVER TG(_PLOVER)
 
 // Miscellaneous keyboard shortcuts in direct access
@@ -217,8 +212,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case HOME_I:
         // This piece of code nullifies the effect of Right Shift when
-        // tapping the HOME_I key. This helps rolling over HOME_E and HOME_I 
-        // to obtain the intended "ei" instead of "I". Consequently, capital I can 
+        // tapping the HOME_I key. This helps rolling over HOME_E and HOME_I
+        // to obtain the intended "ei" instead of "I". Consequently, capital I can
         // only be obtained by tapping HOME_I and holding HOME_S (which is the left shift mod tap).
         if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
             if (mod_state & MOD_BIT(KC_RSHIFT)) {
@@ -364,7 +359,7 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
       tap_code16(C(KC_A));
       break;
-    case DOUBLE_SINGLE_TAP: 
+    case DOUBLE_SINGLE_TAP:
       tap_code16(C(KC_V));
   }
 }
@@ -764,7 +759,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HOME_I:
-            // My ring finger tends to linger on the key 
+            // My ring finger tends to linger on the key
             // This tapping term allows me to type "ion" effortlessly.
             return TAPPING_TERM + 200;
         case HOME_O:
@@ -883,28 +878,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         _______,_______,                                    _______,_______,
                                         _______,_______,    KC_BTN1,KC_BTN2,
                                         _______,_______,    KC_BTN3,_______,
-                                        _______,_______,    _______,_______
-    ),
-
-    [_UPPER] = LAYOUT_5x6(
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-        KC_TAB , KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,     KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-                        _______,_______,                                    _______,_______,
-                                        _______,_______,    KC_BSPC,_______,
-                                        _______,_______,    _______,_______,
-                                        _______,_______,    _______,_______
-    ),
-
-    [_LOWER] = LAYOUT_5x6(
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-      KC_BSLASH, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,     KC_K  , KC_H  ,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-                        _______,_______,                                    _______,_______,
-                                        _______,_______,    _______,_______,
-                                        _______,_______,    _______,_______,
                                         _______,_______,    _______,_______
     ),
 
