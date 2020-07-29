@@ -905,8 +905,8 @@ _______,KC_LGUI,LALT_T(KC_6),LSFT_T(KC_5),LCTL_T(KC_4),_______,    _______,KC_MS
         KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,    KC_N   ,KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
                          KC_LBRC,KC_RBRC,                                  KC_PLUS, KC_EQL,
                                          KC_C,   KC_V,      KC_N   , KC_M,
-                                         KC_TAB, KC_SPC,    KC_BSPC, KC_DEL,
-                                         PLOVER, KC_GRV,   KC_LGUI, KC_LALT
+                                         KC_TAB,  KC_B ,    KC_BSPC, KC_DEL,
+                                         PLOVER, KC_SPC,    KC_LGUI, KC_LALT
     ),
 
     [_ADJUST] = LAYOUT_5x6(
