@@ -281,17 +281,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     }
 
-    // Toggle off boolean if any other non-accent key is hit.
-    has_typed_accent = false;
-
     }
     return true;
 };
 
 enum {
-    TD_DOT = 0,
-    TD_EXCLM,
-    CA_CC_CV
+    DOT_TD = 0,
+    XCLM_TD,
+    CA_CC_CV,
 };
 
 // Tap dance states
@@ -382,12 +379,14 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_DOT] = ACTION_TAP_DANCE_FN (sentence_end),
-    [TD_EXCLM] = ACTION_TAP_DANCE_FN (exclamative_sentence_end),
-    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
+    [DOT_TD] = ACTION_TAP_DANCE_FN (sentence_end),
+    [XCLM_TD] = ACTION_TAP_DANCE_FN (exclamative_sentence_end),
+    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
 };
 
-/*** THIS COMBO-ACTION CODE WAS GENERATED WITH combo_action_generator.py ***/
+#define TD_XCLM TD(XCLM_TD)
+#define TD_DOT TD(DOT_TD)
+#define CACCCV TD(CA_CC_CV)
 
 enum combo_events {
     UY_PRN,
@@ -768,7 +767,6 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
     }
 }
 
-/*** THIS COMBO-ACTION CODE WAS GENERATED WITH combo_action_generator.py ***/
 
 /*
  * Per key tapping term settings
@@ -832,12 +830,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT_5x6(
            REDO, UNDO  , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
-         KC_TAB, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
+         CACCCV, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-      KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K  , HOME_H,KC_COMM,TD(TD_DOT),KC_SLSH, KC_GRV,
+      KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K  , HOME_H,KC_COMM, TD_DOT,KC_SLSH, KC_GRV,
                       KC_BSLASH,ARROW_R,                                   KC_RALT, KC_GRV,
                                         NAV_TAB,KC_SPC,    KC_BSPC, SYM_ENT,
-                                   TD(CA_CC_CV), MOUSE,    KC_DEL , KC_APP ,
+                                         CACCCV, MOUSE,    KC_DEL , KC_APP ,
                                         PLOVER,KC_CAPS,    SH_OS  , OSM(MOD_LSFT)
   ),
 
