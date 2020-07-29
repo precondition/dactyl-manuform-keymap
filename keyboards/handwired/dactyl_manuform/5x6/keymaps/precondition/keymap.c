@@ -245,6 +245,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          /*else process HOME_N as usual.*/
         return true;
 
+    case HOME_T:
+         /*This piece of code nullifies the effect of Left Shift when*/
+         /*tapping the HOME_T key. This helps rolling over HOME_S and HOME_T */
+         /*to obtain the intended "st" instead of "T". Consequently, capital T can */
+         /*only be obtained by tapping HOME_T and holding HOME_E (which is the right shift mod tap).*/
+        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
+            if (mod_state & MOD_BIT(KC_LSHIFT)) {
+                unregister_code(KC_LSHIFT);
+                tap_code(KC_S);
+                tap_code(KC_T);
+                set_mods(mod_state);
+                return false;
+            }
+        }
+         /*else process HOME_T as usual.*/
+        return true;
+
     case HOME_D:
     // Let HOME_D act as an autorepeatable KC_D when CTRL is held
     {
