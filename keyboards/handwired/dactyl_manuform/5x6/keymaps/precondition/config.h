@@ -25,7 +25,7 @@
 
 #define COMBO_VARIABLE_LEN
 #define COMBO_COUNT COMBO_VARIABLE_LEN
-#define COMBO_TERM 70
+#define COMBO_TERM 80
 
 
 //Shamelessly stolen mouse key settings from @pierrechevalier83:
