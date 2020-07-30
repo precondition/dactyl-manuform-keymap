@@ -382,9 +382,13 @@ enum combo_events {
     LN_J,
     RST_G,
     IET_M,
+    FS_G,
+    UE_M,
     DELT_THIS,
     ZX_ACUTE,
     DOTSLASH_GRAVE,
+    AX_GRAVE,
+    XDOT_CIRCUM,
     COMBO_LENGTH
 };
 int COMBO_LEN = COMBO_LENGTH;
@@ -412,8 +416,12 @@ const uint16_t PROGMEM N_H_I_COMBO[] = {HOME_N, HOME_H, HOME_I, COMBO_END};
 const uint16_t PROGMEM L_N_COMBO[] = {KC_L, HOME_N, COMBO_END};
 const uint16_t PROGMEM R_S_T_COMBO[] = {HOME_R, HOME_S, HOME_T, COMBO_END};
 const uint16_t PROGMEM I_E_T_COMBO[] = {HOME_I, HOME_E, HOME_N, COMBO_END};
+const uint16_t PROGMEM F_S_COMBO[] = {KC_F, HOME_S, COMBO_END};
+const uint16_t PROGMEM U_E_COMBO[] = {KC_U, HOME_E, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM A_X_COMBO[] = {HOME_A, KC_X, COMBO_END};
 const uint16_t PROGMEM DOT_SLASH_COMBO[] = {TD_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM X_DOT_COMBO[] = {KC_X, TD_DOT, COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -439,9 +447,12 @@ combo_t key_combos[COMBO_COUNT] = {
     [NHI_KI] = COMBO_ACTION(N_H_I_COMBO),
     [LN_J] = COMBO(L_N_COMBO, KC_J),
     [RST_G] = COMBO(R_S_T_COMBO, KC_G),
-    [IET_M] = COMBO(I_E_T_COMBO, KC_M),
+    [FS_G] = COMBO(F_S_COMBO, KC_G),
+    [UE_M] = COMBO(U_E_COMBO, KC_M),
     [ZX_ACUTE] = COMBO_ACTION(Z_X_COMBO),
     [DOTSLASH_GRAVE] = COMBO_ACTION(DOT_SLASH_COMBO),
+    [AX_GRAVE] = COMBO_ACTION(A_X_COMBO),
+    [XDOT_CIRCUM] = COMBO_ACTION(X_DOT_COMBO),
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
@@ -713,6 +724,18 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         case DOTSLASH_GRAVE:
             if (pressed) {
                 tap_code16(ALGR(KC_GRV));
+            }
+        break;
+
+        case AX_GRAVE:
+            if (pressed) {
+                tap_code16(ALGR(KC_GRV));
+            }
+        break;
+
+        case XDOT_CIRCUM:
+            if (pressed) {
+                tap_code16(ALGR(KC_6));
             }
         break;
 
