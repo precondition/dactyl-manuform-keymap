@@ -385,9 +385,13 @@ enum combo_events {
     FS_G,
     UE_M,
     DELT_THIS,
-    ZX_ACUTE,
+    ZX_GRAVE,
     DOTSLASH_GRAVE,
+    IDOTSLASH_IGRAVE,
     AX_GRAVE,
+    XC_ACUTE,
+    XCE_ACUTEE,
+    COMMADOT_ACUTE,
     XDOT_CIRCUM,
     COMBO_LENGTH
 };
@@ -419,8 +423,13 @@ const uint16_t PROGMEM I_E_T_COMBO[] = {HOME_I, HOME_E, HOME_N, COMBO_END};
 const uint16_t PROGMEM F_S_COMBO[] = {KC_F, HOME_S, COMBO_END};
 const uint16_t PROGMEM U_E_COMBO[] = {KC_U, HOME_E, COMBO_END};
 const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM T_G_COMBO[] = {HOME_T, KC_G, COMBO_END};
 const uint16_t PROGMEM A_X_COMBO[] = {HOME_A, KC_X, COMBO_END};
+const uint16_t PROGMEM X_C_COMBO[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM X_C_E_COMBO[] = {KC_X, KC_C, HOME_E, COMBO_END};
+const uint16_t PROGMEM COMMA_DOT_COMBO[] = {KC_COMMA, TD_DOT, COMBO_END};
 const uint16_t PROGMEM DOT_SLASH_COMBO[] = {TD_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM I_DOT_SLASH_COMBO[] = {HOME_I, TD_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM X_DOT_COMBO[] = {KC_X, TD_DOT, COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
@@ -449,9 +458,13 @@ combo_t key_combos[COMBO_COUNT] = {
     [RST_G] = COMBO(R_S_T_COMBO, KC_G),
     [FS_G] = COMBO(F_S_COMBO, KC_G),
     [UE_M] = COMBO(U_E_COMBO, KC_M),
-    [ZX_ACUTE] = COMBO_ACTION(Z_X_COMBO),
+    [ZX_GRAVE] = COMBO_ACTION(Z_X_COMBO),
     [DOTSLASH_GRAVE] = COMBO_ACTION(DOT_SLASH_COMBO),
+    [IDOTSLASH_IGRAVE] = COMBO_ACTION(I_DOT_SLASH_COMBO),
     [AX_GRAVE] = COMBO_ACTION(A_X_COMBO),
+    [XC_ACUTE] = COMBO_ACTION(X_C_COMBO),
+    [XCE_ACUTEE] = COMBO_ACTION(X_C_E_COMBO),
+    [COMMADOT_ACUTE] = COMBO_ACTION(COMMA_DOT_COMBO),
     [XDOT_CIRCUM] = COMBO_ACTION(X_DOT_COMBO),
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
@@ -715,9 +728,9 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         }
         break;
 
-        case ZX_ACUTE:
+        case ZX_GRAVE:
             if (pressed) {
-                tap_code16(ALGR(KC_QUOT));
+                tap_code16(ALGR(KC_GRV));
             }
         break;
 
@@ -729,6 +742,34 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 
         case AX_GRAVE:
             if (pressed) {
+                tap_code16(ALGR(KC_GRV));
+            }
+        break;
+
+        case XC_ACUTE:
+            if (pressed) {
+                tap_code16(ALGR(KC_QUOT));
+            }
+        break;
+
+        case XCE_ACUTEE:
+            if (pressed) {
+                tap_code16(ALGR(KC_QUOT));
+                register_code(KC_E);
+            } else {
+                unregister_code(KC_E);
+            }
+        break;
+
+        case COMMADOT_ACUTE:
+            if (pressed) {
+                tap_code16(ALGR(KC_QUOT));
+            }
+        break;
+
+        case IDOTSLASH_IGRAVE:
+            if (pressed) {
+                tap_code(KC_I);
                 tap_code16(ALGR(KC_GRV));
             }
         break;
