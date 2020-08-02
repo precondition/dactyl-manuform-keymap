@@ -375,6 +375,7 @@ enum combo_events {
     BSPCO_OUGH,
     BSPCI_ION,
     BSPCTA_THAT,
+    BSPCQ_QUE,
     NHI_KI,
     PT_B,
     TD_V,
@@ -412,6 +413,7 @@ const uint16_t PROGMEM BSPC_M_COMBO[] = {KC_BSPC, KC_M, COMBO_END};
 const uint16_t PROGMEM BSPC_G_COMBO[] = {KC_BSPC, KC_G, COMBO_END};
 const uint16_t PROGMEM BSPC_O_COMBO[] = {KC_BSPC, HOME_O, COMBO_END};
 const uint16_t PROGMEM BSPC_I_COMBO[] = {KC_BSPC, HOME_I, COMBO_END};
+const uint16_t PROGMEM BSPC_Q_COMBO[] = {KC_BSPC, KC_Q, COMBO_END};
 const uint16_t PROGMEM BSPC_T_A_COMBO[] = {KC_BSPC, HOME_T, HOME_A, COMBO_END};
 const uint16_t PROGMEM P_T_COMBO[] = {KC_P, HOME_T, COMBO_END};
 const uint16_t PROGMEM D_T_COMBO[] = {HOME_D, HOME_T, COMBO_END};
@@ -450,6 +452,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [BSPCO_OUGH] = COMBO_ACTION(BSPC_O_COMBO),
     [BSPCI_ION] = COMBO_ACTION(BSPC_I_COMBO),
     [BSPCTA_THAT] = COMBO_ACTION(BSPC_T_A_COMBO),
+    [BSPCQ_QUE] = COMBO_ACTION(BSPC_Q_COMBO),
     [PT_B] = COMBO(P_T_COMBO, KC_B),
     [TD_V] = COMBO(D_T_COMBO, KC_V),
     [NH_K] = COMBO(N_H_COMBO, KC_K),
@@ -710,6 +713,20 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("that");
+                }
+        }
+        break;
+
+        case BSPCQ_QUE:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Que");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("que");
                 }
         }
         break;
