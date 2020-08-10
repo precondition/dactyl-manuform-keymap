@@ -33,6 +33,7 @@ enum layer_names {
 #define UNDO LCTL(KC_Z)
 #define REDO LCTL(KC_Y)
 #define DED_CIR ALGR(KC_6)
+#define COMPOSE KC_APP
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -882,7 +883,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K  , HOME_H,KC_COMM, TD_DOT,KC_SLSH, KC_GRV,
                       KC_BSLASH,ARROW_R,                                   KC_RALT, KC_GRV,
                                         NAV_TAB,KC_SPC,    KC_BSPC, SYM_ENT,
-                                         CACCCV, MOUSE,    KC_DEL , KC_APP ,
+                                         CACCCV, MOUSE,    KC_DEL , COMPOSE,
                                         PLOVER,KC_CAPS,    SH_OS  , OSM(MOD_LSFT)
   ),
 
@@ -891,7 +892,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_BSPC,
         KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,    KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
         KC_TILD,TD_XCLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
-        _______,_______,_______,_______,DED_CIR,_______,    _______,DED_CIR,_______, KC_DOT,_______,_______,
+        _______,_______,_______,_______,DED_CIR,_______,    _______,COMPOSE,_______, KC_DOT,_______,_______,
                         _______,_______,                                    _______,_______,
                                         KC_UNDS,_______,    _______,_______,
                                         _______,_______,    _______,_______,
@@ -902,7 +903,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,    KC_PGUP,KC_PGDN, KC_UP ,KC_WH_D,KC_WH_U,KC_MUTE,
         _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
-        _______,_______,_______,_______,DED_CIR,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
+        _______,_______,_______,_______,CACCCV,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
                         _______,_______,                                    KC_BRID,KC_BRIU,
                                          _______,_______,   _______,_______,
                                          _______,_______,   _______,_______,
