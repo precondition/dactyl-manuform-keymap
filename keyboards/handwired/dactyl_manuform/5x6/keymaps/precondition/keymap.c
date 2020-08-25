@@ -301,7 +301,7 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
         /* Check that Shift is inactive */
             SEND_STRING(". ");
             /* Internal code of OSM(MOD_LSFT) */
-            set_oneshot_mods(MOD_LSFT | get_oneshot_mods()); // NOTE: Watch out for nullified shift for rolling home row keys
+            set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
         } else { // shift is active, so send '>>'
             tap_code(KC_DOT);
             tap_code(KC_DOT);
@@ -378,6 +378,7 @@ enum combo_events {
     YCLN_PRN,
     JU_JUST,
     HV_HAVE,
+    EV_EVERY,
     BSPCU_YOU,
     BSPCA_AND,
     BSPCN_NOT,
@@ -417,6 +418,7 @@ const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
 const uint16_t PROGMEM H_V_COMBO[] = {HOME_H, KC_V, COMBO_END};
+const uint16_t PROGMEM E_V_COMBO[] = {HOME_E, KC_V, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, HOME_A, COMBO_END};
 const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, HOME_N, COMBO_END};
@@ -455,6 +457,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
     [JU_JUST] = COMBO_ACTION(J_U_COMBO),
     [HV_HAVE] = COMBO_ACTION(H_V_COMBO),
+    [EV_EVERY] = COMBO_ACTION(E_V_COMBO),
     [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
     [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
     [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
@@ -554,6 +557,20 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("have");
+                }
+        }
+        break;
+
+        case EV_EVERY:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("Every");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("every");
                 }
         }
         break;
