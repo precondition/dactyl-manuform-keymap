@@ -50,62 +50,76 @@ enum layer_names {
 #define HOME_H LT(_ACCENTS, KC_H)
 
 enum unicode_names {
-        e_ACUT,
-        E_ACUT_U,
-        u_ACUT,
-        U_ACUT_U,
-        a_GRAV,
-        A_GRAV_U,
-        e_GRAV,
-        E_GRAV_U,
-        u_GRAV,
-        U_GRAV_U,
-        a_CIRC,
-        A_CIRC_U,
-        e_CIRC,
-        E_CIRC_U,
-        i_CIRC,
-        I_CIRC_U,
-        o_CIRC,
-        O_CIRC_U,
-        u_CIRC,
-        U_CIRC_U,
-        i_UML,
-        I_UML_U,
-        o_UML,
-        O_UML_U,
-        c_CDIL,
-        C_CDIL_U
+        e__ACUT,
+        E__ACUT__U,
+        u__ACUT,
+        U__ACUT__U,
+        a__GRAV,
+        A__GRAV__U,
+        e__GRAV,
+        E__GRAV__U,
+        u__GRAV,
+        U__GRAV__U,
+        a__CIRC,
+        A__CIRC__U,
+        e__CIRC,
+        E__CIRC__U,
+        i__CIRC,
+        I__CIRC__U,
+        o__CIRC,
+        O__CIRC__U,
+        u__CIRC,
+        U__CIRC__U,
+        i__UML,
+        I__UML__U,
+        o__UML,
+        O__UML__U,
+        c__CDIL,
+        C__CDIL__U
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-    [e_ACUT] = 0x00E9,
-    [E_ACUT_U] = 0x00C9,
-    [u_ACUT] = 0x00F9,
-    [U_ACUT_U] = 0x00D9,
-    [a_GRAV] = 0x00E0,
-    [A_GRAV_U] = 0x00C0,
-    [e_GRAV] = 0x00E8,
-    [E_GRAV_U] = 0x00C8,
-    [u_GRAV] = 0x00F9,
-    [U_GRAV_U] = 0x00D9,
-    [a_CIRC] = 0x00E2,
-    [A_CIRC_U] = 0x00C2,
-    [e_CIRC] = 0x00EA,
-    [E_CIRC_U] = 0x00CA,
-    [i_CIRC] = 0x00EE,
-    [I_CIRC_U] = 0x00CE,
-    [o_CIRC] = 0x00F4,
-    [O_CIRC_U] = 0x00D4,
-    [u_CIRC] = 0x00FB,
-    [U_CIRC_U] = 0x00DB,
-    [i_UML]  = 0x00EF,
-    [I_UML_U]  = 0x00CF,
-    [o_UML]  = 0x00F6,
-    [O_UML_U]  = 0x00DC,
-    [c_CDIL] = 0x00E7,
-    [C_CDIL_U] = 0x00C7
+    [e__ACUT] = 0x00E9,
+    [E__ACUT__U] = 0x00C9,
+    [u__ACUT] = 0x00F9,
+    [U__ACUT__U] = 0x00D9,
+    [a__GRAV] = 0x00E0,
+    [A__GRAV__U] = 0x00C0,
+    [e__GRAV] = 0x00E8,
+    [E__GRAV__U] = 0x00C8,
+    [u__GRAV] = 0x00F9,
+    [U__GRAV__U] = 0x00D9,
+    [a__CIRC] = 0x00E2,
+    [A__CIRC__U] = 0x00C2,
+    [e__CIRC] = 0x00EA,
+    [E__CIRC__U] = 0x00CA,
+    [i__CIRC] = 0x00EE,
+    [I__CIRC__U] = 0x00CE,
+    [o__CIRC] = 0x00F4,
+    [O__CIRC__U] = 0x00D4,
+    [u__CIRC] = 0x00FB,
+    [U__CIRC__U] = 0x00DB,
+    [i__UML]  = 0x00EF,
+    [I__UML__U]  = 0x00CF,
+    [o__UML]  = 0x00F6,
+    [O__UML__U]  = 0x00DC,
+    [c__CDIL] = 0x00E7,
+    [C__CDIL__U] = 0x00C7
 };
+
+#define E_ACUTE XP(e__ACUT, E__ACUT__U)
+#define U_ACUTE XP(u__ACUT, U__ACUT__U)
+#define A_GRAVE XP(a__GRAV, A__GRAV__U)
+#define E_GRAVE XP(e__GRAV, E__GRAV__U)
+#define U_GRAVE XP(u__GRAV, U__GRAV__U)
+#define A_CIRCU XP(a__CIRC, A__CIRC__U)
+#define E_CIRCU XP(e__CIRC, E__CIRC__U)
+#define I_CIRCU XP(i__CIRC, I__CIRC__U)
+#define O_CIRCU XP(o__CIRC, O__CIRC__U)
+#define U_CIRCU XP(u__CIRC, U__CIRC__U)
+#define I_UMLAU  XP(i__UML ,  I__UML__U)
+#define O_UMLAU  XP(o__UML ,  O__UML__U)
+#define C_CDILA XP(c__CDIL, C__CDIL__U)
 
 enum custom_keycodes {
     ARROW_R = SAFE_RANGE,
@@ -903,7 +917,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,    KC_PGUP,KC_PGDN, KC_UP ,KC_WH_D,KC_WH_U,KC_MUTE,
         _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
-        _______,_______,_______,_______,CACCCV,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
+        _______,_______,_______,_______,CACCCV ,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
                         _______,_______,                                    KC_BRID,KC_BRIU,
                                          _______,_______,   _______,_______,
                                          _______,_______,   _______,_______,
@@ -922,12 +936,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-    [_ACCENTS] = LAYOUT_5x6(
-        _______,_______,_______,_______,_______,_______,            _______,_______,_______,_______,_______,_______,
-        _______,XP(a_CIRC,A_CIRC_U),_______,_______,_______,_______,    _______,_______,XP(u_CIRC,U_CIRC_U),XP(i_UML,I_UML_U),XP(o_UML,O_UML_U),_______,
-        _______,XP(a_GRAV,A_GRAV_U),_______,_______,_______,KC_B,    KC_J,XP(e_GRAV,E_GRAV_U),XP(e_ACUT,E_ACUT_U),XP(i_CIRC,I_CIRC_U),XP(o_CIRC,O_CIRC_U),_______,
-        _______,_______,_______,XP(c_CDIL,C_CDIL_U),_______,_______,      _______,_______,XP(e_CIRC,E_CIRC_U),_______,_______,_______,
-        _______,_______,                                    _______,_______,
+    [_ACCENTS] =LAYOUT_5x6(
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+        _______,A_CIRCU,_______,_______,_______,_______,    _______,_______,U_CIRCU,I_UMLAU,O_UMLAU,_______,
+        _______,A_GRAVE,_______,_______,_______,_______,    _______,E_GRAVE,E_ACUTE,I_CIRCU,O_CIRCU,_______,
+        _______,_______,_______,C_CDILA,_______,_______,    _______,_______,E_GRAVE,E_CIRCU,_______,_______,
+                        _______,_______,                                    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    _______,_______
