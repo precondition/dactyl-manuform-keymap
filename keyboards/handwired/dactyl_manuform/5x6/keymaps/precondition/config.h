@@ -11,6 +11,7 @@
 #define TAPPING_TERM 170
 #define TAPPING_TERM_PER_KEY
 
+#define TAPDANCE_TERM 80
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
  
@@ -25,7 +26,7 @@
 
 #define COMBO_VARIABLE_LEN
 #define COMBO_COUNT COMBO_VARIABLE_LEN
-#define COMBO_TERM 60
+#define COMBO_TERM 40
 
 
 //Shamelessly stolen mouse key settings from @pierrechevalier83:
