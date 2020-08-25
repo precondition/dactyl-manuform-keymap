@@ -28,6 +28,7 @@ enum layer_names {
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define PLOVER TG(_PLOVER)
+#define NAV_UND LT(_NAV, KC_F24)
 
 // Miscellaneous keyboard shortcuts in direct access
 #define UNDO LCTL(KC_Z)
@@ -265,6 +266,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
     }
+
+    case NAV_UND:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          // send advanced keycode, etc.
+          register_code16(KC_UNDS);
+        } else {
+          unregister_code16(KC_UNDS);
+        }
+        // do not continue with default tap action if the MT was pressed or released, but not held
+        return false;
+      }
+      break;
 
     }
     return true;
@@ -925,7 +939,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TILD,TD_XCLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
         _______,_______,_______,_______,DED_CIR,_______,    _______,COMPOSE,_______, KC_DOT,_______,_______,
                         _______,_______,                                    _______,_______,
-                                        KC_UNDS,_______,    _______,_______,
+                                        NAV_UND,_______,    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    ADJUST, ADJUST
   ),
