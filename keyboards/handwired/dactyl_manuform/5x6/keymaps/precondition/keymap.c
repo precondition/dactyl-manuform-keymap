@@ -922,14 +922,14 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT_5x6(
-           REDO, UNDO  , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
+           REDO, UNDO  ,KC_WH_U,KC_WH_D, KC_F4 , KC_F5 ,    KC_F6 , KC_F7 , KC_F8 , KC_F9 , KC_F10, KC_F11,
          CACCCV, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J  , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
       KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K  , HOME_H,KC_COMM, TD_DOT,KC_SLSH, KC_GRV,
                       KC_BSLASH,ARROW_R,                                   KC_RALT, KC_GRV,
-                                        NAV_TAB,KC_SPC,    KC_BSPC, SYM_ENT,
-                                         CACCCV, MOUSE,    KC_DEL , COMPOSE,
-                                        PLOVER,KC_CAPS,    SH_OS  , OSM(MOD_LSFT)
+                                         NAV_TAB,KC_SPC,    KC_BSPC,SYM_ENT,
+                                          CACCCV, MOUSE,    KC_DEL , KC_UP ,
+                                         PLOVER,KC_CAPS,    SH_OS  ,KC_DOWN
   ),
 
   [_SYM] = LAYOUT_5x6(
