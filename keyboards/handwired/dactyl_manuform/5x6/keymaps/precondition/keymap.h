@@ -1,8 +1,7 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
-#include "accented_letters.h"
-#include "combodance.h"
+#include "tapdance.h"
 
 // Initialize variable holding the binary
 // representation of active modifiers.
@@ -51,4 +50,11 @@ enum layer_names {
 #define HOME_N LCTL_T(KC_N)
 #define HOME_H LT(_ACCENTS, KC_H)
 
+enum custom_keycodes {
+    ARROW_R = SAFE_RANGE,
+    G_DOWN,
+    G_UP,
+    G_HOME,
+    G_END
+};
 

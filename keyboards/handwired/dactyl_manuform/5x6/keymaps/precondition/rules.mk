@@ -9,5 +9,10 @@ NKRO_ENABLE = yes
 SWAP_HANDS_ENABLE = yes
 LTO_ENABLE = yes
 
-#SRC += combodance.c
-#SRC += combos.c
+SRC += combos.c
+
+# Load the necessary hand_swap_config if and only if
+# the config option SWAP_HANDS_ENABLE has been enabled
+ifeq ($(strip $(SWAP_HANDS_ENABLE)), yes)
+	SRC += swap_hand.c
+endif
