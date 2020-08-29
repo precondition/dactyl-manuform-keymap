@@ -2,125 +2,11 @@
 
 #include QMK_KEYBOARD_H
 
+#include "keymap.h"
 
 void matrix_init_user() {
 	set_unicode_input_mode(UC_LNX);
 };
-
-enum layer_names {
-    _COLEMAK_DHM = 0,
-    _SYM,
-    _NAV,
-    _GNAV,
-    _ACCENTS,
-    _MOUSE,
-    _PLOVER,
-    _ADJUST,
-};
-
-// Layer keys
-#define NAV TT(_NAV)
-#define NAV_TAB LT(_NAV, KC_TAB)
-#define GNAV MO(_GNAV)
-#define SYM MO(_SYM)
-#define ACCENTS OSL(_ACCENTS)
-#define MOUSE MO(_MOUSE)
-#define ADJUST MO(_ADJUST)
-#define SYM_ENT LT(_SYM, KC_ENT)
-#define PLOVER TG(_PLOVER)
-#define NAV_UND LT(_NAV, KC_F24)
-
-// Miscellaneous keyboard shortcuts in direct access
-#define UNDO LCTL(KC_Z)
-#define REDO LCTL(KC_Y)
-#define DED_CIR ALGR(KC_6)
-#define COMPOSE KC_APP
-
-// Left-hand home row mods
-#define HOME_A LGUI_T(KC_A)
-#define HOME_R LALT_T(KC_R)
-#define HOME_S LSFT_T(KC_S)
-#define HOME_T LCTL_T(KC_T)
-#define HOME_D LT(_ACCENTS, KC_D)
-
-// Right-hand home row mods
-#define HOME_O LGUI_T(KC_O)
-#define HOME_I LALT_T(KC_I)
-#define HOME_E RSFT_T(KC_E)
-#define HOME_N LCTL_T(KC_N)
-#define HOME_H LT(_ACCENTS, KC_H)
-
-enum unicode_names {
-        e__ACUT,
-        E__ACUT__U,
-        u__ACUT,
-        U__ACUT__U,
-        a__GRAV,
-        A__GRAV__U,
-        e__GRAV,
-        E__GRAV__U,
-        u__GRAV,
-        U__GRAV__U,
-        a__CIRC,
-        A__CIRC__U,
-        e__CIRC,
-        E__CIRC__U,
-        i__CIRC,
-        I__CIRC__U,
-        o__CIRC,
-        O__CIRC__U,
-        u__CIRC,
-        U__CIRC__U,
-        i__UML,
-        I__UML__U,
-        o__UML,
-        O__UML__U,
-        c__CDIL,
-        C__CDIL__U
-};
-
-const uint32_t PROGMEM unicode_map[] = {
-    [e__ACUT] = 0x00E9,
-    [E__ACUT__U] = 0x00C9,
-    [u__ACUT] = 0x00F9,
-    [U__ACUT__U] = 0x00D9,
-    [a__GRAV] = 0x00E0,
-    [A__GRAV__U] = 0x00C0,
-    [e__GRAV] = 0x00E8,
-    [E__GRAV__U] = 0x00C8,
-    [u__GRAV] = 0x00F9,
-    [U__GRAV__U] = 0x00D9,
-    [a__CIRC] = 0x00E2,
-    [A__CIRC__U] = 0x00C2,
-    [e__CIRC] = 0x00EA,
-    [E__CIRC__U] = 0x00CA,
-    [i__CIRC] = 0x00EE,
-    [I__CIRC__U] = 0x00CE,
-    [o__CIRC] = 0x00F4,
-    [O__CIRC__U] = 0x00D4,
-    [u__CIRC] = 0x00FB,
-    [U__CIRC__U] = 0x00DB,
-    [i__UML]  = 0x00EF,
-    [I__UML__U]  = 0x00CF,
-    [o__UML]  = 0x00F6,
-    [O__UML__U]  = 0x00DC,
-    [c__CDIL] = 0x00E7,
-    [C__CDIL__U] = 0x00C7
-};
-
-#define E_ACUTE XP(e__ACUT, E__ACUT__U)
-#define U_ACUTE XP(u__ACUT, U__ACUT__U)
-#define A_GRAVE XP(a__GRAV, A__GRAV__U)
-#define E_GRAVE XP(e__GRAV, E__GRAV__U)
-#define U_GRAVE XP(u__GRAV, U__GRAV__U)
-#define A_CIRCU XP(a__CIRC, A__CIRC__U)
-#define E_CIRCU XP(e__CIRC, E__CIRC__U)
-#define I_CIRCU XP(i__CIRC, I__CIRC__U)
-#define O_CIRCU XP(o__CIRC, O__CIRC__U)
-#define U_CIRCU XP(u__CIRC, U__CIRC__U)
-#define I_UMLAU  XP(i__UML ,  I__UML__U)
-#define O_UMLAU  XP(o__UML ,  O__UML__U)
-#define C_CDILA XP(c__CDIL, C__CDIL__U)
 
 enum custom_keycodes {
     ARROW_R = SAFE_RANGE,
@@ -130,9 +16,6 @@ enum custom_keycodes {
     G_END
 };
 
-// Initialize variable holding the binary
-// representation of active modifiers.
-uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     switch (keycode) {
@@ -284,12 +167,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-enum {
-    DOT_TD = 0,
-    XCLM_TD,
-    CA_CC_CV,
-};
-
 // Tap dance states
 typedef enum {
   SINGLE_TAP,
@@ -327,7 +204,7 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
             tap_code(KC_DOT);
         }
     }
-}
+};
 
 void exclamative_sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
@@ -338,7 +215,7 @@ void exclamative_sentence_end(qk_tap_dance_state_t *state, void *user_data) {
             tap_code16(KC_EXLM);
         }
     }
-}
+};
 
 
 // `finished` function for each tapdance keycode
@@ -359,7 +236,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else {
       return 3; // any number higher than the maximum state value you return above
   }
-}
+};
 
 // handle the possible states for each tapdance keycode you define:
 
@@ -375,7 +252,7 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP:
       tap_code16(C(KC_V));
   }
-}
+};
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [DOT_TD] = ACTION_TAP_DANCE_FN (sentence_end),
@@ -383,49 +260,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
 };
 
-#define TD_XCLM TD(XCLM_TD)
-#define TD_DOT TD(DOT_TD)
-#define CACCCV TD(CA_CC_CV)
-
-enum combo_events {
-    UY_PRN,
-    YCLN_PRN,
-    JU_JUST,
-    HV_HAVE,
-    EV_EVERY,
-    BSPCU_YOU,
-    BSPCA_AND,
-    BSPCN_NOT,
-    BSPCW_WITH,
-    BSPCF_FOR,
-    BSPCH_HERE,
-    BSPCT_THE,
-    BSPCM_MENT,
-    BSPCG_ING,
-    BSPCO_OUGH,
-    BSPCI_ION,
-    BSPCTA_THAT,
-    BSPCQ_QUE,
-    NHI_KI,
-    PT_B,
-    TD_V,
-    NH_K,
-    LN_J,
-    RST_G,
-    IET_M,
-    FS_G,
-    UE_M,
-    DELT_THIS,
-    ZX_GRAVE,
-    DOTSLASH_GRAVE,
-    IDOTSLASH_IGRAVE,
-    AX_GRAVE,
-    XC_ACUTE,
-    XCE_ACUTEE,
-    COMMADOT_ACUTE,
-    XDOT_CIRCUM,
-    COMBO_LENGTH
-};
 int COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
@@ -498,7 +332,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [IDOTSLASH_IGRAVE] = COMBO_ACTION(I_DOT_SLASH_COMBO),
     [AX_GRAVE] = COMBO_ACTION(A_X_COMBO),
     [XC_ACUTE] = COMBO_ACTION(X_C_COMBO),
-    [XCE_ACUTEE] = COMBO_ACTION(X_C_E_COMBO),
+    [XCE_ACUTE] = COMBO_ACTION(X_C_E_COMBO),
     [COMMADOT_ACUTE] = COMBO_ACTION(COMMA_DOT_COMBO),
     [XDOT_CIRCUM] = COMBO_ACTION(X_DOT_COMBO),
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
@@ -815,7 +649,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
             }
         break;
 
-        case XCE_ACUTEE:
+        case XCE_ACUTE:
             if (pressed) {
                 tap_code16(ALGR(KC_QUOT));
                 register_code(KC_E);
@@ -858,7 +692,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         break;
 
     }
-}
+};
 
 
 /*
@@ -888,7 +722,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         default:
             return TAPPING_TERM;
     }
-}
+};
 
 /*
  * Per key force hold settings
@@ -900,7 +734,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
         default:
             return true;
     }
-}
+};
 
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
@@ -948,7 +782,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,    KC_PGUP,KC_PGDN, KC_UP ,KC_WH_D,KC_WH_U,KC_MUTE,
         _______,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
-        _______,_______,_______,_______,CACCCV ,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
+        _______,_______,_______,_______, CACCCV,_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
                         _______,_______,                                    KC_BRID,KC_BRIU,
                                          _______,_______,   _______,_______,
                                          _______,_______,   _______,_______,

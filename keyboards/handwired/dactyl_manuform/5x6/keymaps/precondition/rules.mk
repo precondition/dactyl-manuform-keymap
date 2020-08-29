@@ -8,3 +8,6 @@ COMBO_ENABLE = yes
 NKRO_ENABLE = yes
 SWAP_HANDS_ENABLE = yes
 LTO_ENABLE = yes
+
+#SRC += combodance.c
+#SRC += combos.c
