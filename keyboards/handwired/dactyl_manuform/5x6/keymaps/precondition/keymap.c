@@ -284,18 +284,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 };
 
-/*
- * Per key force hold settings
- */
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case NAV:
-            return false;
-        default:
-            return true;
-    }
-};
-
 /*MAKE SURE THAT ADJUST AND RESET ARE ACCESSIBLE !!*/
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

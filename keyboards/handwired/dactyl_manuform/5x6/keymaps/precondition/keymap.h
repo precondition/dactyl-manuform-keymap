@@ -19,7 +19,6 @@ enum layer_names {
 };
 
 // Layer keys
-#define NAV TT(_NAV)
 #define NAV_TAB LT(_NAV, KC_TAB)
 #define GNAV MO(_GNAV)
 #define SYM MO(_SYM)
