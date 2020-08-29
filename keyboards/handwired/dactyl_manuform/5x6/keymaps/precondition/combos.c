@@ -125,9 +125,15 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
         case UY_PRN:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
+                    // First canceling both shifts so that shift isn't applied
+                    // to the KC_LBRC keycode since that would result in
+                    // a "{" instead of a "[".            
                     unregister_code(KC_LSHIFT);
                     unregister_code(KC_RSHIFT);
                     send_string("[");
+                    // "resuming" *the* shift so that you can hold shift 
+                    // and the square brackets combo still works without
+                    // having to re-press shift every time.
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_CTRL) {
