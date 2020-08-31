@@ -178,26 +178,42 @@ int cur_dance (qk_tap_dance_state_t *state);
 // `finished` function for each tapdance keycode
 void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
 
-// To do: Look into more advanced tap dance functions
-// that have a callback to each tap
 void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
-    /* Detect double tap of TD_DOT */
-    if (state->count == 2) {
-        if (!(get_mods() & MOD_MASK_SHIFT)) {
-        /* Check that Shift is inactive */
-            SEND_STRING(". ");
-            /* Internal code of OSM(MOD_LSFT) */
-            set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
-        } else { // shift is active, so send '>>'
+    switch (state->count) {
+
+        // Double tapping TD_DOT produces
+        // ". <one-shot-shift>" i.e. dot, space and capitalize next letter.
+        // This helps to quickly end a sentence and begin another one
+        // without having to hit shift.
+        case 2:
+            /* Check that Shift is inactive */
+            if (!(get_mods() & MOD_MASK_SHIFT)) {
+                tap_code(KC_SPC);
+                /* Internal code of OSM(MOD_LSFT) */
+                set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
+            } else {
+                // send ">" (KC_DOT + shift → ">")
+                tap_code(KC_DOT);
+            }
+            break;
+
+        // Since `sentence_end` is called on each tap
+        // and not at the end of the tapping term,
+        // the third tap needs to cancel the effects 
+        // of the double tap in order to get the expected
+        // three dots ellipsis.
+        case 3:
+            // remove the added space of the double tap case
+            tap_code(KC_BSPC);
+            // replace the space with a second dot
             tap_code(KC_DOT);
+            // tap the third dot
             tap_code(KC_DOT);
-        }
-    }
-    else {
-        /* send KC_DOT as many times as I have tapped the TD_DOT key */
-        for (uint8_t i = state->count; i > 0; i--) {
+            break;
+
+        // send KC_DOT on every normal tap of TD_DOT
+        default:
             tap_code(KC_DOT);
-        }
     }
 };
 
@@ -250,7 +266,7 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [DOT_TD] = ACTION_TAP_DANCE_FN (sentence_end),
+    [DOT_TD] = ACTION_TAP_DANCE_FN_ADVANCED(sentence_end, NULL, NULL),
     [XCLM_TD] = ACTION_TAP_DANCE_FN (exclamative_sentence_end),
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
 };
