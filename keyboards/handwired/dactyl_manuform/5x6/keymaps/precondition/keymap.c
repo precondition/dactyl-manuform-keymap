@@ -310,8 +310,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M  , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
       KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K  , HOME_H,KC_COMM, TD_DOT,KC_SLSH, KC_GRV,
                       KC_BSLASH,ARROW_R,                                   KC_RALT, KC_GRV,
-                                         NAV_TAB,KC_SPC,    KC_BSPC,SYM_ENT,
-                                          CACCCV, MOUSE,    KC_DEL , KC_UP ,
+                                        NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
+                                         CACCCV,MS_CAPS,    KC_DEL , KC_UP ,
                                          PLOVER,KC_CAPS,    SH_OS  ,KC_DOWN
   ),
 

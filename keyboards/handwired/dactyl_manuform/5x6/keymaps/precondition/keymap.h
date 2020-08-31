@@ -24,6 +24,7 @@ enum layer_names {
 #define SYM MO(_SYM)
 #define ACCENTS OSL(_ACCENTS)
 #define MOUSE MO(_MOUSE)
+#define MS_CAPS LT(_MOUSE, KC_CAPS)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define PLOVER TG(_PLOVER)
