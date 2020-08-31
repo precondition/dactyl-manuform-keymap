@@ -119,7 +119,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
-void process_combo_event(uint8_t combo_index, bool pressed) {
+void process_combo_event(uint16_t combo_index, bool pressed) {
     mod_state = get_mods();
     switch(combo_index) {
         case UY_PRN:
