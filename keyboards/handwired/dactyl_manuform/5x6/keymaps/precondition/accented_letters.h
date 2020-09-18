@@ -61,10 +61,10 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 
 #define E_ACUTE XP(e__ACUT, E__ACUT__U)
-#define U_ACUTE XP(u__ACUT, U__ACUT__U)
+#define U_ACUTE XP(u__ACUT, U__ACUT__U) //
 #define A_GRAVE XP(a__GRAV, A__GRAV__U)
 #define E_GRAVE XP(e__GRAV, E__GRAV__U)
-#define U_GRAVE XP(u__GRAV, U__GRAV__U)
+#define U_GRAVE XP(u__GRAV, U__GRAV__U) //
 #define A_CIRCU XP(a__CIRC, A__CIRC__U)
 #define E_CIRCU XP(e__CIRC, E__CIRC__U)
 #define I_CIRCU XP(i__CIRC, I__CIRC__U)

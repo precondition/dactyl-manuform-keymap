@@ -27,6 +27,7 @@
 #define COMBO_COUNT COMBO_VARIABLE_LEN
 #define COMBO_TERM 60
 
+#define UNICODE_SELECTED_MODES UC_LNX
 
 //Shamelessly stolen mouse key settings from @pierrechevalier83:
 
