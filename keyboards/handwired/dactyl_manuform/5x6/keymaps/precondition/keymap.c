@@ -60,6 +60,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
 		break;
 
+    case GUILL_L:
+        if (record->event.pressed) {
+            tap_code(COMPOSE);
+            tap_code16(KC_LT);
+            tap_code16(KC_LT);
+        }
+      break;
+
+    case GUILL_R:
+        if (record->event.pressed) {
+            tap_code(COMPOSE);
+            tap_code16(KC_GT);
+            tap_code16(KC_GT);
+        }
+      break;
+
     case KC_ESC:
         // Home row alt-tabbing.
         if (mod_state & MOD_MASK_ALT) {
@@ -321,7 +337,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DOT , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,    KC_6   , KC_7  , KC_8  , KC_9  , KC_0  ,KC_MINS,
         KC_TILD,TD_XCLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
         _______,_______,_______,_______,DED_CIR,_______,    _______,COMPOSE,_______, KC_DOT,_______,_______,
-                        _______,_______,                                    _______,_______,
+                        _______,_______,                                    GUILL_L,GUILL_R,
                                         NAV_UND,_______,    _______,_______,
                                         _______,_______,    _______,_______,
                                         _______,_______,    ADJUST, ADJUST

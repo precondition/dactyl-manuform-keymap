@@ -55,6 +55,8 @@ enum custom_keycodes {
     G_DOWN,
     G_UP,
     G_HOME,
-    G_END
+    G_END,
+    GUILL_R,
+    GUILL_L,
 };
 
