@@ -317,7 +317,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT_5x6(
-           REDO, UNDO  ,KC_WH_U,C_CDILA, KC_F4 , KC_F5 ,    KC_F6  ,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
+           REDO, UNDO  ,KC_WH_U,KC_WH_D, KC_F4 , KC_F5 ,    KC_F6  ,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
         A_GRAVE, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J   , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M   , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
       KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K   , HOME_H,KC_COMM, TD_DOT,KC_SLSH,E_ACUTE,
@@ -377,7 +377,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______, KC_9  , KC_8  , KC_7  ,_______,    _______,KC_WBAK,KC_MS_U,KC_WFWD,_______,_______,
 _______,KC_LGUI,LALT_T(KC_6),LSFT_T(KC_5),LCTL_T(KC_4),_______,    _______,KC_MS_L,KC_MS_D,KC_MS_R,_______,_______,
-        _______,_______, KC_3  , KC_2  , KC_1  ,_______,    _______,KC_BTN3,KC_WH_D,KC_WH_U,_______,_______,
+        _______,_______, KC_3  ,KC_WH_U,KC_WH_D,_______,    _______,KC_BTN3,KC_WH_D,KC_WH_U,_______,_______,
                         _______, KC_0  ,                                    _______,_______,
                                         _______,_______,    KC_BTN1,KC_BTN2,
                                         _______,_______,    KC_BTN3,_______,
