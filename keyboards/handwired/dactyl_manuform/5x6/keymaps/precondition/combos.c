@@ -5,6 +5,7 @@
 enum combo_events {
     UY_PRN,
     YCLN_PRN,
+    UYCLN_INDEX,
     JU_JUST,
     HV_HAVE,
     BSPCEV_EVERY,
@@ -48,6 +49,7 @@ int COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM U_Y_SCLN_COMBO[] = {KC_U, KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
 const uint16_t PROGMEM H_V_COMBO[] = {HOME_H, KC_V, COMBO_END};
 const uint16_t PROGMEM BSPC_E_V_COMBO[] = {KC_BSPC, HOME_E, KC_V, COMBO_END};
@@ -89,6 +91,7 @@ const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
     [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
+    [UYCLN_INDEX] = COMBO_ACTION(U_Y_SCLN_COMBO),
     [JU_JUST] = COMBO_ACTION(J_U_COMBO),
     [HV_HAVE] = COMBO_ACTION(H_V_COMBO),
     [BSPCEV_EVERY] = COMBO_ACTION(BSPC_E_V_COMBO),
@@ -176,6 +179,26 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
                 else {
                     send_string(")");
+                }
+        }
+        break;
+
+        case UYCLN_INDEX:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    send_string("[1]");
+                    set_mods(mod_state);
+                }
+                else if (mod_state & MOD_MASK_CTRL) {
+                    unregister_code(KC_LCTL);
+                    unregister_code(KC_RCTL);
+                    send_string("[0]");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("[i]");
                 }
         }
         break;
