@@ -187,8 +187,41 @@ static td_state_t td_state;
 // function to track the current tapdance state
 int cur_dance (qk_tap_dance_state_t *state);
 
+// track the tapdance state to return
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed) {
+        return SINGLE_TAP;
+    } else {
+        return SINGLE_HOLD;
+    }
+  }
+  if (state->count == 2) {
+      return DOUBLE_SINGLE_TAP;
+  }
+  else {
+      return 3; // any number higher than the maximum state value you return above
+  }
+};
+
 // `finished` function for each tapdance keycode
 void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
+
+// handle the possible states for each tapdance keycode you define:
+
+void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
+  td_state = cur_dance(state);
+  switch (td_state) {
+    case SINGLE_TAP:
+      tap_code16(C(KC_C));
+      break;
+    case SINGLE_HOLD:
+      tap_code16(C(KC_A));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      tap_code16(C(KC_V));
+  }
+};
 
 void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
@@ -229,58 +262,9 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     }
 };
 
-void exclamative_sentence_end(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 2) {
-            SEND_STRING("! ");
-            set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
-    } else {
-        for (uint8_t i = state->count; i > 0; i--) {
-            tap_code16(KC_EXLM);
-        }
-    }
-};
-
-
-// `finished` function for each tapdance keycode
-void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
-
-// track the tapdance state to return
-int cur_dance (qk_tap_dance_state_t *state) {
-  if (state->count == 1) {
-    if (state->interrupted || !state->pressed) {
-        return SINGLE_TAP;
-    } else {
-        return SINGLE_HOLD;
-    }
-  }
-  if (state->count == 2) {
-      return DOUBLE_SINGLE_TAP;
-  }
-  else {
-      return 3; // any number higher than the maximum state value you return above
-  }
-};
-
-// handle the possible states for each tapdance keycode you define:
-
-void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
-  td_state = cur_dance(state);
-  switch (td_state) {
-    case SINGLE_TAP:
-      tap_code16(C(KC_C));
-      break;
-    case SINGLE_HOLD:
-      tap_code16(C(KC_A));
-      break;
-    case DOUBLE_SINGLE_TAP:
-      tap_code16(C(KC_V));
-  }
-};
-
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [DOT_TD] = ACTION_TAP_DANCE_FN_ADVANCED(sentence_end, NULL, NULL),
-    [XCLM_TD] = ACTION_TAP_DANCE_FN (exclamative_sentence_end),
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
+    [DOT_TD] = ACTION_TAP_DANCE_FN_ADVANCED(sentence_end, NULL, NULL),
 };
 
 
