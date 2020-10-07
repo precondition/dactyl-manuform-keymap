@@ -58,5 +58,6 @@ enum custom_keycodes {
     G_END,
     GUILL_R,
     GUILL_L,
+    UPDIR,
 };
 

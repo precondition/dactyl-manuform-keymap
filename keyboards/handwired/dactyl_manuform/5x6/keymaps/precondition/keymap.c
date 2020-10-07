@@ -72,6 +72,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       break;
 
+    case UPDIR:
+      if (record->event.pressed) {
+          tap_code(KC_DOT);
+          tap_code(KC_DOT);
+          tap_code(KC_SLSH);
+          return false;
+      }
+      break;
+
     case KC_ESC:
         // Home row alt-tabbing.
         if (mod_state & MOD_MASK_ALT) {
@@ -235,7 +244,8 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
             if (!(get_mods() & MOD_MASK_SHIFT)) {
                 tap_code(KC_SPC);
                 /* Internal code of OSM(MOD_LSFT) */
-                set_oneshot_mods(MOD_LSFT | get_oneshot_mods());
+                set_oneshot_mods(MOD_BIT(KC_LSHIFT) | get_oneshot_mods());
+
             } else {
                 // send ">" (KC_DOT + shift → ">")
                 tap_code(KC_DOT);
@@ -285,7 +295,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case HOME_E:
             return TAPPING_TERM - 26;
         case HOME_D:
-            return TAPPING_TERM - 20;
         case HOME_H:
             return TAPPING_TERM - 20;
         default:
@@ -312,7 +321,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_BSPC,
         KC_DOT , KC_7  , KC_5  , KC_3  , KC_1  , KC_9  ,    KC_8   , KC_0  , KC_2  , KC_4  , KC_6  ,KC_MINS,
         KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
-        _______,_______,_______,_______,DED_CIR,_______,    _______,COMPOSE,_______, KC_DOT,_______,_______,
+        _______,_______,_______,_______,DED_CIR,_______,    _______,COMPOSE,_______, UPDIR ,_______,_______,
                         _______,_______,                                    GUILL_L,GUILL_R,
                                         NAV_UND,_______,    _______,_______,
                                         _______,_______,    _______,_______,
