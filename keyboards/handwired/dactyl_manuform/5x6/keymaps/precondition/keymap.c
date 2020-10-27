@@ -8,6 +8,7 @@
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
+    oneshot_mod_state = get_oneshot_mods();
     switch (keycode) {
 
     case ARROW_R:
@@ -254,7 +255,7 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
 
         // Since `sentence_end` is called on each tap
         // and not at the end of the tapping term,
-        // the third tap needs to cancel the effects 
+        // the third tap needs to cancel the effects
         // of the double tap in order to get the expected
         // three dots ellipsis.
         case 3:
@@ -312,8 +313,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K   , HOME_H,KC_COMM, TD_DOT,KC_SLSH,E_ACUTE,
                       KC_BSLASH,C_CDILA,                                    KC_RALT, KC_GRV,
                                         NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
-                                         CACCCV,MS_CAPS,    KC_DEL , KC_UP ,
-                                         PLOVER,KC_CAPS,    SH_OS  ,KC_DOWN
+                                        MS_CAPS,OS_LSFT,    OS_RSFT, KC_UP ,
+                                         PLOVER,MS_CAPS,    SH_OS  ,KC_DOWN
   ),
 
   [_SYM] = LAYOUT_5x6(

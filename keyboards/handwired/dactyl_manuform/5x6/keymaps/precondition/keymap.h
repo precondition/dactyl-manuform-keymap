@@ -6,6 +6,7 @@
 // Initialize variable holding the binary
 // representation of active modifiers.
 uint8_t mod_state;
+uint8_t oneshot_mod_state;
 
 enum layer_names {
     _COLEMAK_DHM = 0,
@@ -49,6 +50,10 @@ enum layer_names {
 #define HOME_E RSFT_T(KC_E)
 #define HOME_N LCTL_T(KC_N)
 #define HOME_H LT(_ACCENTS, KC_H)
+
+// One Shot Shifts
+#define OS_LSFT OSM(MOD_LSFT)
+#define OS_RSFT OSM(MOD_RSFT)
 
 enum custom_keycodes {
     ARROW_R = SAFE_RANGE,
