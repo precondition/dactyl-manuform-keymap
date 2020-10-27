@@ -379,7 +379,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
         case BSPCO_OUGH:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+                if (mod_state & MOD_MASK_CTRL) {
+                    del_mods(MOD_MASK_CTRL);
+                    send_string("ould");
+                    set_mods(mod_state);
+                }
+                else if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSHIFT);
                     unregister_code(KC_RSHIFT);
                     send_string("Ough");
