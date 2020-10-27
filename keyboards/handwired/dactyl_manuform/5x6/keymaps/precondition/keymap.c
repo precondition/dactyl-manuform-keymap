@@ -4,7 +4,6 @@
 #include QMK_KEYBOARD_H
 
 #include "keymap.h"
-#include "accented_letters.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
@@ -37,6 +36,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
     }
+
+     case A_GRAVE:
+         if (record->event.pressed) {
+             del_mods(MOD_MASK_SHIFT);
+             tap_code16(ALGR(KC_GRV));
+             set_mods(mod_state);
+             tap_code(KC_A);
+         }
+         return false;
+
+     case E_GRAVE:
+         if (record->event.pressed) {
+             del_mods(MOD_MASK_SHIFT);
+             tap_code16(ALGR(KC_GRV));
+             set_mods(mod_state);
+             tap_code(KC_E);
+         }
+         return false;
 
     case ARROW_R:
       if (record->event.pressed) {
@@ -174,26 +191,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          /*else process HOME_T as usual.*/
         return true;
 
-    case HOME_D:
-    // Let HOME_D act as an autorepeatable KC_D when CTRL is held
-    {
-        static bool d_registered;
-        if (record->event.pressed) {
-            if (mod_state & MOD_MASK_CTRL) {
-                register_code(KC_D);
-                d_registered = true;
-                return false;
-            }
-        } else {
-            if (d_registered) {
-                unregister_code(KC_D);
-                d_registered = false;
-                return false;
-            }
-        }
-    return true;
-    }
-
     case NAV_UND:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
@@ -319,12 +316,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         // These next mod taps are used very frequently during typing.
         // As such, the lower the tapping term, the faster the typing.
         case HOME_S:
-            return TAPPING_TERM - 28;
         case HOME_E:
             return TAPPING_TERM - 26;
-        case HOME_D:
-        case HOME_H:
-            return TAPPING_TERM - 20;
         default:
             return TAPPING_TERM;
     }
@@ -334,10 +327,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT_5x6(
-           REDO, UNDO  ,KC_WH_U,KC_WH_D, KC_F4 , KC_F5 ,    KC_F6  ,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
+           REDO, UNDO  ,KC_WH_U,KC_WH_D, KC_F4 , KC_F5 ,    DED_UML,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
         A_GRAVE, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J   , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M   , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-      KC_BSLASH, KC_Z  , KC_X  , KC_C  , HOME_D, KC_V  ,    KC_K   , HOME_H,KC_COMM, TD_DOT,KC_SLSH,E_ACUTE,
+      KC_BSLASH, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,E_ACUTE,
                       KC_BSLASH,C_CDILA,                                    KC_RALT, KC_GRV,
                                         NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
                                         MS_CAPS,OS_LSFT,    OS_RSFT, KC_UP ,
@@ -378,17 +371,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______,_______,    _______,_______
     ),
 
-
-    [_ACCENTS] =LAYOUT_5x6(
-        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-        _______,A_CIRCU,_______,_______,_______,_______,    _______,_______,U_CIRCU,I_UMLAU,O_UMLAU,_______,
-        _______,A_GRAVE,_______,_______,_______,_______,    _______,E_GRAVE,E_ACUTE,I_CIRCU,O_CIRCU,_______,
-        _______,_______,_______,C_CDILA,_______,_______,    _______,_______,E_GRAVE,E_CIRCU,_______,_______,
-                        _______,_______,                                    _______,_______,
-                                        _______,_______,    _______,_______,
-                                        _______,_______,    _______,_______,
-                                        _______,_______,    _______,_______
-  ),
 
     [_MOUSE] = LAYOUT_5x6(
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
