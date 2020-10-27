@@ -11,6 +11,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     oneshot_mod_state = get_oneshot_mods();
     switch (keycode) {
 
+    case KC_BSPC:
+        {
+        static bool delkey_registered;
+        if (record->event.pressed) {
+            if (mod_state & MOD_MASK_SHIFT) {
+                // In case only one shift is held
+                // see https://stackoverflow.com/questions/1596668/logical-xor-operator-in-c
+                // This also means that in case of holding both shifts and pressing KC_BSPC,
+                // Shift+Delete is sent (useful in Firefox) since the shift modifiers aren't deleted.
+                if (!(mod_state & MOD_BIT(KC_LSHIFT)) != !(mod_state & MOD_BIT(KC_RSHIFT))) {
+                    del_mods(MOD_MASK_SHIFT);
+                }
+                register_code(KC_DEL);
+                delkey_registered = true;
+                set_mods(mod_state);
+                return false;
+            }
+        } else {
+            if (delkey_registered) {
+                unregister_code(KC_DEL);
+                delkey_registered = false;
+                return false;
+            }
+        }
+        return true;
+    }
+
     case ARROW_R:
       if (record->event.pressed) {
         SEND_STRING("->");
