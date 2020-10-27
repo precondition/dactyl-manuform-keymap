@@ -32,7 +32,7 @@ enum combo_events {
     RST_G,
     IET_M,
     FS_G,
-    UE_M,
+    UE_EU,
     DELT_THIS,
     ZX_GRAVE,
     DOTSLASH_GRAVE,
@@ -117,7 +117,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [LN_J] = COMBO(L_N_COMBO, KC_J),
     [RST_G] = COMBO(R_S_T_COMBO, KC_G),
     [FS_G] = COMBO(F_S_COMBO, KC_G),
-    [UE_M] = COMBO(U_E_COMBO, KC_M),
+    [UE_EU] = COMBO_ACTION(U_E_COMBO),
     [ZX_GRAVE] = COMBO_ACTION(Z_X_COMBO),
     [DOTSLASH_GRAVE] = COMBO_ACTION(DOT_SLASH_COMBO),
     [IDOTSLASH_IGRAVE] = COMBO_ACTION(I_DOT_SLASH_COMBO),
@@ -476,6 +476,19 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("ki");
+                }
+        }
+        break;
+
+        case UE_EU:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    send_string("Eu");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("eu");
                 }
         }
         break;
