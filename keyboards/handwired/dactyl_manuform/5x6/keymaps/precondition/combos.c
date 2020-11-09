@@ -129,12 +129,13 @@ combo_t key_combos[COMBO_COUNT] = {
     [XCE_ACUTE] = COMBO_ACTION(X_C_E_COMBO),
     [COMMADOT_ACUTE] = COMBO_ACTION(COMMA_DOT_COMBO),
     [XDOT_CIRCUM] = COMBO_ACTION(X_DOT_COMBO),
+    [OS_SFT_CAPS] = COMBO(OS_SFT_COMBO, KC_CAPS),
     [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     // Process mod-taps before the combo is fired,
-    // this helps making modifier-aware combos, 
+    // this helps making modifier-aware combos,
     // like UY_PRN or BSPCN_NOT, more fluid
     // when I use them with home row mods.
     action_tapping_process((keyrecord_t){});
@@ -145,11 +146,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     // First canceling both shifts so that shift isn't applied
                     // to the KC_LBRC keycode since that would result in
-                    // a "{" instead of a "[".            
+                    // a "{" instead of a "[".
                     unregister_code(KC_LSHIFT);
                     unregister_code(KC_RSHIFT);
                     send_string("[");
-                    // "resuming" *the* shift so that you can hold shift 
+                    // "resuming" *the* shift so that you can hold shift
                     // and the square brackets combo still works without
                     // having to re-press shift every time.
                     set_mods(mod_state);
@@ -355,7 +356,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
         case BSPCT_THE:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+                if (mod_state & MOD_MASK_CTRL) {
+                    del_mods(MOD_MASK_CTRL);
+                    send_string("this");
+                    set_mods(mod_state);
+                }
+                else if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSHIFT);
                     unregister_code(KC_RSHIFT);
                     send_string("The");

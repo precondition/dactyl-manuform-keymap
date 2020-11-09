@@ -13,13 +13,13 @@
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
- 
+
 // This prevents accidental repeats of the tap-hold keys when typing quickly.
 #define TAPPING_FORCE_HOLD
 
 // The setting below defines how many times you need to tap a TT() to toggle the layer.
 #define TAPPING_TOGGLE 3
- 
+
 // This prevents short hold periods to be interpreted as individual taps when typing quickly.
 #define PERMISSIVE_HOLD
 
@@ -39,7 +39,7 @@
 #define MOUSEKEY_INTERVAL 16
 // The default is 20. Since we made the mouse about 3 times faster with the previous setting,
 // give it more time to accelerate to max speed to retain precise control over short distances.
-#undef MOUSEKEY_TIME_TO_MAX 
+#undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX 40
 // The default is 300. Let's try and make this as low as possible while keeping the cursor responsive
 #undef MOUSEKEY_DELAY
