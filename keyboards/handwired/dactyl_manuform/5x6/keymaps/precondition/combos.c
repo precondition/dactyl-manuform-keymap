@@ -43,6 +43,7 @@ enum combo_events {
     XCE_ACUTE,
     COMMADOT_ACUTE,
     XDOT_CIRCUM,
+    OS_SFT_CAPS,
     COMBO_LENGTH
 };
 
@@ -88,6 +89,7 @@ const uint16_t PROGMEM COMMA_DOT_COMBO[] = {KC_COMMA, TD_DOT, COMBO_END};
 const uint16_t PROGMEM DOT_SLASH_COMBO[] = {TD_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM I_DOT_SLASH_COMBO[] = {HOME_I, TD_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM X_DOT_COMBO[] = {KC_X, TD_DOT, COMBO_END};
+const uint16_t PROGMEM OS_SFT_COMBO[] = {OS_LSFT, OS_RSFT, COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
