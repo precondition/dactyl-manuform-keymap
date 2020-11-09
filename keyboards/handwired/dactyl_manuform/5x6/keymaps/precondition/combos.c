@@ -8,6 +8,7 @@ enum combo_events {
     UYCLN_INDEX,
     JU_JUST,
     HV_HAVE,
+    QK_QMK,
     BSPCEV_EVERY,
     BSPCU_YOU,
     BSPCA_AND,
@@ -52,6 +53,7 @@ const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM U_Y_SCLN_COMBO[] = {KC_U, KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
 const uint16_t PROGMEM H_V_COMBO[] = {KC_H, KC_V, COMBO_END};
+const uint16_t PROGMEM Q_K_COMBO[] = {KC_Q, KC_K, COMBO_END};
 const uint16_t PROGMEM BSPC_E_V_COMBO[] = {KC_BSPC, HOME_E, KC_V, COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
 const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, HOME_A, COMBO_END};
@@ -94,6 +96,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [UYCLN_INDEX] = COMBO_ACTION(U_Y_SCLN_COMBO),
     [JU_JUST] = COMBO_ACTION(J_U_COMBO),
     [HV_HAVE] = COMBO_ACTION(H_V_COMBO),
+    [QK_QMK] = COMBO_ACTION(Q_K_COMBO),
     [BSPCEV_EVERY] = COMBO_ACTION(BSPC_E_V_COMBO),
     [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
     [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
@@ -227,6 +230,21 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("have");
+                }
+        }
+        break;
+
+        case QK_QMK:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT || oneshot_mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSHIFT);
+                    unregister_code(KC_RSHIFT);
+                    set_oneshot_mods(oneshot_mod_state & ~MOD_MASK_SHIFT);
+                    send_string("QMK");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("qmk");
                 }
         }
         break;
