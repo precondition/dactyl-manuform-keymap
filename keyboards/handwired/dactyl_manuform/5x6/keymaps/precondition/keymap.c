@@ -126,19 +126,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    case KC_ESC:
-        // Home row alt-tabbing.
-        if (mod_state & MOD_MASK_ALT) {
-            if (record->event.pressed) {
-                register_code(KC_TAB);
-            } else {
-                unregister_code(KC_TAB);
-            }
-            return false;
-        }
-        // Else, let QMK process the KC_ESC keycode as usual
-        return true;
-
     case HOME_I:
         // This piece of code nullifies the effect of Right Shift when
         // tapping the HOME_I key. This helps rolling over HOME_E and HOME_I
