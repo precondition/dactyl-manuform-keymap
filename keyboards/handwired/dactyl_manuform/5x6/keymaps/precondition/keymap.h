@@ -9,7 +9,7 @@ uint8_t mod_state;
 uint8_t oneshot_mod_state;
 
 enum layer_names {
-    _COLEMAK_DHM = 0,
+    _COLEMAK_DH = 0,
     _SYM,
     _NAV,
     _GNAV,
