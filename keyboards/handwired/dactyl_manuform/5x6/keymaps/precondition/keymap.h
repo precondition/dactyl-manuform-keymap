@@ -1,7 +1,6 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
-#include "tapdance.h"
 
 // Initialize variable holding the binary
 // representation of active modifiers.
@@ -76,3 +75,11 @@ enum custom_keycodes {
     A_GRAVE,
 };
 
+// Tap dance keys
+enum {
+    DOT_TD = 0,
+    CA_CC_CV,
+};
+
+#define TD_DOT TD(DOT_TD)
+#define CACCCV TD(CA_CC_CV)

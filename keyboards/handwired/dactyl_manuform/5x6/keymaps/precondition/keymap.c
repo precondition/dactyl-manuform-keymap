@@ -3,9 +3,10 @@
 
 #include QMK_KEYBOARD_H
 
+// All custom keycodes and aliases can be found in keymap.h
 #include "keymap.h"
  
-/*MAKE SURE THAT ADJUST AND RESET ARE ACCESSIBLE !!*/
+/*MAKE SURE THAT ADJUST AND RESET ARE ACCESSIBLE!*/
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DH] = LAYOUT_5x6(
@@ -21,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYM] = LAYOUT_5x6(
 
-        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_BSPC,
+        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11,
         KC_DOT , KC_4  , KC_2  , KC_3  , KC_1  , KC_5  ,    KC_6   , KC_0  , KC_8  , KC_9  , KC_7  ,KC_MINS,
         KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,    KC_CIRC,KC_AMPR,KC_ASTR,KC_EQL ,KC_PLUS,KC_MINS,
         _______,_______,_______,_______,DED_CIR,_______,    _______,COMPOSE,_______, KC_DOT, UPDIR ,_______,
@@ -32,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_5x6(
-        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_BSPC,
+        KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 , KC_F11,
         _______,_______,KC_NLCK,KC_INS ,KC_SLCK,_______,    _______,KC_PGUP, KC_UP ,KC_PGDN,_______,KC_MUTE,
         MS_CAPS,KC_LGUI,KC_LALT,KC_LSFT,KC_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT,KC_END ,KC_VOLU,
         _______, MOUSE ,C(KC_A),C(KC_C),C(KC_V),_______,    _______,KC_PSCR,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
@@ -78,7 +79,7 @@ _______,KC_LGUI,LALT_T(KC_3),LSFT_T(KC_2),LCTL_T(KC_1),KC_0,    _______,KC_MS_L,
 
     [_ADJUST] = LAYOUT_5x6(
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
-        _______,_______,UC_M_WC,_______,_______,_______,    _______,UC_M_LN,_______,_______,_______,_______,
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______, RESET ,    _______,_______,_______,_______,_______,_______,
                         _______,_______,                                    _______,_______,
@@ -392,4 +393,3 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 };
-
