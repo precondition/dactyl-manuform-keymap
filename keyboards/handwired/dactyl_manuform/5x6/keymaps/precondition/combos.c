@@ -4,7 +4,7 @@
 
 enum combo_events {
     /* Backspace steno-lite combos */
-    // These let me type common words and n-grams 
+    // These let me type common words and n-grams
     // more quickly, in one single stroke.
     BSPCEV_EVERY,
     BSPCU_YOU,
@@ -21,9 +21,9 @@ enum combo_events {
     BSPCIS_IONS,
     BSPCTA_THAT,
     BSPCQ_QUE,
-    // I use the word "key" much more frequently than the common folk 
+    // I use the word "key" much more frequently than the common folk
     // and if you're reading this, you probably do too
-    BSPCK_KEY, 
+    BSPCK_KEY,
 
     /* Other steno-lite combos */
     // Additional steno-lite combos for common words and n-grams
@@ -44,7 +44,7 @@ enum combo_events {
 
     /* Vertical combos */
     // An attempt to radically remove all lateral movements
-    // by substituting the inner index keys by vertical combos 
+    // by substituting the inner index keys by vertical combos
     // of the main index column keys
     PT_B,
     TD_V,

@@ -5,7 +5,7 @@
 
 // All custom keycodes and aliases can be found in keymap.h
 #include "keymap.h"
- 
+
 /*MAKE SURE THAT ADJUST AND RESET ARE ACCESSIBLE!*/
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
