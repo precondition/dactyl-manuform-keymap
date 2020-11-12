@@ -144,8 +144,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     // First canceling both shifts so that shift isn't applied
                     // to the KC_LBRC keycode since that would result in
                     // a "{" instead of a "[".
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("[");
                     // "resuming" *the* shift so that you can hold shift
                     // and the square brackets combo still works without
@@ -153,8 +152,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_CTRL) {
-                    unregister_code(KC_LCTL);
-                    unregister_code(KC_RCTL);
+                    del_mods(MOD_MASK_CTRL);
                     send_string("{");
                     set_mods(mod_state);
                 }
@@ -167,14 +165,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case YCLN_PRN:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("]");
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_CTRL) {
-                    unregister_code(KC_LCTL);
-                    unregister_code(KC_RCTL);
+                    del_mods(MOD_MASK_CTRL);
                     send_string("}");
                     set_mods(mod_state);
                 }
@@ -187,14 +183,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case UYCLN_INDEX:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("[1]");
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_CTRL) {
-                    unregister_code(KC_LCTL);
-                    unregister_code(KC_RCTL);
+                    del_mods(MOD_MASK_CTRL);
                     send_string("[0]");
                     set_mods(mod_state);
                 }
@@ -207,8 +201,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case JU_JUST:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Just");
                     set_mods(mod_state);
                 }
@@ -221,8 +214,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case HV_HAVE:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Have");
                     set_mods(mod_state);
                 }
@@ -235,8 +227,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case QK_QMK:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT || oneshot_mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     // TODO: Replace with `del_oneshot_mods` once my core PR is merged
                     set_oneshot_mods(oneshot_mod_state & ~MOD_MASK_SHIFT);
                     send_string("QMK");
@@ -251,8 +242,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCEV_EVERY:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Every");
                     set_mods(mod_state);
                 }
@@ -265,8 +255,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCU_YOU:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("You");
                     set_mods(mod_state);
                 }
@@ -279,8 +268,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCA_AND:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("And");
                     set_mods(mod_state);
                 }
@@ -293,14 +281,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCN_NOT:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Not");
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_CTRL) {
-                    unregister_code(KC_LCTL);
-                    unregister_code(KC_RCTL);
+                    del_mods(MOD_MASK_CTRL);
                     send_string("n't");
                     set_mods(mod_state);
                 }
@@ -313,8 +299,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCW_WITH:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("With");
                     set_mods(mod_state);
                 }
@@ -327,8 +312,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCF_FOR:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("For");
                     set_mods(mod_state);
                 }
@@ -341,8 +325,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCH_HERE:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Here");
                     set_mods(mod_state);
                 }
@@ -360,8 +343,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("The");
                     set_mods(mod_state);
                 }
@@ -374,8 +356,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCM_MENT:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Ment");
                     set_mods(mod_state);
                 }
@@ -388,8 +369,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCG_ING:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Ing");
                     set_mods(mod_state);
                 }
@@ -407,8 +387,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Ough");
                     set_mods(mod_state);
                 }
@@ -421,8 +400,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCI_ION:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Ion");
                     set_mods(mod_state);
                 }
@@ -435,8 +413,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCIS_IONS:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Ions");
                     set_mods(mod_state);
                 }
@@ -449,8 +426,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCTA_THAT:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("That");
                     set_mods(mod_state);
                 }
@@ -463,8 +439,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCQ_QUE:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Que");
                     set_mods(mod_state);
                 }
@@ -477,8 +452,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case BSPCK_KEY:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Key");
                     set_mods(mod_state);
                 }
@@ -491,8 +465,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case NHI_KI:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("Ki");
                     set_mods(mod_state);
                 }
@@ -518,8 +491,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case DELT_THIS:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    del_mods(MOD_MASK_SHIFT);
                     send_string("This");
                     set_mods(mod_state);
                 }
