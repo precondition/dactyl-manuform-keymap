@@ -3,12 +3,9 @@
 #include "action_tapping.h" // necessary for action_tapping_process
 
 enum combo_events {
-    UY_PRN,
-    YCLN_PRN,
-    UYCLN_INDEX,
-    JU_JUST,
-    HV_HAVE,
-    QK_QMK,
+    /* Backspace steno-lite combos */
+    // These let me type common words and n-grams 
+    // more quickly, in one single stroke.
     BSPCEV_EVERY,
     BSPCU_YOU,
     BSPCA_AND,
@@ -24,8 +21,31 @@ enum combo_events {
     BSPCIS_IONS,
     BSPCTA_THAT,
     BSPCQ_QUE,
-    BSPCK_KEY,
-    NHI_KI,
+    // I use the word "key" much more frequently than the common folk 
+    // and if you're reading this, you probably do too
+    BSPCK_KEY, 
+
+    /* Other steno-lite combos */
+    // Additional steno-lite combos for common words and n-grams
+    // that do not involve the backspace thumb key because these
+    // combinations of keys do not generate too many conflicts
+    // in normal typing.
+    JU_JUST,
+    HV_HAVE,
+    QK_QMK,
+    DELT_THIS,
+
+    /* Non-alphanumeric combos */
+    // Combos for which the output isn't one or more alphanumeric characters
+    UY_PRN,
+    YCLN_PRN,
+    UYCLN_INDEX,
+    OS_SFT_CAPS,
+
+    /* Vertical combos */
+    // An attempt to radically remove all lateral movements
+    // by substituting the inner index keys by vertical combos 
+    // of the main index column keys
     PT_B,
     TD_V,
     NH_K,
@@ -34,105 +54,80 @@ enum combo_events {
     IET_M,
     FS_G,
     UE_EU,
-    DELT_THIS,
-    ZX_GRAVE,
-    DOTSLASH_GRAVE,
-    IDOTSLASH_IGRAVE,
-    AX_GRAVE,
-    XC_ACUTE,
-    XCE_ACUTE,
-    COMMADOT_ACUTE,
-    XDOT_CIRCUM,
-    OS_SFT_CAPS,
+    NHI_KI,
+
+    // This must be the last item in the enum.
+    // This is used to automatically update the COMBO_COUNT.
     COMBO_LENGTH
 };
-
 int COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM U_Y_COMBO[] = {KC_U, KC_Y, COMBO_END};
-const uint16_t PROGMEM Y_SCLN_COMBO[] = {KC_Y, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM U_Y_SCLN_COMBO[] = {KC_U, KC_Y, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM J_U_COMBO[] = {KC_J, KC_U, COMBO_END};
-const uint16_t PROGMEM H_V_COMBO[] = {KC_H, KC_V, COMBO_END};
-const uint16_t PROGMEM Q_K_COMBO[] = {KC_Q, KC_K, COMBO_END};
-const uint16_t PROGMEM BSPC_E_V_COMBO[] = {KC_BSPC, HOME_E, KC_V, COMBO_END};
-const uint16_t PROGMEM BSPC_U_COMBO[] = {KC_BSPC, KC_U, COMBO_END};
-const uint16_t PROGMEM BSPC_A_COMBO[] = {KC_BSPC, HOME_A, COMBO_END};
-const uint16_t PROGMEM BSPC_N_COMBO[] = {KC_BSPC, HOME_N, COMBO_END};
-const uint16_t PROGMEM BSPC_W_COMBO[] = {KC_BSPC, KC_W, COMBO_END};
-const uint16_t PROGMEM BSPC_F_COMBO[] = {KC_BSPC, KC_F, COMBO_END};
-const uint16_t PROGMEM BSPC_H_COMBO[] = {KC_BSPC, KC_H, COMBO_END};
-const uint16_t PROGMEM BSPC_T_COMBO[] = {KC_BSPC, HOME_T, COMBO_END};
-const uint16_t PROGMEM BSPC_M_COMBO[] = {KC_BSPC, KC_M, COMBO_END};
-const uint16_t PROGMEM BSPC_G_COMBO[] = {KC_BSPC, KC_G, COMBO_END};
-const uint16_t PROGMEM BSPC_O_COMBO[] = {KC_BSPC, HOME_O, COMBO_END};
-const uint16_t PROGMEM BSPC_I_COMBO[] = {KC_BSPC, HOME_I, COMBO_END};
-const uint16_t PROGMEM BSPC_I_S_COMBO[] = {KC_BSPC, HOME_I, HOME_S, COMBO_END};
-const uint16_t PROGMEM BSPC_Q_COMBO[] = {KC_BSPC, KC_Q, COMBO_END};
-const uint16_t PROGMEM BSPC_K_COMBO[] = {KC_BSPC, KC_K, COMBO_END};
-const uint16_t PROGMEM BSPC_T_A_COMBO[] = {KC_BSPC, HOME_T, HOME_A, COMBO_END};
-const uint16_t PROGMEM P_T_COMBO[] = {KC_P, HOME_T, COMBO_END};
-const uint16_t PROGMEM D_T_COMBO[] = {KC_D, HOME_T, COMBO_END};
-const uint16_t PROGMEM N_H_COMBO[] = {HOME_N, KC_H, COMBO_END};
-const uint16_t PROGMEM N_H_I_COMBO[] = {HOME_N, KC_H, HOME_I, COMBO_END};
-const uint16_t PROGMEM L_N_COMBO[] = {KC_L, HOME_N, COMBO_END};
-const uint16_t PROGMEM R_S_T_COMBO[] = {HOME_R, HOME_S, HOME_T, COMBO_END};
-const uint16_t PROGMEM I_E_T_COMBO[] = {HOME_I, HOME_E, HOME_N, COMBO_END};
-const uint16_t PROGMEM F_S_COMBO[] = {KC_F, HOME_S, COMBO_END};
-const uint16_t PROGMEM U_E_COMBO[] = {KC_U, HOME_E, COMBO_END};
-const uint16_t PROGMEM Z_X_COMBO[] = {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM T_G_COMBO[] = {HOME_T, KC_G, COMBO_END};
-const uint16_t PROGMEM A_X_COMBO[] = {HOME_A, KC_X, COMBO_END};
-const uint16_t PROGMEM X_C_COMBO[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM X_C_E_COMBO[] = {KC_X, KC_C, HOME_E, COMBO_END};
-const uint16_t PROGMEM COMMA_DOT_COMBO[] = {KC_COMMA, TD_DOT, COMBO_END};
-const uint16_t PROGMEM DOT_SLASH_COMBO[] = {TD_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM I_DOT_SLASH_COMBO[] = {HOME_I, TD_DOT, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM X_DOT_COMBO[] = {KC_X, TD_DOT, COMBO_END};
-const uint16_t PROGMEM OS_SFT_COMBO[] = {OS_LSFT, OS_RSFT, COMBO_END};
-const uint16_t PROGMEM DEL_T_COMBO[] = {KC_DEL, HOME_T, COMBO_END};
+const uint16_t PROGMEM BSPC_E_V_COMBO[] = {KC_BSPC,  HOME_E,  KC_V,    COMBO_END};
+const uint16_t PROGMEM BSPC_U_COMBO[]   = {KC_BSPC,  KC_U,    COMBO_END};
+const uint16_t PROGMEM BSPC_A_COMBO[]   = {KC_BSPC,  HOME_A,  COMBO_END};
+const uint16_t PROGMEM BSPC_N_COMBO[]   = {KC_BSPC,  HOME_N,  COMBO_END};
+const uint16_t PROGMEM BSPC_W_COMBO[]   = {KC_BSPC,  KC_W,    COMBO_END};
+const uint16_t PROGMEM BSPC_F_COMBO[]   = {KC_BSPC,  KC_F,    COMBO_END};
+const uint16_t PROGMEM BSPC_H_COMBO[]   = {KC_BSPC,  KC_H,    COMBO_END};
+const uint16_t PROGMEM BSPC_T_COMBO[]   = {KC_BSPC,  HOME_T,  COMBO_END};
+const uint16_t PROGMEM BSPC_M_COMBO[]   = {KC_BSPC,  KC_M,    COMBO_END};
+const uint16_t PROGMEM BSPC_G_COMBO[]   = {KC_BSPC,  KC_G,    COMBO_END};
+const uint16_t PROGMEM BSPC_O_COMBO[]   = {KC_BSPC,  HOME_O,  COMBO_END};
+const uint16_t PROGMEM BSPC_I_COMBO[]   = {KC_BSPC,  HOME_I,  COMBO_END};
+const uint16_t PROGMEM BSPC_I_S_COMBO[] = {KC_BSPC,  HOME_I,  HOME_S,  COMBO_END};
+const uint16_t PROGMEM BSPC_Q_COMBO[]   = {KC_BSPC,  KC_Q,    COMBO_END};
+const uint16_t PROGMEM BSPC_K_COMBO[]   = {KC_BSPC,  KC_K,    COMBO_END};
+const uint16_t PROGMEM BSPC_T_A_COMBO[] = {KC_BSPC,  HOME_T,  HOME_A,  COMBO_END};
+const uint16_t PROGMEM DEL_T_COMBO[]    = {KC_DEL,   HOME_T,  COMBO_END};
+const uint16_t PROGMEM J_U_COMBO[]      = {KC_J,     KC_U,    COMBO_END};
+const uint16_t PROGMEM H_V_COMBO[]      = {KC_H,     KC_V,    COMBO_END};
+const uint16_t PROGMEM Q_K_COMBO[]      = {KC_Q,     KC_K,    COMBO_END};
+const uint16_t PROGMEM U_Y_COMBO[]      = {KC_U,     KC_Y,    COMBO_END};
+const uint16_t PROGMEM Y_SCLN_COMBO[]   = {KC_Y,     KC_SCLN, COMBO_END};
+const uint16_t PROGMEM U_Y_SCLN_COMBO[] = {KC_U,     KC_Y,    KC_SCLN, COMBO_END};
+const uint16_t PROGMEM OS_SFT_COMBO[]   = {OS_LSFT,  OS_RSFT, COMBO_END};
+const uint16_t PROGMEM P_T_COMBO[]      = {KC_P,     HOME_T,  COMBO_END};
+const uint16_t PROGMEM D_T_COMBO[]      = {KC_D,     HOME_T,  COMBO_END};
+const uint16_t PROGMEM N_H_COMBO[]      = {HOME_N,   KC_H,    COMBO_END};
+const uint16_t PROGMEM N_H_I_COMBO[]    = {HOME_N,   KC_H,    HOME_I,  COMBO_END};
+const uint16_t PROGMEM L_N_COMBO[]      = {KC_L,     HOME_N,  COMBO_END};
+const uint16_t PROGMEM R_S_T_COMBO[]    = {HOME_R,   HOME_S,  HOME_T,  COMBO_END};
+const uint16_t PROGMEM F_S_COMBO[]      = {KC_F,     HOME_S,  COMBO_END};
+const uint16_t PROGMEM U_E_COMBO[]      = {KC_U,     HOME_E,  COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    [UY_PRN] = COMBO_ACTION(U_Y_COMBO),
-    [YCLN_PRN] = COMBO_ACTION(Y_SCLN_COMBO),
-    [UYCLN_INDEX] = COMBO_ACTION(U_Y_SCLN_COMBO),
-    [JU_JUST] = COMBO_ACTION(J_U_COMBO),
-    [HV_HAVE] = COMBO_ACTION(H_V_COMBO),
-    [QK_QMK] = COMBO_ACTION(Q_K_COMBO),
     [BSPCEV_EVERY] = COMBO_ACTION(BSPC_E_V_COMBO),
-    [BSPCU_YOU] = COMBO_ACTION(BSPC_U_COMBO),
-    [BSPCA_AND] = COMBO_ACTION(BSPC_A_COMBO),
-    [BSPCN_NOT] = COMBO_ACTION(BSPC_N_COMBO),
-    [BSPCW_WITH] = COMBO_ACTION(BSPC_W_COMBO),
-    [BSPCF_FOR] = COMBO_ACTION(BSPC_F_COMBO),
-    [BSPCH_HERE] = COMBO_ACTION(BSPC_H_COMBO),
-    [BSPCT_THE] = COMBO_ACTION(BSPC_T_COMBO),
-    [BSPCM_MENT] = COMBO_ACTION(BSPC_M_COMBO),
-    [BSPCG_ING] = COMBO_ACTION(BSPC_G_COMBO),
-    [BSPCO_OUGH] = COMBO_ACTION(BSPC_O_COMBO),
-    [BSPCI_ION] = COMBO_ACTION(BSPC_I_COMBO),
-    [BSPCIS_IONS] = COMBO_ACTION(BSPC_I_S_COMBO),
-    [BSPCTA_THAT] = COMBO_ACTION(BSPC_T_A_COMBO),
-    [BSPCQ_QUE] = COMBO_ACTION(BSPC_Q_COMBO),
-    [BSPCK_KEY] = COMBO_ACTION(BSPC_K_COMBO),
-    [PT_B] = COMBO(P_T_COMBO, KC_B),
-    [TD_V] = COMBO(D_T_COMBO, KC_V),
-    [NH_K] = COMBO(N_H_COMBO, KC_K),
-    [NHI_KI] = COMBO_ACTION(N_H_I_COMBO),
-    [LN_J] = COMBO(L_N_COMBO, KC_J),
-    [RST_G] = COMBO(R_S_T_COMBO, KC_G),
-    [FS_G] = COMBO(F_S_COMBO, KC_G),
-    [UE_EU] = COMBO_ACTION(U_E_COMBO),
-    [ZX_GRAVE] = COMBO_ACTION(Z_X_COMBO),
-    [DOTSLASH_GRAVE] = COMBO_ACTION(DOT_SLASH_COMBO),
-    [IDOTSLASH_IGRAVE] = COMBO_ACTION(I_DOT_SLASH_COMBO),
-    [AX_GRAVE] = COMBO_ACTION(A_X_COMBO),
-    [XC_ACUTE] = COMBO_ACTION(X_C_COMBO),
-    [XCE_ACUTE] = COMBO_ACTION(X_C_E_COMBO),
-    [COMMADOT_ACUTE] = COMBO_ACTION(COMMA_DOT_COMBO),
-    [XDOT_CIRCUM] = COMBO_ACTION(X_DOT_COMBO),
-    [OS_SFT_CAPS] = COMBO(OS_SFT_COMBO, KC_CAPS),
-    [DELT_THIS] = COMBO_ACTION(DEL_T_COMBO),
+    [BSPCU_YOU]    = COMBO_ACTION(BSPC_U_COMBO),
+    [BSPCA_AND]    = COMBO_ACTION(BSPC_A_COMBO),
+    [BSPCN_NOT]    = COMBO_ACTION(BSPC_N_COMBO),
+    [BSPCW_WITH]   = COMBO_ACTION(BSPC_W_COMBO),
+    [BSPCF_FOR]    = COMBO_ACTION(BSPC_F_COMBO),
+    [BSPCH_HERE]   = COMBO_ACTION(BSPC_H_COMBO),
+    [BSPCT_THE]    = COMBO_ACTION(BSPC_T_COMBO),
+    [BSPCM_MENT]   = COMBO_ACTION(BSPC_M_COMBO),
+    [BSPCG_ING]    = COMBO_ACTION(BSPC_G_COMBO),
+    [BSPCO_OUGH]   = COMBO_ACTION(BSPC_O_COMBO),
+    [BSPCI_ION]    = COMBO_ACTION(BSPC_I_COMBO),
+    [BSPCIS_IONS]  = COMBO_ACTION(BSPC_I_S_COMBO),
+    [BSPCTA_THAT]  = COMBO_ACTION(BSPC_T_A_COMBO),
+    [BSPCQ_QUE]    = COMBO_ACTION(BSPC_Q_COMBO),
+    [BSPCK_KEY]    = COMBO_ACTION(BSPC_K_COMBO),
+    [DELT_THIS]    = COMBO_ACTION(DEL_T_COMBO),
+    [JU_JUST]      = COMBO_ACTION(J_U_COMBO),
+    [HV_HAVE]      = COMBO_ACTION(H_V_COMBO),
+    [QK_QMK]       = COMBO_ACTION(Q_K_COMBO),
+    [OS_SFT_CAPS]  = COMBO(OS_SFT_COMBO, KC_CAPS),
+    [UY_PRN]       = COMBO_ACTION(U_Y_COMBO),
+    [YCLN_PRN]     = COMBO_ACTION(Y_SCLN_COMBO),
+    [UYCLN_INDEX]  = COMBO_ACTION(U_Y_SCLN_COMBO),
+    [PT_B]         = COMBO(P_T_COMBO, KC_B),
+    [TD_V]         = COMBO(D_T_COMBO, KC_V),
+    [NH_K]         = COMBO(N_H_COMBO, KC_K),
+    [NHI_KI]       = COMBO_ACTION(N_H_I_COMBO),
+    [LN_J]         = COMBO(L_N_COMBO, KC_J),
+    [RST_G]        = COMBO(R_S_T_COMBO, KC_G),
+    [FS_G]         = COMBO(F_S_COMBO, KC_G),
+    [UE_EU]        = COMBO_ACTION(U_E_COMBO),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -242,6 +237,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 if (mod_state & MOD_MASK_SHIFT || oneshot_mod_state & MOD_MASK_SHIFT) {
                     unregister_code(KC_LSHIFT);
                     unregister_code(KC_RSHIFT);
+                    // TODO: Replace with `del_oneshot_mods` once my core PR is merged
                     set_oneshot_mods(oneshot_mod_state & ~MOD_MASK_SHIFT);
                     send_string("QMK");
                     set_mods(mod_state);
@@ -517,58 +513,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     send_string("eu");
                 }
         }
-        break;
-
-        case ZX_GRAVE:
-            if (pressed) {
-                tap_code16(ALGR(KC_GRV));
-            }
-        break;
-
-        case DOTSLASH_GRAVE:
-            if (pressed) {
-                tap_code16(ALGR(KC_GRV));
-            }
-        break;
-
-        case AX_GRAVE:
-            if (pressed) {
-                tap_code16(ALGR(KC_GRV));
-            }
-        break;
-
-        case XC_ACUTE:
-            if (pressed) {
-                tap_code16(ALGR(KC_QUOT));
-            }
-        break;
-
-        case XCE_ACUTE:
-            if (pressed) {
-                tap_code16(ALGR(KC_QUOT));
-                register_code(KC_E);
-            } else {
-                unregister_code(KC_E);
-            }
-        break;
-
-        case COMMADOT_ACUTE:
-            if (pressed) {
-                tap_code16(ALGR(KC_QUOT));
-            }
-        break;
-
-        case IDOTSLASH_IGRAVE:
-            if (pressed) {
-                tap_code(KC_I);
-                tap_code16(ALGR(KC_GRV));
-            }
-        break;
-
-        case XDOT_CIRCUM:
-            if (pressed) {
-                tap_code16(ALGR(KC_6));
-            }
         break;
 
         case DELT_THIS:
