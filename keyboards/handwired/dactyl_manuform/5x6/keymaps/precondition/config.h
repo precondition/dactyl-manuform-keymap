@@ -1,11 +1,8 @@
 #pragma once
 
+// Hardware settings
 #define USE_SERIAL
-
 #define MASTER_LEFT
-// #define MASTER_RIGHT
-//#define EE_HANDS
-// Rows are doubled-up
 
 // Default tapping term is 200
 #define TAPPING_TERM 170
