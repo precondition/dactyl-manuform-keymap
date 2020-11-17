@@ -34,6 +34,7 @@ enum combo_events {
     HV_HAVE,
     QK_QMK,
     DELT_THIS,
+    KB_KEYBOARD,
 
     /* Non-alphanumeric combos */
     // Combos for which the output isn't one or more alphanumeric characters
@@ -77,6 +78,7 @@ const uint16_t PROGMEM BSPC_I_COMBO[]   = {KC_BSPC,  HOME_I,  COMBO_END};
 const uint16_t PROGMEM BSPC_I_S_COMBO[] = {KC_BSPC,  HOME_I,  HOME_S,  COMBO_END};
 const uint16_t PROGMEM BSPC_Q_COMBO[]   = {KC_BSPC,  KC_Q,    COMBO_END};
 const uint16_t PROGMEM BSPC_K_COMBO[]   = {KC_BSPC,  KC_K,    COMBO_END};
+const uint16_t PROGMEM K_B_COMBO[]      = {KC_K,     KC_B,    COMBO_END};
 const uint16_t PROGMEM BSPC_T_A_COMBO[] = {KC_BSPC,  HOME_T,  HOME_A,  COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[]    = {KC_DEL,   HOME_T,  COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[]      = {KC_J,     KC_U,    COMBO_END};
@@ -116,6 +118,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [JU_JUST]      = COMBO_ACTION(J_U_COMBO),
     [HV_HAVE]      = COMBO_ACTION(H_V_COMBO),
     [QK_QMK]       = COMBO_ACTION(Q_K_COMBO),
+    [KB_KEYBOARD]  = COMBO_ACTION(K_B_COMBO),
     [OS_SFT_CAPS]  = COMBO(OS_SFT_COMBO, KC_CAPS),
     [UY_PRN]       = COMBO_ACTION(U_Y_COMBO),
     [YCLN_PRN]     = COMBO_ACTION(Y_SCLN_COMBO),
@@ -458,6 +461,19 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("key");
+                }
+        }
+        break;
+
+        case KB_KEYBOARD:
+            if (pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    send_string("Keyboard");
+                    set_mods(mod_state);
+                }
+                else {
+                    send_string("keyboard");
                 }
         }
         break;
