@@ -40,10 +40,10 @@ enum layer_names {
 #define HOME_T LCTL_T(KC_T)
 
 // Right-hand home row mods
-#define HOME_O LGUI_T(KC_O)
+#define HOME_O RGUI_T(KC_O)
 #define HOME_I LALT_T(KC_I)
 #define HOME_E RSFT_T(KC_E)
-#define HOME_N LCTL_T(KC_N)
+#define HOME_N RCTL_T(KC_N)
 
 // One Shot Shifts
 #define OS_LSFT OSM(MOD_LSFT)
