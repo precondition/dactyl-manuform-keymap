@@ -11,6 +11,12 @@ Don't expect a fancy KLE visualisation of the keymap in this README or a graphic
 
 For much more details, read the comments in the source files.
 
+### OS Setup
+
+* OS: Xubuntu Linux
+* Regional keyboard layout: Modified English US intl. with AltGr dead keys
+    * Swapped the shift pairs of the semicolon key aka the right pinky home row key
+
 ### Required features
 New features take a very long time to get merged into `qmk:master` so, meanwhile, I merge pending pull requests into my own fork to use them. Below is the list of PRs that are required for this particular instance of my keymap to work properly — It varies from branch to branch.
 
