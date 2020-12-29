@@ -73,6 +73,10 @@ enum custom_keycodes {
     // French grave accented letters
     E_GRAVE,
     A_GRAVE,
+    // "Yank Inner CODE"
+    // Macro for
+    // $yi{
+    YICODE,
 };
 
 // Tap dance keys
