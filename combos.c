@@ -24,6 +24,7 @@ enum combo_events {
     // I use the word "key" much more frequently than the common folk
     // and if you're reading this, you probably do too
     BSPCK_KEY,
+    BSPCWA_WHAT,
 
     /* Other steno-lite combos */
     // Additional steno-lite combos for common words and n-grams
@@ -58,10 +59,10 @@ enum combo_events {
     NHI_KI,
 
     // This must be the last item in the enum.
-    // This is used to automatically update the COMBO_COUNT.
+    // This is used to automatically update the combo count.
     COMBO_LENGTH
 };
-int COMBO_LEN = COMBO_LENGTH;
+uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM BSPC_E_V_COMBO[] = {KC_BSPC,  HOME_E,  KC_V,    COMBO_END};
 const uint16_t PROGMEM BSPC_U_COMBO[]   = {KC_BSPC,  KC_U,    COMBO_END};
@@ -97,7 +98,7 @@ const uint16_t PROGMEM R_S_T_COMBO[]    = {HOME_R,   HOME_S,  HOME_T,  COMBO_END
 const uint16_t PROGMEM F_S_COMBO[]      = {KC_F,     HOME_S,  COMBO_END};
 const uint16_t PROGMEM U_E_COMBO[]      = {KC_U,     HOME_E,  COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [BSPCEV_EVERY] = COMBO_ACTION(BSPC_E_V_COMBO),
     [BSPCU_YOU]    = COMBO_ACTION(BSPC_U_COMBO),
     [BSPCA_AND]    = COMBO_ACTION(BSPC_A_COMBO),
