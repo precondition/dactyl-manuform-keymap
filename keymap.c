@@ -217,58 +217,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    case HOME_I:
-        // This piece of code nullifies the effect of Right Shift when
-        // tapping the HOME_I key. This helps rolling over HOME_E and HOME_I
-        // to obtain the intended "ei" instead of "I". Consequently, capital I can
-        // only be obtained by tapping HOME_I and holding HOME_S (which is the left shift mod tap).
-        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
-            if (mod_state & MOD_BIT(KC_RSHIFT)) {
-                unregister_code(KC_RSHIFT);
-                tap_code(KC_E);
-                tap_code(KC_I);
-                set_mods(mod_state);
-                return false;
-            }
-        }
-        // else process HOME_I as usual.
-        return true;
-
-
-    case HOME_N:
-         /*This piece of code nullifies the effect of Right Shift when*/
-         /*tapping the HOME_N key. This helps rolling over HOME_E and HOME_N */
-         /*to obtain the intended "en" instead of "N". Consequently, capital N can */
-         /*only be obtained by tapping HOME_N and holding HOME_S (which is the left shift mod tap).*/
-        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
-            if (mod_state & MOD_BIT(KC_RSHIFT)) {
-                unregister_code(KC_RSHIFT);
-                tap_code(KC_E);
-                tap_code(KC_N);
-                set_mods(mod_state);
-                return false;
-            }
-        }
-         /*else process HOME_N as usual.*/
-        return true;
-
-    case HOME_T:
-         /*This piece of code nullifies the effect of Left Shift when*/
-         /*tapping the HOME_T key. This helps rolling over HOME_S and HOME_T */
-         /*to obtain the intended "st" instead of "T". Consequently, capital T can */
-         /*only be obtained by tapping HOME_T and holding HOME_E (which is the right shift mod tap).*/
-        if (record->event.pressed && record->tap.count == 1 && !record->tap.interrupted) {
-            if (mod_state & MOD_BIT(KC_LSHIFT)) {
-                unregister_code(KC_LSHIFT);
-                tap_code(KC_S);
-                tap_code(KC_T);
-                set_mods(mod_state);
-                return false;
-            }
-        }
-         /*else process HOME_T as usual.*/
-        return true;
-
     case NAV_UND:
       if (record->tap.count > 0) {
         if (record->event.pressed) {
@@ -296,11 +244,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case SYM_ENT:
             // Very low tapping term to make sure I don't hit Enter accidentally.
             return TAPPING_TERM - 65;
-        // These next mod taps are used very frequently during typing.
-        // As such, the lower the tapping term, the faster the typing.
+        // The One Shot Shift thumb key is used more frequently.
+        // To avoid accidental shiftings of T or N or I 
+        // when rolling over the home row, the tapping term 
+        // is increased. 
         case HOME_S:
         case HOME_E:
-            return TAPPING_TERM - 26;
+            return TAPPING_TERM + 16;
         default:
             return TAPPING_TERM;
     }
