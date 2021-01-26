@@ -52,7 +52,6 @@ enum combo_events {
     TD_V,
     NH_K,
     LN_J,
-    RST_G,
     IET_M,
     FS_G,
     UE_EU,
@@ -94,7 +93,6 @@ const uint16_t PROGMEM D_T_COMBO[]      = {KC_D,     HOME_T,  COMBO_END};
 const uint16_t PROGMEM N_H_COMBO[]      = {HOME_N,   KC_H,    COMBO_END};
 const uint16_t PROGMEM N_H_I_COMBO[]    = {HOME_N,   KC_H,    HOME_I,  COMBO_END};
 const uint16_t PROGMEM L_N_COMBO[]      = {KC_L,     HOME_N,  COMBO_END};
-const uint16_t PROGMEM R_S_T_COMBO[]    = {HOME_R,   HOME_S,  HOME_T,  COMBO_END};
 const uint16_t PROGMEM F_S_COMBO[]      = {KC_F,     HOME_S,  COMBO_END};
 const uint16_t PROGMEM U_E_COMBO[]      = {KC_U,     HOME_E,  COMBO_END};
 
