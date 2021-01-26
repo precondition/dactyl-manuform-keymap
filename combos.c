@@ -129,10 +129,26 @@ combo_t key_combos[] = {
     [NH_K]         = COMBO(N_H_COMBO, KC_K),
     [NHI_KI]       = COMBO_ACTION(N_H_I_COMBO),
     [LN_J]         = COMBO(L_N_COMBO, KC_J),
-    [RST_G]        = COMBO(R_S_T_COMBO, KC_G),
     [FS_G]         = COMBO(F_S_COMBO, KC_G),
     [UE_EU]        = COMBO_ACTION(U_E_COMBO),
 };
+
+// 5074 bytes free without using steno_combo
+void steno_combo(const char *lowercase, const char *uppercase, const char *ctrlcase, bool pressed, uint8_t mod_state) {
+    if (pressed) {
+        if (mod_state & MOD_MASK_SHIFT) {
+            unregister_mods(MOD_MASK_SHIFT);
+            send_string(uppercase);
+            set_mods(mod_state);
+        } else if (ctrlcase && mod_state & MOD_MASK_CTRL) {
+            unregister_mods(MOD_MASK_CTRL);
+            send_string(ctrlcase);
+            set_mods(mod_state);
+        } else {
+            send_string(lowercase);
+        }
+    }
+}
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     // Process mod-taps before the combo is fired,
@@ -203,16 +219,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         break;
 
         case JU_JUST:
-            if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Just");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("just");
-                }
-        }
+        steno_combo("just", "Just", NULL, pressed, mod_state);
         break;
 
         case HV_HAVE:
