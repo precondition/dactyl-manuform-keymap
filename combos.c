@@ -24,7 +24,9 @@ enum combo_events {
     // I use the word "key" much more frequently than the common folk
     // and if you're reading this, you probably do too
     BSPCK_KEY,
-    BSPCWA_WHAT,
+    BSPCTS_THIS,
+    BSPCDN_DONT,
+    BSPCIT_IN_THE,
 
     /* Other steno-lite combos */
     // Additional steno-lite combos for common words and n-grams
@@ -36,6 +38,7 @@ enum combo_events {
     QK_QMK,
     DELT_THIS,
     KB_KEYBOARD,
+    WA_WHAT,
 
     /* Non-alphanumeric combos */
     // Combos for which the output isn't one or more alphanumeric characters
@@ -78,12 +81,16 @@ const uint16_t PROGMEM BSPC_I_COMBO[]   = {KC_BSPC,  HOME_I,  COMBO_END};
 const uint16_t PROGMEM BSPC_I_S_COMBO[] = {KC_BSPC,  HOME_I,  HOME_S,  COMBO_END};
 const uint16_t PROGMEM BSPC_Q_COMBO[]   = {KC_BSPC,  KC_Q,    COMBO_END};
 const uint16_t PROGMEM BSPC_K_COMBO[]   = {KC_BSPC,  KC_K,    COMBO_END};
+const uint16_t PROGMEM BSPC_T_S_COMBO[] = {KC_BSPC,  HOME_T,  HOME_S,  COMBO_END};
 const uint16_t PROGMEM K_B_COMBO[]      = {KC_K,     KC_B,    COMBO_END};
 const uint16_t PROGMEM BSPC_T_A_COMBO[] = {KC_BSPC,  HOME_T,  HOME_A,  COMBO_END};
+const uint16_t PROGMEM BSPC_D_N_COMBO[] = {KC_BSPC,  KC_D,    HOME_N,  COMBO_END};
+const uint16_t PROGMEM BSPC_I_T_COMBO[] = {KC_BSPC,  HOME_I,  HOME_T,  COMBO_END};
 const uint16_t PROGMEM DEL_T_COMBO[]    = {KC_DEL,   HOME_T,  COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[]      = {KC_J,     KC_U,    COMBO_END};
 const uint16_t PROGMEM H_V_COMBO[]      = {KC_H,     KC_V,    COMBO_END};
 const uint16_t PROGMEM Q_K_COMBO[]      = {KC_Q,     KC_K,    COMBO_END};
+const uint16_t PROGMEM W_A_COMBO[]      = {KC_W,     HOME_A,  COMBO_END};
 const uint16_t PROGMEM U_Y_COMBO[]      = {KC_U,     KC_Y,    COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[]   = {KC_Y,     KC_SCLN, COMBO_END};
 const uint16_t PROGMEM U_Y_SCLN_COMBO[] = {KC_U,     KC_Y,    KC_SCLN, COMBO_END};
@@ -113,11 +120,15 @@ combo_t key_combos[] = {
     [BSPCTA_THAT]  = COMBO_ACTION(BSPC_T_A_COMBO),
     [BSPCQ_QUE]    = COMBO_ACTION(BSPC_Q_COMBO),
     [BSPCK_KEY]    = COMBO_ACTION(BSPC_K_COMBO),
+    [BSPCTS_THIS]  = COMBO_ACTION(BSPC_T_S_COMBO),
+    [BSPCDN_DONT]  = COMBO_ACTION(BSPC_D_N_COMBO),
+    [BSPCIT_IN_THE]= COMBO_ACTION(BSPC_I_T_COMBO),
     [DELT_THIS]    = COMBO_ACTION(DEL_T_COMBO),
     [JU_JUST]      = COMBO_ACTION(J_U_COMBO),
     [HV_HAVE]      = COMBO_ACTION(H_V_COMBO),
     [QK_QMK]       = COMBO_ACTION(Q_K_COMBO),
     [KB_KEYBOARD]  = COMBO_ACTION(K_B_COMBO),
+    [WA_WHAT]      = COMBO_ACTION(W_A_COMBO),
     [OS_SFT_CAPS]  = COMBO(OS_SFT_COMBO, KC_CAPS),
     [UY_PRN]       = COMBO_ACTION(U_Y_COMBO),
     [YCLN_PRN]     = COMBO_ACTION(Y_SCLN_COMBO),
@@ -523,5 +534,20 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         }
         break;
 
+        case WA_WHAT:
+            steno_combo("what", "What", NULL, pressed, mod_state);
+        break;
+
+        case BSPCTS_THIS:
+            steno_combo("this", "This", NULL, pressed, mod_state);
+        break;
+
+        case BSPCDN_DONT:
+            steno_combo("don't", "Don't", NULL, pressed, mod_state);
+        break;
+
+        case BSPCIT_IN_THE:
+            steno_combo("in the", "In the", NULL, pressed, mod_state);
+        break;
     }
 };
