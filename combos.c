@@ -248,8 +248,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT || oneshot_mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-                    // TODO: Replace with `del_oneshot_mods` once my core PR is merged
-                    set_oneshot_mods(oneshot_mod_state & ~MOD_MASK_SHIFT);
+                    del_oneshot_mods(MOD_MASK_SHIFT);
                     send_string("QMK");
                     set_mods(mod_state);
                 }
@@ -357,12 +356,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
         case BSPCT_THE:
             if (pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    del_mods(MOD_MASK_CTRL);
-                    send_string("this");
-                    set_mods(mod_state);
-                }
-                else if (mod_state & MOD_MASK_SHIFT) {
+                if (mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
                     send_string("The");
                     set_mods(mod_state);
