@@ -1,12 +1,15 @@
 #pragma once
 
-// Hardware settings
+// Hardware settings //
 #define USE_SERIAL
 #define MASTER_LEFT
 
+
+// Home row mods settings //
+
 // Default tapping term is 200
 #define TAPPING_TERM 170
-#define TAPPING_TERM_PER_KEY
+#define TAPPING_TERM_PER_KEY // See bottom of keymap.c
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -14,20 +17,25 @@
 // This prevents accidental repeats of the tap-hold keys when typing quickly.
 #define TAPPING_FORCE_HOLD
 
-// The setting below defines how many times you need to tap a TT() to toggle the layer.
-#define TAPPING_TOGGLE 3
-
 // This prevents short hold periods to be interpreted as individual taps when typing quickly.
 #define PERMISSIVE_HOLD
 
+
+// Other settings //
 #define COMBO_TERM 70
 
-#define UNICODE_SELECTED_MODES UC_LNX
+// The setting below defines how many times you need to tap a TT() to toggle the layer.
+#define TAPPING_TOGGLE 3
 
-//Shamelessly stolen mouse key settings from @pierrechevalier83:
+// Reduces QMK's internal layer state variable from 32bits to 8bits.
+// This puts a cap at max 8 layers but this option saves a TON of memory.
+#define LAYER_STATE_8BIT
+
+
+// Shamelessly stolen mouse key settings from @pierrechevalier83 //
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
-// Assume the screen refresh rate is 60 Htz or higher
+// Assume the screen refresh rate is 60 Hz or higher
 // The default is 50. This makes the mouse ~3 times faster and more accurate
 // #undef to override default settings
 #undef MOUSEKEY_INTERVAL
