@@ -129,7 +129,7 @@ combo_t key_combos[] = {
     [QK_QMK]       = COMBO_ACTION(Q_K_COMBO),
     [KB_KEYBOARD]  = COMBO_ACTION(K_B_COMBO),
     [WA_WHAT]      = COMBO_ACTION(W_A_COMBO),
-    [OS_SFT_CAPS]  = COMBO(OS_SFT_COMBO, KC_CAPS),
+    [OS_SFT_CAPS]  = COMBO(OS_SFT_COMBO, CAPS_WORD),
     [UY_PRN]       = COMBO_ACTION(U_Y_COMBO),
     [YCLN_PRN]     = COMBO_ACTION(Y_SCLN_COMBO),
     [UYCLN_INDEX]  = COMBO_ACTION(U_Y_SCLN_COMBO),
@@ -169,6 +169,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
         case UY_PRN:
             if (pressed) {
+                caps_word_disable();
                 if (mod_state & MOD_MASK_SHIFT) {
                     // First canceling both shifts so that shift isn't applied
                     // to the KC_LBRC keycode since that would result in

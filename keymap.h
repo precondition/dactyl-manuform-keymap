@@ -7,6 +7,10 @@
 uint8_t mod_state;
 uint8_t oneshot_mod_state;
 
+bool caps_word_on;
+void caps_word_enable(void);
+void caps_word_disable(void);
+
 enum layer_names {
     _COLEMAK_DH,
     _SYM,
@@ -77,6 +81,7 @@ enum custom_keycodes {
     // Macro for
     // $yi{
     YICODE,
+    CAPS_WORD,
 };
 
 // Tap dance keys

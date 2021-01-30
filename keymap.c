@@ -89,10 +89,85 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+
+// CAPS_WORD: A "smart" Caps Lock key that only capitalizes the next identifier you type
+// and then toggles off Caps Lock automatically when you're done. 
+void caps_word_enable(void) {
+    caps_word_on = true;
+    if (!(host_keyboard_led_state().caps_lock)) {
+        tap_code(KC_CAPS);
+    }
+}
+
+void caps_word_disable(void) {
+    caps_word_on = false;
+    if (host_keyboard_led_state().caps_lock) {
+        tap_code(KC_CAPS);
+    }
+}
+
+void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
+    // Update caps word state
+    if (caps_word_on) {
+        switch (keycode) {
+            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+                // Earlier return if this has not been considered tapped yet
+                if (record->tap.count == 0) { return; }
+                // Get the base tapping keycode of a mod- or layer-tap key
+                keycode = keycode & 0xFF;
+                break;
+            default:
+                break;
+        }
+
+        switch (keycode) {
+            // Keycodes to shift
+            case KC_A ... KC_Z:
+                if (record->event.pressed) {
+                    caps_word_enable();
+                }
+            // Keycodes that enable caps word but shouldn't get shifted
+            case KC_MINS:
+            case KC_BSPC:
+            case KC_UNDS:
+            case KC_F24:
+            case CAPS_WORD:
+                // If chording mods, disable caps word
+                if (record->event.pressed && (get_mods() != MOD_LSFT) && (get_mods() != 0)) {
+                    caps_word_disable();
+                }
+                break;
+            default:
+                // Any other keycode should automatically disable caps
+                if (record->event.pressed) {
+                    caps_word_disable();
+                }
+                break;
+        }
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    process_caps_word(keycode, record);
+
     mod_state = get_mods();
     oneshot_mod_state = get_oneshot_mods();
     switch (keycode) {
+
+
+    case CAPS_WORD:
+        // Toggle `caps_word_on`
+        if (record->event.pressed) {
+            if (caps_word_on) {
+                caps_word_disable();
+                return false;
+            } else {
+                caps_word_enable();
+                return false;
+            }
+        }
+        break;
 
     case KC_BSPC:
         {
@@ -250,7 +325,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         // is increased. 
         case HOME_S:
         case HOME_E:
-            return TAPPING_TERM + 16;
+            return TAPPING_TERM + 10;
         default:
             return TAPPING_TERM;
     }
