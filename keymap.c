@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            REDO, UNDO  ,KC_WH_U,KC_WH_D, KC_F4 , KC_F5 ,    DED_UML,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
         A_GRAVE, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J   , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M   , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-        MS_CAPS, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,E_ACUTE,
+        MS_CAPS, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,ARROW_R,
                       KC_BSLASH,C_CDILA,                                    KC_RALT, KC_GRV,
                                         NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
                                         COMPOSE,OS_LSFT,    OS_RSFT, KC_UP ,
@@ -216,7 +216,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case ARROW_R:
       if (record->event.pressed) {
-        SEND_STRING("->");
+          if (mod_state & MOD_MASK_SHIFT || oneshot_mod_state & MOD_MASK_SHIFT) {
+            del_mods(MOD_MASK_SHIFT);
+            del_oneshot_mods(MOD_MASK_SHIFT);
+            send_string("=>");
+            set_mods(mod_state);
+          } else {
+            SEND_STRING("->");
+          }
       }
       break;
 
