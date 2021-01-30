@@ -27,8 +27,7 @@
 // The setting below defines how many times you need to tap a TT() to toggle the layer.
 #define TAPPING_TOGGLE 3
 
-// Reduces QMK's internal layer state variable from 32bits to 8bits.
-// This puts a cap at max 8 layers but this option saves a TON of memory.
+// Limits the max. amount of layers to 8 to save firmware memory.
 #define LAYER_STATE_8BIT
 
 

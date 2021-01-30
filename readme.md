@@ -11,6 +11,17 @@ Don't expect a fancy KLE visualisation of the keymap in this README or a graphic
 
 For much more details, read the comments in the source files.
 
+### Keymap Tricks
+This keymap contains many nifty QMK tricks that can inspire you for your own keymap. Here's a non-exhaustive list.
+
+1. Home row mods: All the modifiers on the home row.
+2. Shift+Backspace: Delete.
+3. `NAV_UND`: Using a non-basic keycode (`S(KC_MINS)`) in a layer-tap.
+4. Modifier-aware combos: Combos whose output changes based on the active modifier.
+5. `TD_DOT`: Double tap the dot key to produce <kbd>.</kbd><kbd>space</kbd><kbd>One-Shot Shift</kbd> to quickly flow from one sentence to another.
+6. One-Shot Swap Hand: For one-handed typing.
+7. `CAPS_WORD`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code.
+
 ### OS Setup
 
 * OS: Xubuntu Linux
