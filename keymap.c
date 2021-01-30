@@ -131,7 +131,7 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_MINS:
             case KC_BSPC:
             case KC_UNDS:
-            case KC_F24:
+            case KC_F24: /* The dummy keycode used in NAV_UND */
             case CAPS_WORD:
                 // If chording mods, disable caps word
                 if (record->event.pressed && (get_mods() != MOD_LSFT) && (get_mods() != 0)) {
