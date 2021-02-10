@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_BSLASH,C_CDILA,                                    KC_RALT, KC_GRV,
                                         NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
                                         COMPOSE,OS_LSFT,    OS_RSFT, KC_UP ,
-                                          KC_NO,MS_CAPS,    SH_OS  ,KC_DOWN
+                                        KC_BTN3,MS_CAPS,    SH_OS  ,KC_DOWN
   ),
 
   [_SYM] = LAYOUT_5x6(
@@ -199,8 +199,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      case A_GRAVE:
          if (record->event.pressed) {
              del_mods(MOD_MASK_SHIFT);
+             del_oneshot_mods(MOD_MASK_SHIFT);
              tap_code16(ALGR(KC_GRV));
              set_mods(mod_state);
+             set_oneshot_mods(oneshot_mod_state);
              tap_code(KC_A);
          }
          return false;
@@ -208,8 +210,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      case E_GRAVE:
          if (record->event.pressed) {
              del_mods(MOD_MASK_SHIFT);
+             del_oneshot_mods(MOD_MASK_SHIFT);
              tap_code16(ALGR(KC_GRV));
              set_mods(mod_state);
+             set_oneshot_mods(oneshot_mod_state);
              tap_code(KC_E);
          }
          return false;
