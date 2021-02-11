@@ -2,6 +2,9 @@
  * for the Dactyl Manuform 5x6 Keyboard */
 
 #include QMK_KEYBOARD_H
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
 
 // All custom keycodes and aliases can be found in keymap.h
 #include "keymap.h"
@@ -91,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // CAPS_WORD: A "smart" Caps Lock key that only capitalizes the next identifier you type
-// and then toggles off Caps Lock automatically when you're done. 
+// and then toggles off Caps Lock automatically when you're done.
 void caps_word_enable(void) {
     caps_word_on = true;
     if (!(host_keyboard_led_state().caps_lock)) {
@@ -149,6 +152,9 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef CONSOLE_ENABLE
+    uprintf("kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time);
+#endif
     process_caps_word(keycode, record);
 
     mod_state = get_mods();
@@ -331,9 +337,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             // Very low tapping term to make sure I don't hit Enter accidentally.
             return TAPPING_TERM - 65;
         // The One Shot Shift thumb key is used more frequently.
-        // To avoid accidental shiftings of T or N or I 
-        // when rolling over the home row, the tapping term 
-        // is increased. 
+        // To avoid accidental shiftings of T or N or I
+        // when rolling over the home row, the tapping term
+        // is increased.
         case HOME_S:
         case HOME_E:
             return TAPPING_TERM + 10;
