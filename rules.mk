@@ -1,4 +1,6 @@
-CONSOLE_ENABLE = yes
+# KC_G doesn't get unregistered even 
+# when it's been released ifdef CONSOLE_ENABLE + LTO_ENABLE
+CONSOLE_ENABLE = yes 
 COMMAND_ENABLE = no
 UNICODEMAP_ENABLE = no
 KEY_LOCK_ENABLE = no
