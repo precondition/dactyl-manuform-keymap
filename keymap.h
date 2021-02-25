@@ -36,6 +36,7 @@ enum layer_names {
 #define UNDO LCTL(KC_Z)
 #define REDO LCTL(KC_Y)
 #define COMPOSE KC_APP
+#define TG_MIC KC_F20 // Default binding for XF86AudioMicMute
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
