@@ -15,7 +15,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // This prevents accidental repeats of the tap-hold keys when typing quickly.
-#define TAPPING_FORCE_HOLD
+#define TAPPING_FORCE_HOLD_PER_KEY
 
 // This prevents short hold periods to be interpreted as individual taps when typing quickly.
 #define PERMISSIVE_HOLD
