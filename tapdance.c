@@ -63,7 +63,7 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
             if (!(get_mods() & MOD_MASK_SHIFT)) {
                 tap_code(KC_SPC);
                 /* Internal code of OSM(MOD_LSFT) */
-                set_oneshot_mods(MOD_BIT(KC_LSHIFT) | get_oneshot_mods());
+                add_oneshot_mods(MOD_BIT(KC_LSHIFT));
 
             } else {
                 // send ">" (KC_DOT + shift → ">")

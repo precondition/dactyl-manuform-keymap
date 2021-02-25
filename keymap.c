@@ -348,13 +348,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case SYM_ENT:
             // Very low tapping term to make sure I don't hit Enter accidentally.
             return TAPPING_TERM - 65;
-        // The One Shot Shift thumb key is used more frequently.
-        // To avoid accidental shiftings of T or N or I
-        // when rolling over the home row, the tapping term
-        // is increased.
-        case HOME_S:
-        case HOME_E:
-            return TAPPING_TERM + 10;
         default:
             return TAPPING_TERM;
     }
