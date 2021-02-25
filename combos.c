@@ -170,12 +170,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     action_tapping_process((keyrecord_t){});
     mod_state = get_mods();
 #ifdef CONSOLE_ENABLE
-    combo_t *combo = &key_combos[combo_index];
-    uint8_t idx = 0;
-    uint16_t combo_keycode;
-    while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
-        uprintf("kcombo: 0x%04X, pressed: %b\n", combo_keycode, pressed);
-        idx++;
+    if (pressed) {
+        combo_t *combo = &key_combos[combo_index];
+        uint8_t idx = 0;
+        uint16_t combo_keycode;
+        while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+            /*uprintf("kcombo: 0x%04X, pressed: %b\n", combo_keycode, pressed);*/
+            uprintf("0x%04X,NA,NA\n", combo_keycode);
+            idx++;
+        }
     }
 #endif
     switch(combo_index) {

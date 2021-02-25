@@ -153,7 +153,9 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
-    uprintf("kc: 0x%04X, col: %u, row: %u, pressed: %b, time: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time);
+    if (record->event.pressed) {
+        uprintf("0x%04X,%u,%u\n", keycode, record->event.key.row, record->event.key.col);
+    }
 #endif
     process_caps_word(keycode, record);
 
