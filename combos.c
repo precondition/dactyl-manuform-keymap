@@ -176,7 +176,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         uint16_t combo_keycode;
         while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
             /*uprintf("kcombo: 0x%04X, pressed: %b\n", combo_keycode, pressed);*/
-            uprintf("0x%04X,NA,NA\n", combo_keycode);
+            uprintf("0x%04X,NA,NA,%u\n", combo_keycode, get_highest_layer(layer_state));
             idx++;
         }
     }

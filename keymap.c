@@ -155,7 +155,7 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     if (record->event.pressed) {
-        uprintf("0x%04X,%u,%u\n", keycode, record->event.key.row, record->event.key.col);
+        uprintf("0x%04X,%u,%u,%u\n", keycode, record->event.key.row, record->event.key.col, get_highest_layer(layer_state));
     }
 #endif
     process_caps_word(keycode, record);
