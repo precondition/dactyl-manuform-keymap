@@ -17,7 +17,9 @@ enum layer_names {
     _NAV,
     _GNAV,
     _MOUSE,
+#ifdef STENO_ENABLE
     _PLOVER,
+#endif
     _ADJUST,
 };
 
@@ -29,7 +31,9 @@ enum layer_names {
 #define MS_CAPS LT(_MOUSE, KC_CAPS)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
+#ifdef STENO_ENABLE
 #define PLOVER TG(_PLOVER)
+#endif
 #define NAV_UND LT(_NAV, KC_F24)
 
 // Miscellaneous keyboard shortcuts in direct access

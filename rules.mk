@@ -1,13 +1,14 @@
-# KC_G doesn't get unregistered even 
+# KC_G doesn't get unregistered even
 # when it's been released ifdef CONSOLE_ENABLE + LTO_ENABLE
-CONSOLE_ENABLE = no 
+CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 UNICODEMAP_ENABLE = no
 KEY_LOCK_ENABLE = no
-MOUSEKEY_ENABLE = yes
+MOUSEKEY_ENABLE = no
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 NKRO_ENABLE = yes
+STENO_ENABLE = yes
 SWAP_HANDS_ENABLE = yes
 LTO_ENABLE = yes
 

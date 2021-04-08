@@ -6,6 +6,10 @@
 #include "print.h"
 #endif
 
+#ifdef STENO_ENABLE
+#include "keymap_steno.h"
+#endif
+
 // All custom keycodes and aliases can be found in keymap.h
 #include "keymap.h"
 
@@ -69,16 +73,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______,_______,    _______,_______
     ),
 
+#ifdef STENO_ENABLE
     [_PLOVER] = LAYOUT_5x6(
-        KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,    KC_6   ,KC_7  , KC_8  , KC_9  , KC_0  ,KC_BSPC,
-        KC_TAB , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,    KC_Y   ,KC_U  , KC_I  , KC_O  , KC_P  ,KC_LBRC,
-        KC_LSFT, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,    KC_H   ,KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_QUOT,
-        KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,    KC_N   ,KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
-                         KC_LBRC,KC_RBRC,                                  KC_PLUS, KC_EQL,
-                                         KC_C,   KC_V,      KC_N   , KC_M,
-                                         KC_TAB,  KC_B ,    KC_BSPC, KC_DEL,
-                                         PLOVER, KC_SPC,    KC_LGUI, KC_LALT
+        _______, STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,     STN_N6, STN_N7,  STN_N8,  STN_N9,  STN_NA, KC_BSPC,
+        _______, STN_S1, STN_TL, STN_PL, STN_HL,STN_ST1,    STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+        _______, STN_S2, STN_KL, STN_WL, STN_RL,STN_ST2,    STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+        _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
+                        _______,_______,                                    _______,_______,
+                                          STN_A,  STN_O,      STN_E,  STN_U,
+                                        _______,_______,    _______,_______,
+                                        PLOVER ,_______,    _______,_______
     ),
+#endif
 
         /*
         MIDI4TEXT
@@ -365,3 +371,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 };
+
+#ifdef STENO_ENABLE
+void matrix_init_user() {
+  steno_set_mode(STENO_MODE_GEMINI);
+}
+#endif
