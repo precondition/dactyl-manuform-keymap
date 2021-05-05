@@ -26,7 +26,7 @@ enum layer_names {
 // Layer keys
 #define NAV_TAB LT(_NAV, KC_TAB)
 #define GNAV MO(_GNAV)
-#define SYM MO(_SYM)
+#define SYM OSL(_SYM)
 #define MOUSE MO(_MOUSE)
 #define MS_CAPS LT(_MOUSE, KC_CAPS)
 #define ADJUST MO(_ADJUST)
