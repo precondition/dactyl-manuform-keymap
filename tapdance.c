@@ -91,8 +91,12 @@ void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     }
 };
 
+void sentence_end_finished (qk_tap_dance_state_t *state, void *user_data) {
+    last_keycode = KC_DOT;
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
-    [DOT_TD] = ACTION_TAP_DANCE_FN_ADVANCED(sentence_end, NULL, NULL),
+    [DOT_TD] = ACTION_TAP_DANCE_FN_ADVANCED(sentence_end, sentence_end_finished, NULL),
 };
 

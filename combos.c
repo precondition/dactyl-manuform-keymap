@@ -49,6 +49,7 @@ enum combo_events {
     YCLN_PRN,
     UYCLN_INDEX,
     OS_SFT_CAPS,
+    BSPCREP_Z,
 
     /* Vertical combos */
     // An attempt to radically remove all lateral movements
@@ -98,6 +99,7 @@ const uint16_t PROGMEM U_Y_COMBO[]      = {KC_U,     KC_Y,    COMBO_END};
 const uint16_t PROGMEM Y_SCLN_COMBO[]   = {KC_Y,     KC_SCLN, COMBO_END};
 const uint16_t PROGMEM U_Y_SCLN_COMBO[] = {KC_U,     KC_Y,    KC_SCLN, COMBO_END};
 const uint16_t PROGMEM OS_SFT_COMBO[]   = {OS_LSFT,  OS_RSFT, COMBO_END};
+const uint16_t PROGMEM BSPC_REP_COMBO[] = {KC_BSPC,  REPEAT,  COMBO_END};
 const uint16_t PROGMEM P_T_COMBO[]      = {KC_P,     HOME_T,  COMBO_END};
 const uint16_t PROGMEM D_T_COMBO[]      = {KC_D,     HOME_T,  COMBO_END};
 const uint16_t PROGMEM N_H_COMBO[]      = {HOME_N,   KC_H,    COMBO_END};
@@ -133,6 +135,7 @@ combo_t key_combos[] = {
     [KB_KEYBOARD]  = COMBO_ACTION(K_B_COMBO),
     [WA_WHAT]      = COMBO_ACTION(W_A_COMBO),
     [OS_SFT_CAPS]  = COMBO(OS_SFT_COMBO, CAPS_WORD),
+    [BSPCREP_Z]    = COMBO(BSPC_REP_COMBO, KC_Z),
     [UY_PRN]       = COMBO_ACTION(U_Y_COMBO),
     [YCLN_PRN]     = COMBO_ACTION(Y_SCLN_COMBO),
     [UYCLN_INDEX]  = COMBO_ACTION(U_Y_SCLN_COMBO),

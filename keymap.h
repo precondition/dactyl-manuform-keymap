@@ -6,6 +6,7 @@
 // representation of active modifiers.
 uint8_t mod_state;
 uint8_t oneshot_mod_state;
+uint16_t last_keycode;
 
 bool caps_word_on;
 void caps_word_enable(void);
@@ -87,6 +88,7 @@ enum custom_keycodes {
     // $yi{
     YICODE,
     CAPS_WORD,
+    REPEAT,
 };
 
 // Tap dance keys

@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            REDO, UNDO  , KC_UP ,KC_DOWN, KC_F4 , KC_F5 ,    DED_UML,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
         A_GRAVE, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J   , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M   , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-         TG_MIC, KC_Z  , KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,ARROW_R,
+         TG_MIC, REPEAT, KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,ARROW_R,
                       KC_BSLASH,C_CDILA,                                    KC_RALT, KC_GRV,
                                         NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
                                         COMPOSE,OS_LSFT,    OS_RSFT, KC_UP ,
@@ -170,6 +170,39 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
     }
 }
 
+// Used to extract the basic tapping keycode from a dual-role key.
+// Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
+#define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
+
+uint16_t last_keycode = KC_NO;
+uint8_t last_modifier = 0;
+void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
+    if (keycode != REPEAT) {
+        last_modifier = oneshot_mod_state > mod_state ? oneshot_mod_state : mod_state;
+        switch (keycode) {
+            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+                if (record->event.pressed) {
+                    last_keycode = GET_TAP_KC(keycode);
+                }
+                break;
+            default:
+                if (record->event.pressed) {
+                    last_keycode = keycode;
+                }
+                break;
+        }
+    } else { // keycode == REPEAT
+        if (record->event.pressed) {
+            register_mods(last_modifier);
+            register_code16(last_keycode);
+        } else {
+            unregister_code16(last_keycode);
+            unregister_mods(last_modifier);
+        }
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     if (record->event.pressed) {
@@ -177,6 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
     process_caps_word(keycode, record);
+    process_repeat_key(keycode, record);
 
     mod_state = get_mods();
     oneshot_mod_state = get_oneshot_mods();
