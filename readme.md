@@ -7,7 +7,9 @@ Notably, [home row mods](https://precondition.github.io/home-row-mods) are used,
 
 Aside from the usual combos that expand to a single special character or command like <kbd>]</kbd> or <kbd>Caps Lock</kbd>, you can find, what I've dubbed, “steno-lite” combos in `combos.c`. Taking inspiration from machine stenography, common n-grams, word parts and words that are too short to abbreviate (in a text expansion program such as AutoKey) are assigned a key chord/combo, most frequently involving the <kbd>Backspace</kbd> key. Using <kbd>Backspace</kbd>+<kbd>Letter(s)</kbd> has the benefit of greatly reducing potential combo misfires as you're unlikely to type a letter and simultaneously delete it.
 
-Don't expect a fancy KLE visualisation of the keymap in this README or a graphic of the layout of the keymap in the comments of `keymap.c`. If you look at the code of the people who do that, you'll notice that the visualisation is nearly always outdated and misleads the reader, so why bother? Besides, `LAYOUT_5x6` is pretty enough as is.
+Keymap visualisation diagrams are automatically generated with the help of [keymapviz] every time I compile.
+
+[keymapviz]: https://github.com/yskoht/keymapviz
 
 For much more details, read the comments in the source files.
 
@@ -31,4 +33,5 @@ This keymap contains many nifty QMK tricks that can inspire you for your own key
 ### Required features
 New features take a very long time to get merged into `qmk:master` so, meanwhile, I merge pending pull requests into my own fork to use them. Below is the list of PRs that are required for this particular instance of my keymap to work properly — It varies from branch to branch.
 
-1. [Combo improvements](https://github.com/qmk/qmk_firmware/pull/8591) by @sevanteri: Used in `combos.c` for all the combos involving non-basic keycodes
+1. [Combo improvements](https://github.com/qmk/qmk_firmware/pull/8591) by @sevanteri: Used in `combos.c` for all the combos involving non-basic keycodes.
+2. [keymapviz] by @yskoht (not a QMK PR): Used in `rules.mk` to generate the fancy keymap visualisations of each layer. Remove the `.PHONY` code block from `rules.mk` to disable it.

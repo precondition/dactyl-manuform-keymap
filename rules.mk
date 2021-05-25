@@ -1,3 +1,8 @@
+# Automatically update the keymap visualization when compiling
+.PHONY: %
+%:
+	keymapviz -k dactyl_manuform5x6 -r keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymap.c -c keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymapviz.toml > /dev/null
+
 # KC_G doesn't get unregistered even
 # when it's been released ifdef CONSOLE_ENABLE + LTO_ENABLE
 CONSOLE_ENABLE = yes
