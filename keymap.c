@@ -252,6 +252,10 @@ void caps_word_disable(void) {
     }
 }
 
+// Used to extract the basic tapping keycode from a dual-role key.
+// Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
+#define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
+
 void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
     // Update caps word state
     if (caps_word_on) {
@@ -261,7 +265,7 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
                 // Earlier return if this has not been considered tapped yet
                 if (record->tap.count == 0) { return; }
                 // Get the base tapping keycode of a mod- or layer-tap key
-                keycode = keycode & 0xFF;
+                keycode = GET_TAP_KC(keycode);
                 break;
             default:
                 break;
@@ -295,10 +299,6 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
     }
 }
 
-// Used to extract the basic tapping keycode from a dual-role key.
-// Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
-#define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
-
 uint16_t last_keycode = KC_NO;
 uint8_t last_modifier = 0;
 void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
@@ -330,9 +330,15 @@ void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
-    if (record->event.pressed) {
-        uprintf("0x%04X,%u,%u,%u\n", keycode, record->event.key.row, record->event.key.col, get_highest_layer(layer_state));
-    }
+    uprintf("0x%04X, %u, %u, %u, %u, 0x%02X, 0x%02X\n",
+         keycode,
+         record->event.key.row,
+         record->event.key.col,
+         get_highest_layer(layer_state),
+         record->event.pressed,
+         get_mods(),
+         get_oneshot_mods()
+         );
 #endif
     process_caps_word(keycode, record);
     process_repeat_key(keycode, record);

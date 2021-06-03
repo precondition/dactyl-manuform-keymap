@@ -181,8 +181,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         uint8_t idx = 0;
         uint16_t combo_keycode;
         while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
-            /*uprintf("kcombo: 0x%04X, pressed: %b\n", combo_keycode, pressed);*/
-            uprintf("0x%04X,NA,NA,%u\n", combo_keycode, get_highest_layer(layer_state));
+            uprintf("0x%04X,NA,NA, %u, %u, 0x%02X, 0x%02X\n",
+                combo_keycode,
+                /* <missing row information> */
+                /* <missing column information> */
+                get_highest_layer(layer_state),
+                pressed,
+                get_mods(),
+                get_oneshot_mods()
+            );
             idx++;
         }
     }
