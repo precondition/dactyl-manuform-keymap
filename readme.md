@@ -34,4 +34,5 @@ This keymap contains many nifty QMK tricks that can inspire you for your own key
 New features take a very long time to get merged into `qmk:master` so, meanwhile, I merge pending pull requests into my own fork to use them. Below is the list of PRs that are required for this particular instance of my keymap to work properly — It varies from branch to branch.
 
 1. [Combo improvements](https://github.com/qmk/qmk_firmware/pull/8591) by @sevanteri: Used in `combos.c` for all the combos involving non-basic keycodes.
-2. [keymapviz] by @yskoht (not a QMK PR): Used in `rules.mk` to generate the fancy keymap visualisations of each layer. Remove the `.PHONY` code block from `rules.mk` to disable it.
+2. [HOLD_ON_OTHER_KEY_PRESS](https://github.com/qmk/qmk_firmware/pull/9404) by @sigprof: Used per-key to enable “hold-preferred” mode for all layer-taps.
+3. [keymapviz] by @yskoht (not a QMK PR): Used in `rules.mk` to generate the fancy keymap visualisations of each layer. Remove the `.PHONY` code block from `rules.mk` to disable it.
