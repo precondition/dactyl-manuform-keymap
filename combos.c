@@ -54,19 +54,6 @@ enum combo_events {
     BSPCE_ESC,
     DOTSLASH_UPDIR,
 
-    /* Vertical combos */
-    // An attempt to radically remove all lateral movements
-    // by substituting the inner index keys by vertical combos
-    // of the main index column keys
-    PT_B,
-    TD_V,
-    NH_K,
-    LN_J,
-    IET_M,
-    FS_G,
-    UE_EU,
-    NHI_KI,
-
     // This must be the last item in the enum.
     // This is used to automatically update the combo count.
     COMBO_LENGTH
@@ -106,13 +93,6 @@ const uint16_t PROGMEM BSPC_REP_COMBO[] = {KC_BSPC,  REPEAT,  COMBO_END};
 const uint16_t PROGMEM REP_X_COMBO[]    = {REPEAT,   KC_X,    COMBO_END};
 const uint16_t PROGMEM BSPC_E_COMBO[]   = {KC_BSPC,  HOME_E,  COMBO_END};
 const uint16_t PROGMEM DOT_SLASH_COMBO[]= {KC_DOT,   KC_SLSH, COMBO_END};
-const uint16_t PROGMEM P_T_COMBO[]      = {KC_P,     HOME_T,  COMBO_END};
-const uint16_t PROGMEM D_T_COMBO[]      = {KC_D,     HOME_T,  COMBO_END};
-const uint16_t PROGMEM N_H_COMBO[]      = {HOME_N,   KC_H,    COMBO_END};
-const uint16_t PROGMEM N_H_I_COMBO[]    = {HOME_N,   KC_H,    HOME_I,  COMBO_END};
-const uint16_t PROGMEM L_N_COMBO[]      = {KC_L,     HOME_N,  COMBO_END};
-const uint16_t PROGMEM F_S_COMBO[]      = {KC_F,     HOME_S,  COMBO_END};
-const uint16_t PROGMEM U_E_COMBO[]      = {KC_U,     HOME_E,  COMBO_END};
 
 combo_t key_combos[] = {
     [BSPCEV_EVERY] = COMBO_ACTION(BSPC_E_V_COMBO),
@@ -148,13 +128,6 @@ combo_t key_combos[] = {
     [UY_PRN]       = COMBO_ACTION(U_Y_COMBO),
     [YCLN_PRN]     = COMBO_ACTION(Y_SCLN_COMBO),
     [UYCLN_INDEX]  = COMBO_ACTION(U_Y_SCLN_COMBO),
-    [PT_B]         = COMBO(P_T_COMBO, MOUSE),
-    [TD_V]         = COMBO(D_T_COMBO, KC_V),
-    [NH_K]         = COMBO(N_H_COMBO, KC_K),
-    [NHI_KI]       = COMBO_ACTION(N_H_I_COMBO),
-    [LN_J]         = COMBO(L_N_COMBO, KC_J),
-    [FS_G]         = COMBO(F_S_COMBO, KC_G),
-    [UE_EU]        = COMBO_ACTION(U_E_COMBO),
 };
 
 // 5074 bytes free without using steno_combo
@@ -519,32 +492,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("keyboard");
-                }
-        }
-        break;
-
-        case NHI_KI:
-            if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Ki");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("ki");
-                }
-        }
-        break;
-
-        case UE_EU:
-            if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Eu");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("eu");
                 }
         }
         break;
