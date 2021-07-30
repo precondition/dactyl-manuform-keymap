@@ -552,6 +552,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
  */
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case HOME_S:
+        case HOME_E:
         case HOME_O:
             return TAPPING_TERM + 30;
         case SYM_ENT:
