@@ -27,15 +27,17 @@ enum layer_names {
 // Layer keys
 #define NAV_TAB LT(_NAV, KC_TAB)
 #define GNAV MO(_GNAV)
-#define SYM OSL(_SYM)
+#define SYM MO(_SYM)
 #define MOUSE MO(_MOUSE)
 #define MS_CAPS LT(_MOUSE, KC_CAPS)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
+#define NAV_UND LT(_NAV, KC_F24)
 #ifdef STENO_ENABLE
 #define PLOVER TG(_PLOVER)
+#else
+#define PLOVER KC_TRNS
 #endif
-#define NAV_UND LT(_NAV, KC_F24)
 
 // Miscellaneous keyboard shortcuts in direct access
 #define UNDO LCTL(KC_Z)
@@ -91,7 +93,7 @@ enum custom_keycodes {
     REPEAT,
 };
 
-// Tap dance keys
+#ifdef TAP_DANCE_ENABLE
 enum {
     DOT_TD = 0,
     CA_CC_CV,
@@ -99,6 +101,9 @@ enum {
 
 #define TD_DOT TD(DOT_TD)
 #define CACCCV TD(CA_CC_CV)
+#else
+#define TD_DOT KC_DOT
+#endif
 
 
 // The lowest row of thumb keys is wired a little differently from the layout macro on my specific build
