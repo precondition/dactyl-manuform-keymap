@@ -140,6 +140,8 @@ UPDIR = ../
 E_GRAVE = È
 A_GRAVE = À
 YICODE = $yi{
+O_BRACE = {⏎
+C_BRACE = }⏎
 
 TD_DOT = . >
 

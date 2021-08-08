@@ -14,6 +14,7 @@ void caps_word_disable(void);
 
 enum layer_names {
     _COLEMAK_DH,
+    _COLEMAK_DH_FR,
     _SYM,
     _NAV,
     _GNAV,
@@ -89,8 +90,16 @@ enum custom_keycodes {
     // Macro for
     // $yi{
     YICODE,
-    CAPS_WORD,
     REPEAT,
+    // "Opening brace"
+    // Macro for
+    // {<enter>
+    O_BRACE,
+    // "Closing brace"
+    // Macro for
+    // }<enter>
+    C_BRACE,
+    CAPS_WORD,
 };
 
 #ifdef TAP_DANCE_ENABLE
