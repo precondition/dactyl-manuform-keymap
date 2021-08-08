@@ -28,6 +28,12 @@
 // Limits the max. amount of layers to 8 to save firmware memory.
 #define LAYER_STATE_8BIT
 
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
 
 // Shamelessly stolen mouse key settings from @pierrechevalier83 //
 
