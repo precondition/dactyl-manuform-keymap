@@ -247,6 +247,7 @@ void caps_word_enable(void) {
 
 void caps_word_disable(void) {
     caps_word_on = false;
+    unregister_mods(MOD_MASK_SHIFT);
     if (host_keyboard_led_state().caps_lock) {
         tap_code(KC_CAPS);
     }
@@ -275,7 +276,12 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             // Keycodes to shift
             case KC_A ... KC_Z:
                 if (record->event.pressed) {
-                    caps_word_enable();
+                    if (get_oneshot_mods() & MOD_MASK_SHIFT) {
+                        caps_word_disable();
+                        add_oneshot_mods(MOD_MASK_SHIFT);
+                    } else { 
+                        caps_word_enable();
+                    }
                 }
             // Keycodes that enable caps word but shouldn't get shifted
             case KC_MINS:
@@ -283,7 +289,12 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_UNDS:
             case KC_F24: /* The dummy keycode used in NAV_UND */
             case KC_PIPE:
+            case REPEAT:
             case CAPS_WORD:
+            case OS_LSFT:
+            case OS_RSFT:
+            case KC_LPRN:
+            case KC_RPRN:
                 // If chording mods, disable caps word
                 if (record->event.pressed && (get_mods() != MOD_LSFT) && (get_mods() != 0)) {
                     caps_word_disable();
@@ -291,7 +302,7 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
                 break;
             default:
                 // Any other keycode should automatically disable caps
-                if (record->event.pressed) {
+                if (record->event.pressed && !(get_oneshot_mods() & MOD_MASK_SHIFT)) {
                     caps_word_disable();
                 }
                 break;
