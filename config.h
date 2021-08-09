@@ -1,10 +1,5 @@
 #pragma once
 
-// Hardware settings //
-#define USE_SERIAL
-#define MASTER_LEFT
-
-
 // Home row mods settings //
 
 // Default tapping term is 200
@@ -17,6 +12,11 @@
 // This prevents accidental repeats of the tap-hold keys when typing quickly.
 #define TAPPING_FORCE_HOLD_PER_KEY
 
+// Disable PERMISSIVE_HOLD
+// (It's enabled dy default for all Dactyl Manuform boards, 
+// so it requires explicit undef to disable)
+#undef PERMISSIVE_HOLD
+
 // Other settings //
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
@@ -28,12 +28,17 @@
 // Limits the max. amount of layers to 8 to save firmware memory.
 #define LAYER_STATE_8BIT
 
+// Save firmware space
 #ifndef NO_DEBUG
 #define NO_DEBUG
 #endif // !NO_DEBUG
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINT
+
+// Hardware settings //
+#define USE_SERIAL
+#define MASTER_LEFT
 
 // Shamelessly stolen mouse key settings from @pierrechevalier83 //
 
