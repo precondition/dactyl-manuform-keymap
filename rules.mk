@@ -1,7 +1,7 @@
 # Automatically update the keymap visualization when compiling
 .PHONY: %
 %:
-	keymapviz -k dactyl_manuform5x6 -r keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymap.c -c keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymapviz.toml > /dev/null
+	keymapviz -k dactyl_manuform5x6 -t fancy -r keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymap.c -c keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymapviz.toml > /dev/null
 
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = no
