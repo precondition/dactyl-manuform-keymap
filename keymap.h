@@ -14,7 +14,6 @@ void caps_word_disable(void);
 
 enum layer_names {
     _COLEMAK_DH,
-    _COLEMAK_DH_FR,
     _SYM,
     _NAV,
     _GNAV,
@@ -29,6 +28,7 @@ enum layer_names {
 
 // Layer keys
 #define NAV_TAB LT(_NAV, KC_TAB)
+#define NAV MO(_NAV)
 #define GNAV MO(_GNAV)
 #define SYM MO(_SYM)
 #define ADJUST MO(_ADJUST)
