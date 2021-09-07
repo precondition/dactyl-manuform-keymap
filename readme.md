@@ -17,12 +17,11 @@ For much more details, read the comments in the source files.
 This keymap contains many nifty QMK tricks that can inspire you for your own keymap. Here's a non-exhaustive list.
 
 1. Home row mods: All the modifiers on the home row.
-2. Shift+Backspace: Delete.
-3. `NAV_UND`: Using a non-basic keycode (`S(KC_MINS)`) in a layer-tap.
-4. Modifier-aware combos: Combos whose output changes based on the active modifier.
-5. `TD_DOT`: Double tap the dot key to produce <kbd>.</kbd><kbd>space</kbd><kbd>One-Shot Shift</kbd> to quickly flow from one sentence to another.
-6. One-Shot Swap Hand: For one-handed typing.
-7. `CAPS_WORD`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code.
+2. Modifier-aware combos: Combos whose output changes based on the active modifier.
+3. `TD_DOT`: Double tap the dot key to produce <kbd>.</kbd><kbd>space</kbd><kbd>One-Shot Shift</kbd> to quickly flow from one sentence to another.
+4. One-Shot Swap Hand: For one-handed typing.
+5. `CAPS_WORD`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code.
+6. `REPEAT`: Repeat the last (modified) keystroke. This is used to eliminate the same-finger use that stems from double-tapping the same key. Ideally, this should be a thumb key but I couldn't fit it in my cluster in a satisfying manner.
 
 ### OS Setup
 
