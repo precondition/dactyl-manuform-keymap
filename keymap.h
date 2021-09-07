@@ -114,11 +114,9 @@ enum custom_keycodes {
 #ifdef TAP_DANCE_ENABLE
 enum {
     DOT_TD = 0,
-    CA_CC_CV,
 };
 
 #define TD_DOT TD(DOT_TD)
-#define CACCCV TD(CA_CC_CV)
 #else
 #define TD_DOT KC_DOT
 #endif
