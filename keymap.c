@@ -387,6 +387,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
 
+
+    case KC_SPC:
+        if (oneshot_mod_state & MOD_MASK_SHIFT) {
+            if (record->event.pressed) {
+                tap_code(KC_MINS); // The one-shot shift will convert it to an underscore
+            }
+            return false;
+        }
+        return true;
+
     case KC_BSPC:
         {
         static bool delkey_registered;
@@ -557,7 +567,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NAV_TAB:
-        case HOME_R:
+        case HOME_R: // I like to hold Ctrl+R to redo many changes in Vim
             return false;
         default:
             return true;
