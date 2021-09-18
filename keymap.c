@@ -24,8 +24,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼───────┤  R/⎇  │  S/⇧  │  T/⎈  │   G   │ │   M   │  N/⎈  │  E/⇧  │  I/⎇  ├───────┼──────┤
  * │  ESC  │  A/◆  ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤  O/◆  │ ' "  │
  * ├───────┼───────┤   X   │   C   │   D   │   V   │ │   K   │   H   │  , <  │  . >  ├───────┼──────┤
- * │TG_MIC │REPEAT ├───────┼───────┼───────┴───────┘ └───────┴───────┼───────┼───────┤  / ?  │-> => │
- * └───────┴───────┤   Z   │   Ç   │                                 │ AltGr │   `   ├───────┴──────┘
+ * │   Z   │REPEAT ├───────┼───────┼───────┴───────┘ └───────┴───────┼───────┼───────┤  / ?  │-> => │
+ * └───────┴───────┤TG_MIC │   Ç   │                                 │ AltGr │   `   ├───────┴──────┘
  *                 └───────┴───────┘                                 └───────┴───────┘
  *                                 ┏━━━━━━━┳━━━━━━━┓ ┏━━━━━━━┳━━━━━━━┓
  *                                 ┃TAB/NAV┃  SPC  ┃ ┃ BSPC  ┃ ⏎/SYM ┃
@@ -38,8 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            REDO, UNDO  , KC_UP ,KC_DOWN, KC_F4 , KC_F5 ,    DED_UML,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
         A_GRAVE, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J   , KC_L  , KC_U  , KC_Y  ,KC_SCLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M   , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-         TG_MIC, REPEAT, KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,ARROW_R,
-                         KC_Z  ,C_CDILA,                                    KC_RALT, KC_GRV,
+           KC_Z, REPEAT, KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,ARROW_R,
+                         TG_MIC,C_CDILA,                                    KC_RALT, KC_GRV,
                                         NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
                                         COMPOSE,OS_LSFT,    OS_RSFT, KC_UP ,
                                         PLOVER ,MS_CAPS,    SH_OS  ,KC_DOWN
