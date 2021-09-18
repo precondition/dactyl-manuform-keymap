@@ -39,14 +39,11 @@ enum combo_events {
     JU_JUST,
     HV_HAVE,
     QK_QMK,
-    DELT_THIS,
     KB_KEYBOARD,
     WA_WHAT,
 
     /* Non-alphanumeric combos */
     // Combos for which the output isn't one or more alphanumeric characters
-    UY_PRN,
-    YCLN_PRN,
     UYCLN_INDEX,
     OS_SFT_CAPS,
     REPX_BSLS,
@@ -81,13 +78,10 @@ const uint16_t PROGMEM K_B_COMBO[]        = {KC_K,     KC_B,    COMBO_END};
 const uint16_t PROGMEM BSPC_T_A_COMBO[]   = {KC_BSPC,  HOME_T,  HOME_A,  COMBO_END};
 const uint16_t PROGMEM BSPC_D_N_COMBO[]   = {KC_BSPC,  KC_D,    HOME_N,  COMBO_END};
 const uint16_t PROGMEM BSPC_I_T_COMBO[]   = {KC_BSPC,  HOME_I,  HOME_T,  COMBO_END};
-const uint16_t PROGMEM DEL_T_COMBO[]      = {KC_DEL,   HOME_T,  COMBO_END};
 const uint16_t PROGMEM J_U_COMBO[]        = {KC_J,     KC_U,    COMBO_END};
 const uint16_t PROGMEM H_V_COMBO[]        = {KC_H,     KC_V,    COMBO_END};
 const uint16_t PROGMEM Q_K_COMBO[]        = {KC_Q,     KC_K,    COMBO_END};
 const uint16_t PROGMEM W_A_COMBO[]        = {KC_W,     HOME_A,  COMBO_END};
-const uint16_t PROGMEM U_Y_COMBO[]        = {KC_U,     KC_Y,    COMBO_END};
-const uint16_t PROGMEM Y_SCLN_COMBO[]     = {KC_Y,     KC_SCLN, COMBO_END};
 const uint16_t PROGMEM U_Y_SCLN_COMBO[]   = {KC_U,     KC_Y,    KC_SCLN, COMBO_END};
 const uint16_t PROGMEM OS_SFT_COMBO[]     = {OS_LSFT,  OS_RSFT, COMBO_END};
 const uint16_t PROGMEM REP_X_COMBO[]      = {REPEAT,   KC_X,    COMBO_END};
@@ -116,7 +110,6 @@ combo_t key_combos[] = {
     [BSPCTS_THIS]     = COMBO_ACTION(BSPC_T_S_COMBO),
     [BSPCDN_DONT]     = COMBO_ACTION(BSPC_D_N_COMBO),
     [BSPCIT_IN_THE]   = COMBO_ACTION(BSPC_I_T_COMBO),
-    [DELT_THIS]       = COMBO_ACTION(DEL_T_COMBO),
     [JU_JUST]         = COMBO_ACTION(J_U_COMBO),
     [HV_HAVE]         = COMBO_ACTION(H_V_COMBO),
     [QK_QMK]          = COMBO_ACTION(Q_K_COMBO),
@@ -128,8 +121,6 @@ combo_t key_combos[] = {
     [DOTSLASH_UPDIR]  = COMBO_ACTION(DOT_SLASH_COMBO),
     [ZEROEIGHT_COMMA] = COMBO(ZERO_EIGHT_COMBO, KC_COMMA),
     [EIGHTNINE_DOT]   = COMBO(EIGHT_NINE_COMBO, KC_DOT),
-    [UY_PRN]          = COMBO_ACTION(U_Y_COMBO),
-    [YCLN_PRN]        = COMBO_ACTION(Y_SCLN_COMBO),
     [UYCLN_INDEX]     = COMBO_ACTION(U_Y_SCLN_COMBO),
 };
 
@@ -153,7 +144,7 @@ void steno_combo(const char *lowercase, const char *uppercase, const char *ctrlc
 void process_combo_event(uint16_t combo_index, bool pressed) {
     // Process mod-taps before the combo is fired,
     // this helps making modifier-aware combos,
-    // like UY_PRN or BSPCN_NOT, more fluid
+    // like UYCLN_INDEX or BSPCN_NOT, more fluid
     // when I use them with home row mods.
     action_tapping_process((keyrecord_t){});
     mod_state = get_mods();
@@ -177,47 +168,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
 #endif
     switch(combo_index) {
-        case UY_PRN:
-            if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    // First canceling both shifts so that shift isn't applied
-                    // to the KC_LBRC keycode since that would result in
-                    // a "{" instead of a "[".
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("[");
-                    // "resuming" *the* shift so that you can hold shift
-                    // and the square brackets combo still works without
-                    // having to re-press shift every time.
-                    set_mods(mod_state);
-                }
-                else if (mod_state & MOD_MASK_CTRL) {
-                    del_mods(MOD_MASK_CTRL);
-                    send_string("{");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("(");
-                }
-            }
-            break;
-
-        case YCLN_PRN:
-            if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("]");
-                    set_mods(mod_state);
-                }
-                else if (mod_state & MOD_MASK_CTRL) {
-                    del_mods(MOD_MASK_CTRL);
-                    send_string("}");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string(")");
-                }
-        }
-        break;
 
         case UYCLN_INDEX:
             if (pressed) {
@@ -495,19 +445,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 }
                 else {
                     send_string("keyboard");
-                }
-        }
-        break;
-
-        case DELT_THIS:
-            if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("This");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("this");
                 }
         }
         break;
