@@ -33,7 +33,6 @@ enum layer_names {
 #define SYM MO(_SYM)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
-#define NAV_UND LT(_NAV, KC_F24)
 
 #ifdef MOUSEKEY_ENABLE
 #    define MOUSE MO(_MOUSE)

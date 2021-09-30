@@ -289,7 +289,6 @@ void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_MINS:
             case KC_BSPC:
             case KC_UNDS:
-            case KC_F24: /* The dummy keycode used in NAV_UND */
             case KC_PIPE:
             case REPEAT:
             case CAPS_WORD:
@@ -544,19 +543,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code16(KC_RCBR);
           tap_code(KC_ENTER);
           return false;
-      }
-      break;
-
-    case NAV_UND:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          // send advanced keycode, etc.
-          register_code16(KC_UNDS);
-        } else {
-          unregister_code16(KC_UNDS);
-        }
-        // do not continue with default tap action if the MT was pressed or released, but not held
-        return false;
       }
       break;
 
