@@ -11,10 +11,12 @@ MOUSEKEY_ENABLE = no
 MOUSE_SHARED_EP = yes
 TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
-NKRO_ENABLE = yes
+NKRO_ENABLE = no
 STENO_ENABLE = yes
 SWAP_HANDS_ENABLE = yes
 LTO_ENABLE = yes
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
 
 # Load the necessary external C files if and only if
 # the associated config option has been enabled
