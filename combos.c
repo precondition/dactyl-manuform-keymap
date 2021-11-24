@@ -51,6 +51,7 @@ enum combo_events {
     DOTSLASH_UPDIR,
     ZEROEIGHT_COMMA,
     EIGHTNINE_DOT,
+    PT_MOUSE,
 
     // This must be the last item in the enum.
     // This is used to automatically update the combo count.
@@ -89,6 +90,7 @@ const uint16_t PROGMEM BSPC_E_COMBO[]     = {KC_BSPC,  HOME_E,  COMBO_END};
 const uint16_t PROGMEM DOT_SLASH_COMBO[]  = {TD_DOT,   KC_SLSH, COMBO_END};
 const uint16_t PROGMEM ZERO_EIGHT_COMBO[] = {KC_0,     KC_8,    COMBO_END};
 const uint16_t PROGMEM EIGHT_NINE_COMBO[] = {KC_8,     KC_9,    COMBO_END};
+const uint16_t PROGMEM P_T_COMBO[]        = {KC_P,     HOME_T,  COMBO_END};
 
 combo_t key_combos[] = {
     [BSPCEV_EVERY]    = COMBO_ACTION(BSPC_E_V_COMBO),
@@ -122,6 +124,7 @@ combo_t key_combos[] = {
     [ZEROEIGHT_COMMA] = COMBO(ZERO_EIGHT_COMBO, KC_COMMA),
     [EIGHTNINE_DOT]   = COMBO(EIGHT_NINE_COMBO, KC_DOT),
     [UYCLN_INDEX]     = COMBO_ACTION(U_Y_SCLN_COMBO),
+    [PT_MOUSE]        = COMBO(P_T_COMBO, MOUSE),
 };
 
 // 5074 bytes free without using steno_combo
