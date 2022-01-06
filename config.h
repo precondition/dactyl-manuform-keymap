@@ -35,10 +35,9 @@
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINT
-
-// Hardware settings //
-#define USE_SERIAL
-#define MASTER_LEFT
+// Disable hardware lock switches support to free up space
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
 
 // Shamelessly stolen mouse key settings from @pierrechevalier83 //
 
