@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
 
-void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
+static void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
 
         // Double tapping TD_DOT produces
