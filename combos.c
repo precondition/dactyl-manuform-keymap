@@ -127,23 +127,6 @@ combo_t key_combos[] = {
     [PT_MOUSE]        = COMBO(P_T_COMBO, MOUSE),
 };
 
-// 5074 bytes free without using steno_combo
-void steno_combo(const char *lowercase, const char *uppercase, const char *ctrlcase, bool pressed, uint8_t mod_state) {
-    if (pressed) {
-        if (mod_state & MOD_MASK_SHIFT) {
-            unregister_mods(MOD_MASK_SHIFT);
-            send_string(uppercase);
-            set_mods(mod_state);
-        } else if (ctrlcase && mod_state & MOD_MASK_CTRL) {
-            unregister_mods(MOD_MASK_CTRL);
-            send_string(ctrlcase);
-            set_mods(mod_state);
-        } else {
-            send_string(lowercase);
-        }
-    }
-}
-
 void process_combo_event(uint16_t combo_index, bool pressed) {
     // Process mod-taps before the combo is fired,
     // this helps making modifier-aware combos,
@@ -176,35 +159,30 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-                    send_string("[1]");
+                    SEND_STRING("[1]");
                     set_mods(mod_state);
                 }
                 else if (mod_state & MOD_MASK_CTRL) {
                     del_mods(MOD_MASK_CTRL);
-                    send_string("[0]");
+                    SEND_STRING("[0]");
                     set_mods(mod_state);
                 }
                 else {
-                    send_string("[i]");
+                    SEND_STRING("[i]");
                 }
         }
         break;
 
         case JU_JUST:
-        steno_combo("just", "Just", NULL, pressed, mod_state);
+            if (pressed) {
+                SEND_STRING("just");
+            }
         break;
 
         case HV_HAVE:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Have");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("have");
-                }
-        }
+                SEND_STRING("have");
+            }
         break;
 
         case QK_QMK:
@@ -212,265 +190,158 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 if (mod_state & MOD_MASK_SHIFT || oneshot_mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
                     del_oneshot_mods(MOD_MASK_SHIFT);
-                    send_string("QMK");
+                    SEND_STRING("QMK");
                     set_mods(mod_state);
                 }
                 else {
-                    send_string("qmk");
+                    SEND_STRING("qmk");
                 }
         }
         break;
 
         case BSPCEV_EVERY:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Every");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("every");
-                }
-        }
+                SEND_STRING("every");
+            }
         break;
 
         case BSPCU_YOU:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("You");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("you");
-                }
-        }
+                SEND_STRING("you");
+            }
         break;
 
         case BSPCA_AND:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("And");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("and");
-                }
-        }
+                SEND_STRING("and");
+            }
         break;
+
 
         case BSPCN_NOT:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Not");
-                    set_mods(mod_state);
-                }
-                else if (mod_state & MOD_MASK_CTRL) {
+                if (mod_state & MOD_MASK_CTRL) {
                     del_mods(MOD_MASK_CTRL);
-                    send_string("n't");
+                    SEND_STRING("n't");
                     set_mods(mod_state);
                 }
                 else {
-                    send_string("not");
+                    SEND_STRING("not");
                 }
         }
         break;
 
         case BSPCW_WITH:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("With");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("with");
-                }
-        }
+                SEND_STRING("with");
+            }
         break;
 
         case BSPCF_FOR:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("For");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("for");
-                }
-        }
+                SEND_STRING("for");
+            }
         break;
 
         case BSPCH_HERE:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Here");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("here");
-                }
-        }
+                SEND_STRING("here");
+            }
         break;
 
         case BSPCT_THE:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("The");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("the");
-                }
-        }
+                SEND_STRING("the");
+            }
         break;
 
         case BSPCM_MENT:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Ment");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("ment");
-                }
-        }
+                SEND_STRING("ment");
+            }
         break;
 
         case BSPCG_ING:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Ing");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("ing");
-                }
-        }
+                SEND_STRING("ing");
+            }
         break;
 
         case BSPCO_OUGH:
             if (pressed) {
                 if (mod_state & MOD_MASK_CTRL) {
                     del_mods(MOD_MASK_CTRL);
-                    send_string("ould");
+                    SEND_STRING("ould");
                     set_mods(mod_state);
+                } else {
+                    SEND_STRING("ough");
                 }
-                else if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Ough");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("ough");
-                }
-        }
+            }
         break;
 
         case BSPCI_ION:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Ion");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("ion");
-                }
-        }
+                SEND_STRING("ion");
+            }
         break;
 
         case BSPCIS_IONS:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Ions");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("ions");
-                }
-        }
+                SEND_STRING("ions");
+            }
         break;
 
         case BSPCTA_THAT:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("That");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("that");
-                }
-        }
+                SEND_STRING("that");
+            }
         break;
 
         case BSPCQ_QUE:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Que");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("que");
-                }
-        }
+                SEND_STRING("que");
+            }
         break;
 
         case BSPCK_KEY:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Key");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("key");
-                }
-        }
+                SEND_STRING("key");
+            }
         break;
 
         case KB_KEYBOARD:
             if (pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    send_string("Keyboard");
-                    set_mods(mod_state);
-                }
-                else {
-                    send_string("keyboard");
-                }
-        }
+                SEND_STRING("keyboard");
+            }
         break;
 
         case WA_WHAT:
-            steno_combo("what", "What", NULL, pressed, mod_state);
+            if (pressed) {
+                SEND_STRING("what");
+            }
         break;
 
         case BSPCTS_THIS:
-            steno_combo("this", "This", NULL, pressed, mod_state);
+            if (pressed) {
+                SEND_STRING("this");
+            }
         break;
 
         case BSPCDN_DONT:
-            steno_combo("don't", "Don't", NULL, pressed, mod_state);
+            if (pressed) {
+                SEND_STRING("don't");
+            }
         break;
 
         case BSPCIT_IN_THE:
-            steno_combo("in the", "In the", NULL, pressed, mod_state);
+            if (pressed) {
+                SEND_STRING("in the");
+            }
         break;
 
         case DOTSLASH_UPDIR:
             if (pressed) {
-                send_string("../");
+                SEND_STRING("../");
             }
         break;
     }
