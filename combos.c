@@ -46,7 +46,7 @@ enum combo_events {
     // Combos for which the output isn't one or more alphanumeric characters
     UYCLN_INDEX,
     OS_SFT_CAPS,
-    REPX_BSLS,
+    REPEATX_BSLS,
     BSPCE_ESC,
     DOTSLASH_UPDIR,
     ZEROEIGHT_COMMA,
@@ -85,7 +85,7 @@ const uint16_t PROGMEM Q_K_COMBO[]        = {KC_Q,     KC_K,    COMBO_END};
 const uint16_t PROGMEM W_A_COMBO[]        = {KC_W,     HOME_A,  COMBO_END};
 const uint16_t PROGMEM U_Y_SCLN_COMBO[]   = {KC_U,     KC_Y,    KC_SCLN, COMBO_END};
 const uint16_t PROGMEM OS_SFT_COMBO[]     = {OS_LSFT,  OS_RSFT, COMBO_END};
-const uint16_t PROGMEM REP_X_COMBO[]      = {REPEAT,   KC_X,    COMBO_END};
+const uint16_t PROGMEM REPEAT_X_COMBO[]   = {REPEAT,   KC_X,    COMBO_END};
 const uint16_t PROGMEM BSPC_E_COMBO[]     = {KC_BSPC,  HOME_E,  COMBO_END};
 const uint16_t PROGMEM DOT_SLASH_COMBO[]  = {TD_DOT,   KC_SLSH, COMBO_END};
 const uint16_t PROGMEM ZERO_EIGHT_COMBO[] = {KC_0,     KC_8,    COMBO_END};
@@ -118,7 +118,7 @@ combo_t key_combos[] = {
     [KB_KEYBOARD]     = COMBO_ACTION(K_B_COMBO),
     [WA_WHAT]         = COMBO_ACTION(W_A_COMBO),
     [OS_SFT_CAPS]     = COMBO(OS_SFT_COMBO, CAPS_WORD),
-    [REPX_BSLS]       = COMBO(REP_X_COMBO, KC_BSLASH),
+    [REPEATX_BSLS]    = COMBO(REPEAT_X_COMBO, KC_BSLASH),
     [BSPCE_ESC]       = COMBO(BSPC_E_COMBO, KC_ESC),
     [DOTSLASH_UPDIR]  = COMBO_ACTION(DOT_SLASH_COMBO),
     [ZEROEIGHT_COMMA] = COMBO(ZERO_EIGHT_COMBO, KC_COMMA),
