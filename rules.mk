@@ -1,7 +1,9 @@
 # Automatically update the keymap visualization when compiling
+# The '-' in front of keymapviz is used to ignore errors spewed by keymapviz.
+KEYMAP_FOLDER = keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition
 .PHONY: %
 %:
-	keymapviz -k dactyl_manuform5x6 -t fancy -r keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymap.c -c keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition/keymapviz.toml > /dev/null
+	-keymapviz -k dactyl_manuform5x6 -t fancy -r $(KEYMAP_FOLDER)/keymap.c -c $(KEYMAP_FOLDER)/keymapviz.toml > /dev/null
 
 CONSOLE_ENABLE = yes
 MOUSEKEY_ENABLE = yes
