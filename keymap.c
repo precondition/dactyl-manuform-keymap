@@ -354,7 +354,7 @@ static void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
-    uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
+    uprintf("0x%04X\t%u\t%u\t%u\t%b\t0x%02X\t0x%02X\t%u\n",
          keycode,
          record->event.key.row,
          record->event.key.col,
