@@ -32,4 +32,3 @@ This keymap contains many nifty QMK tricks that can inspire you for your own key
 ### Required features
 New features take a very long time to get merged into `qmk:master` so, meanwhile, I merge pending pull requests into my own fork to use them. Below is the list of PRs that are required for this particular instance of my keymap to work properly — It varies from branch to branch.
 
-1. [keymapviz] by @yskoht (not a QMK PR): Used in `rules.mk` to generate the fancy keymap visualisations of each layer. Remove the `.PHONY` code block from `rules.mk` to disable it.
