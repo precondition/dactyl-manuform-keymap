@@ -134,6 +134,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     // when I use them with home row mods.
     action_tapping_process((keyrecord_t){});
     mod_state = get_mods();
+    oneshot_mod_state = get_oneshot_mods();
 #ifdef CONSOLE_ENABLE
     if (pressed) {
         combo_t *combo = &key_combos[combo_index];

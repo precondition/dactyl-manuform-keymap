@@ -237,10 +237,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-inline uint8_t get_tap_kc(uint16_t dual_role_key) {
-    return dual_role_key & 0xFF;
-}
-
 // CAPS_WORD_LOCK: A "smart" Caps Lock key that only capitalizes the next identifier you type
 // and then toggles off Caps Lock automatically when you're done.
 void caps_word_lock_enable(void) {
@@ -258,9 +254,11 @@ void caps_word_lock_disable(void) {
     }
 }
 
-// Used to extract the basic tapping keycode from a dual-role key.
-// Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
-#define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
+inline uint8_t get_tap_kc(uint16_t dual_role_key) {
+    // Used to extract the basic tapping keycode from a dual-role key.
+    // Example: get_tap_kc(MT(MOD_RSFT, KC_E)) == KC_E
+    return dual_role_key & 0xFF;
+}
 
 static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) {
     // Update caps word state
@@ -271,7 +269,7 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
                 // Earlier return if this has not been considered tapped yet
                 if (record->tap.count == 0) { return; }
                 // Get the base tapping keycode of a mod- or layer-tap key
-                keycode = GET_TAP_KC(keycode);
+                keycode = get_tap_kc(keycode);
                 break;
             default:
                 break;
@@ -284,8 +282,6 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
                     if (get_oneshot_mods() & MOD_MASK_SHIFT) {
                         caps_word_lock_disable();
                         add_oneshot_mods(MOD_MASK_SHIFT);
-                    } else {
-                        caps_word_lock_enable();
                     }
                 }
             // Keycodes that enable caps word but shouldn't get shifted
@@ -315,8 +311,8 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
 }
 
 uint16_t last_keycode = KC_NO;
-uint8_t last_modifier = 0;
 static void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
+    static uint8_t last_modifier = 0;
     if (keycode != REPEAT) {
         // Early return when holding down a pure layer key
         // to retain modifiers
@@ -330,7 +326,7 @@ static void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
             case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
                 return;
         }
-        last_modifier = oneshot_mod_state > mod_state ? oneshot_mod_state : mod_state;
+        last_modifier = oneshot_mod_state | mod_state;
         switch (keycode) {
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
@@ -450,7 +446,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case ARROW_R:
       if (record->event.pressed) {
-          if (mod_state & MOD_MASK_SHIFT || oneshot_mod_state & MOD_MASK_SHIFT) {
+          if ((mod_state|oneshot_mod_state) & MOD_MASK_SHIFT) {
             del_mods(MOD_MASK_SHIFT);
             del_oneshot_mods(MOD_MASK_SHIFT);
             send_string("=>");
@@ -549,6 +545,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
+#ifdef TAPPING_FORCE_HOLD_PER_KEY
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NAV_TAB:
@@ -558,6 +555,7 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
 }
+#endif
 
 #ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
@@ -572,9 +570,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
-/*
- * Per key tapping term settings
- */
+#ifdef TAPPING_TERM_PER_KEY
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HOME_O:
@@ -586,3 +582,4 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 };
+#endif

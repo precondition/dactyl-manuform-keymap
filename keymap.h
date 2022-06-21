@@ -2,15 +2,10 @@
 
 #include QMK_KEYBOARD_H
 
-// Initialize variable holding the binary
-// representation of active modifiers.
 uint8_t mod_state;
 uint8_t oneshot_mod_state;
 uint16_t last_keycode;
-
 bool caps_word_lock_on;
-void caps_word_lock_enable(void);
-void caps_word_lock_disable(void);
 
 enum layer_names {
     _COLEMAK_DH,
@@ -112,7 +107,7 @@ enum custom_keycodes {
 
 #ifdef TAP_DANCE_ENABLE
 enum {
-    DOT_TD = 0,
+    DOT_TD,
 };
 
 #define TD_DOT TD(DOT_TD)
