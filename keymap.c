@@ -586,9 +586,3 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 };
-
-#ifdef STENO_ENABLE
-void matrix_init_user() {
-  steno_set_mode(STENO_MODE_GEMINI);
-}
-#endif
