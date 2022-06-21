@@ -55,9 +55,15 @@ enum layer_names {
 #define HOME_E RSFT_T(KC_E)
 #define HOME_N RCTL_T(KC_N)
 
-// One Shot Shifts
+// One Shot Modifiers
 #define OS_LSFT OSM(MOD_LSFT)
 #define OS_RSFT OSM(MOD_RSFT)
+#define OS_LCTL OSM(MOD_LCTL)
+#define OS_RCTL OSM(MOD_RCTL)
+#define OS_LALT OSM(MOD_LALT)
+#define OS_RALT OSM(MOD_RALT)
+#define OS_LGUI OSM(MOD_LGUI)
+#define OS_RGUI OSM(MOD_RGUI)
 
 // French accents
 // The other common grave accented letters are custom keycodes
@@ -97,6 +103,14 @@ enum custom_keycodes {
     // }<enter>
     C_BRACE,
     CAPS_WORD_LOCK,
+    // "Opening Bracket-Quote"
+    // Macro for
+    // ["
+    O_BRQOT,
+    // "Closing Bracket-Quote"
+    // Macro for
+    // "]
+    C_BRQOT,
 };
 
 #ifdef TAP_DANCE_ENABLE
