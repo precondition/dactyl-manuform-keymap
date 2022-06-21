@@ -387,7 +387,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
         }
-        break;
+        return false;
 
 
     case KC_SPC:
@@ -459,7 +459,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("->");
           }
       }
-      break;
+      return false;
 
     case G_DOWN:
         if (record->event.pressed) {
@@ -469,7 +469,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_DOWN);
         }
-	  break;
+        return false;
 
     case G_UP:
         if (record->event.pressed) {
@@ -479,7 +479,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_UP);
         }
-	  break;
+        return false;
 
     case G_HOME:
         if (record->event.pressed) {
@@ -489,7 +489,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_HOME);
         }
-	  break;
+	    return false;
 
     case G_END:
         if (record->event.pressed) {
@@ -499,7 +499,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_END);
         }
-		break;
+		return false;
 
     case GUILL_L:
         if (record->event.pressed) {
@@ -507,7 +507,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(KC_LT);
             tap_code16(KC_LT);
         }
-      break;
+        return false;
 
     case GUILL_R:
         if (record->event.pressed) {
@@ -515,39 +515,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(KC_GT);
             tap_code16(KC_GT);
         }
-      break;
+        return false;
 
     case UPDIR:
-      if (record->event.pressed) {
-          tap_code(KC_DOT);
-          tap_code(KC_DOT);
-          tap_code(KC_SLSH);
-          return false;
-      }
-      break;
+        if (record->event.pressed) {
+            tap_code(KC_DOT);
+            tap_code(KC_DOT);
+            tap_code(KC_SLSH);
+        }
+        return false;
 
     case YICODE:
-      if (record->event.pressed) {
-          send_string("$yi{");
-          return false;
-      }
-      break;
+        if (record->event.pressed) {
+            send_string("$yi{");
+        }
+        return false;
 
     case O_BRACE:
-      if (record->event.pressed) {
-          tap_code16(KC_LCBR);
-          tap_code(KC_ENTER);
-          return false;
-      }
-      break;
+        if (record->event.pressed) {
+            tap_code16(KC_LCBR);
+            tap_code(KC_ENTER);
+        }
+        return false;
 
     case C_BRACE:
-      if (record->event.pressed) {
-          tap_code16(KC_RCBR);
-          tap_code(KC_ENTER);
-          return false;
-      }
-      break;
+        if (record->event.pressed) {
+            tap_code16(KC_RCBR);
+            tap_code(KC_ENTER);
+        }
+        return false;
 
     }
     return true;
