@@ -237,18 +237,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+inline uint8_t get_tap_kc(uint16_t dual_role_key) {
+    return dual_role_key & 0xFF;
+}
 
-// CAPS_WORD: A "smart" Caps Lock key that only capitalizes the next identifier you type
+// CAPS_WORD_LOCK: A "smart" Caps Lock key that only capitalizes the next identifier you type
 // and then toggles off Caps Lock automatically when you're done.
-void caps_word_enable(void) {
-    caps_word_on = true;
+void caps_word_lock_enable(void) {
+    caps_word_lock_on = true;
     if (!(host_keyboard_led_state().caps_lock)) {
         tap_code(KC_CAPS);
     }
 }
 
-void caps_word_disable(void) {
-    caps_word_on = false;
+void caps_word_lock_disable(void) {
+    caps_word_lock_on = false;
     unregister_mods(MOD_MASK_SHIFT);
     if (host_keyboard_led_state().caps_lock) {
         tap_code(KC_CAPS);
@@ -259,9 +262,9 @@ void caps_word_disable(void) {
 // Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
 #define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
 
-static void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
+static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) {
     // Update caps word state
-    if (caps_word_on) {
+    if (caps_word_lock_on) {
         switch (keycode) {
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
@@ -279,10 +282,10 @@ static void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_A ... KC_Z:
                 if (record->event.pressed) {
                     if (get_oneshot_mods() & MOD_MASK_SHIFT) {
-                        caps_word_disable();
+                        caps_word_lock_disable();
                         add_oneshot_mods(MOD_MASK_SHIFT);
                     } else {
-                        caps_word_enable();
+                        caps_word_lock_enable();
                     }
                 }
             // Keycodes that enable caps word but shouldn't get shifted
@@ -291,20 +294,20 @@ static void process_caps_word(uint16_t keycode, const keyrecord_t *record) {
             case KC_UNDS:
             case KC_PIPE:
             case REPEAT:
-            case CAPS_WORD:
+            case CAPS_WORD_LOCK:
             case OS_LSFT:
             case OS_RSFT:
             case KC_LPRN:
             case KC_RPRN:
                 // If chording mods, disable caps word
                 if (record->event.pressed && (get_mods() != MOD_LSFT) && (get_mods() != 0)) {
-                    caps_word_disable();
+                    caps_word_lock_disable();
                 }
                 break;
             default:
                 // Any other keycode should automatically disable caps
                 if (record->event.pressed && !(get_oneshot_mods() & MOD_MASK_SHIFT)) {
-                    caps_word_disable();
+                    caps_word_lock_disable();
                 }
                 break;
         }
@@ -332,7 +335,7 @@ static void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
                 if (record->event.pressed) {
-                    last_keycode = GET_TAP_KC(keycode);
+                    last_keycode = get_tap_kc(keycode);
                 }
                 break;
             default:
@@ -365,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          record->tap.count
          );
 #endif
-    process_caps_word(keycode, record);
+    process_caps_word_lock(keycode, record);
     process_repeat_key(keycode, record);
 
     mod_state = get_mods();
@@ -373,14 +376,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
 
-    case CAPS_WORD:
-        // Toggle `caps_word_on`
+    case CAPS_WORD_LOCK:
+        // Toggle `caps_word_lock_on`
         if (record->event.pressed) {
-            if (caps_word_on) {
-                caps_word_disable();
+            if (caps_word_lock_on) {
+                caps_word_lock_disable();
                 return false;
             } else {
-                caps_word_enable();
+                caps_word_lock_enable();
                 return false;
             }
         }

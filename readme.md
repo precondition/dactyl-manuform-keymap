@@ -8,7 +8,7 @@ This keymap uses Colemak-DH for its alpha base with the addition of common Frenc
 
 Notably, [home row mods](https://precondition.github.io/home-row-mods) are used, as well as tap dance and combos.
 
-Aside from the usual combos that expand to a single special character or command like <kbd>\\</kbd> or <kbd>Caps Word</kbd>, you can find, what I've dubbed, “steno-lite” combos in `combos.c`. Taking inspiration from machine stenography, common n-grams, word parts and words that are too short to abbreviate (in a text expansion program such as AutoKey) are assigned a key chord/combo, most frequently involving the <kbd>Backspace</kbd> key. Using <kbd>Backspace</kbd>+<kbd>Letter(s)</kbd> has the benefit of greatly reducing potential combo misfires as you're unlikely to type a letter and simultaneously delete it.
+Aside from the usual combos that expand to a single special character or command like <kbd>\\</kbd> or <kbd>Caps Word Lock</kbd>, you can find, what I've dubbed, “steno-lite” combos in `combos.c`. Taking inspiration from machine stenography, common n-grams, word parts and words that are too short to abbreviate (in a text expansion program such as AutoKey) are assigned a key chord/combo, most frequently involving the <kbd>Backspace</kbd> key. Using <kbd>Backspace</kbd>+<kbd>Letter(s)</kbd> has the benefit of greatly reducing potential combo misfires as you're unlikely to type a letter and simultaneously delete it.
 
 Keymap visualisation diagrams are automatically generated with the help of [keymapviz] every time I compile.
 
@@ -20,7 +20,7 @@ This keymap contains many nifty QMK tricks that can inspire you for your own key
 1. Home row mods: All the modifiers on the home row.
 2. `TD_DOT`: Double tap the dot key to produce <kbd>.</kbd><kbd>space</kbd><kbd>One-Shot Shift</kbd> to quickly flow from one sentence to another.
 3. One-Shot Swap Hand: For one-handed typing.
-4. `CAPS_WORD`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code.
+4. `CAPS_WORD_LOCK`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code. This is a hand-rolled version of [Caps Word](https://docs.qmk.fm/#/feature_caps_word) that works on the basis of Caps Lock, unlike the core QMK feature which is based on weak Shifts. That makes it easier to keep track of its state and better handles corner cases with less firmware size.
 5. `REPEAT`: Repeat the last (modified) keystroke. This is used to eliminate the same-finger use that stems from double-tapping the same key. Ideally, this should be a thumb key but I couldn't fit it in my cluster in a satisfying manner.
 
 ### OS Setup

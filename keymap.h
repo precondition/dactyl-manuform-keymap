@@ -8,9 +8,9 @@ uint8_t mod_state;
 uint8_t oneshot_mod_state;
 uint16_t last_keycode;
 
-bool caps_word_on;
-void caps_word_enable(void);
-void caps_word_disable(void);
+bool caps_word_lock_on;
+void caps_word_lock_enable(void);
+void caps_word_lock_disable(void);
 
 enum layer_names {
     _COLEMAK_DH,
@@ -107,7 +107,7 @@ enum custom_keycodes {
     // Macro for
     // }<enter>
     C_BRACE,
-    CAPS_WORD,
+    CAPS_WORD_LOCK,
 };
 
 #ifdef TAP_DANCE_ENABLE
