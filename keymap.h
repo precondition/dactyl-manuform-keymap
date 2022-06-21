@@ -9,14 +9,12 @@ bool caps_word_lock_on;
 
 enum layer_names {
     _COLEMAK_DH,
+    _PLOVER,
     _SYM,
     _NAV,
     _GNAV,
 #ifdef MOUSEKEY_ENABLE
     _MOUSE,
-#endif
-#ifdef STENO_ENABLE
-    _PLOVER,
 #endif
     _ADJUST,
 };
@@ -28,6 +26,7 @@ enum layer_names {
 #define SYM MO(_SYM)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
+#define PLOVER TG(_PLOVER)
 
 #ifdef MOUSEKEY_ENABLE
 #    define MOUSE MO(_MOUSE)
@@ -37,11 +36,6 @@ enum layer_names {
 #    define MS_CAPS KC_CAPS
 #endif
 
-#ifdef STENO_ENABLE
-#    define PLOVER TG(_PLOVER)
-#else
-#    define PLOVER KC_TRNS
-#endif
 
 // Miscellaneous keyboard shortcuts in direct access
 #define UNDO LCTL(KC_Z)
