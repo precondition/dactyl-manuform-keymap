@@ -11,6 +11,7 @@ TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 NKRO_ENABLE = no
 STENO_ENABLE = yes
+STENO_PROTOCOL = geminipr
 SWAP_HANDS_ENABLE = yes
 
 # Space savings
