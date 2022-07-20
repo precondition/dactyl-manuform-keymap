@@ -23,9 +23,6 @@
 
 #define COMBO_TERM 70
 
-// The setting below defines how many times you need to tap a TT() to toggle the layer.
-#define TAPPING_TOGGLE 3
-
 // Limits the max. amount of layers to 8 to save firmware memory.
 #define LAYER_STATE_8BIT
 
