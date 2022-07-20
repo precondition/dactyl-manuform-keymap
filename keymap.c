@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │       │   F   ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤   f   │  -D  │
  * ├───────┼───────┤   C   │   P   │   R   │  *2   │ │  *4   │   a   │   p   │   c   ├───────┼──────┤
  * │       │   S   ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤   s   │  -Z  │
- * ├───────┼───────┤1-SHOT⎇│1-SHOT⇧│1-SHOT⎈│       │ │       │       │       │       ├───────┼──────┤
- * │       │1-SHOT◆├───────┼───────┼───────┴───────┘ └───────┴───────┼───────┼───────┤       │      │
+ * ├───────┼───────┤1-SHOT⎇│1-SHOT⇧│1-SHOT⎈│       │ │       │1-SHOT⎈│1-SHOT⇧│1-SHOT⎇├───────┼──────┤
+ * │       │1-SHOT◆├───────┼───────┼───────┴───────┘ └───────┴───────┼───────┼───────┤1-SHOT◆│      │
  * └───────┴───────┤       │       │                                 │       │       ├───────┴──────┘
  *                 └───────┴───────┘                                 └───────┴───────┘
  *                                 ┏━━━━━━━┳━━━━━━━┓ ┏━━━━━━━┳━━━━━━━┓
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,     STN_N6, STN_N7,  STN_N8,  STN_N9,  STN_NA, KC_BSPC,
         _______, STN_S1, STN_TL, STN_PL, STN_HL,STN_ST1,    STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
         _______, STN_S2, STN_KL, STN_WL, STN_RL,STN_ST2,    STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
-        _______,OS_LGUI,OS_LALT,OS_LSFT,OS_LCTL,_______,    _______,_______,_______,_______,_______,_______,
+        _______,OS_LGUI,OS_LALT,OS_LSFT,OS_LCTL,_______,    _______,OS_RCTL, OS_RSFT, OS_LALT, OS_RGUI,_______,
                         _______,_______,                                    _______,_______,
                                           STN_A,  STN_O,      STN_E,  STN_U,
                                         _______,NAV_TAB,    SYM_ENT,_______,
