@@ -136,22 +136,20 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     mod_state = get_mods();
     oneshot_mod_state = get_oneshot_mods();
 #ifdef CONSOLE_ENABLE
-    if (pressed) {
-        combo_t *combo = &key_combos[combo_index];
-        uint8_t idx = 0;
-        uint16_t combo_keycode;
-        while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
-            uprintf("0x%04X\tNA\tNA\t%u\t%u\t0x%02X\t0x%02X\t0\n",
-                combo_keycode,
-                /* <missing row information> */
-                /* <missing column information> */
-                get_highest_layer(layer_state),
-                pressed,
-                get_mods(),
-                get_oneshot_mods()
-            );
-            idx++;
-        }
+    combo_t *combo = &key_combos[combo_index];
+    uint8_t idx = 0;
+    uint16_t combo_keycode;
+    while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+        uprintf("0x%04X\tNA\tNA\t0x%X\t%u\t0x%02X\t0x%02X\t0\n",
+            combo_keycode,
+            /* <missing row information> */
+            /* <missing column information> */
+            layer_state|default_layer_state,
+            pressed,
+            get_mods(),
+            get_oneshot_mods()
+        );
+        idx++;
     }
 #endif
     switch(combo_index) {
