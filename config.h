@@ -27,12 +27,8 @@
 #define LAYER_STATE_8BIT
 
 // Save firmware space
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
+// Strip away all prints except `uprintf`
+#define USER_PRINT
 // Disable hardware lock switches support to free up space
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
