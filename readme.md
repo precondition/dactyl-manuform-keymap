@@ -1,7 +1,7 @@
 ## Precondition's keymap for the Dactyl Manuform 5x6
 To be inserted in ~/qmk_firmware/keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition
 
-![Heatmap of key presses coming from all layers](heatmap-all_layers.png)
+![Heatmap of key presses coming from all layers](visualisation/heatmap/all_layers.png)
 Figure 1. Heatmap of key presses coming from all layers. Unlike the ASCII art inside keymap.c, this figure is not automatically generated and may thus go out of date.
 
 This keymap uses Colemak-DH for its alpha base with the addition of common French accented keys in direct access and dead keys for the less common ones. For use in English, French, and programming.

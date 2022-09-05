@@ -1,0 +1,290 @@
+[
+  {
+    "name": "Dactyl Manuform 5×6",
+    "author": "precondition",
+    "notes": "Keymap Repository: https://github.com/precondition/dactyl-manuform-keymap/",
+    "css": ".keylabel2 {\n    /* NAV legend color */\n    color: #013766 !important;\n}\n\n.keylabel8 {\n    /* SYM legend color */\n    color: #ff0000 !important;\n}"
+  },
+  [
+    {
+      "y": 0.15,
+      "x": 2,
+      "t": "#000000\n\n\n#ff0000",
+      "f": 5
+    },
+    "`\n\n\nF2",
+    "\"\n\n\nF3",
+    "F4\n\n\nF4",
+    "F5\n\n\nF5",
+    {
+      "x": 5.5
+    },
+    "¨◌\n\n\nF6",
+    "^◌\n\n\nF7",
+    "È\n\n\nF8",
+    "É\n\n\nF9"
+  ],
+  [
+    {
+      "y": -0.5
+    },
+    "Undo\n\n\nF12",
+    "Redo\n\n\nF1",
+    {
+      "x": 13.5
+    },
+    "F10\n\n\nF10",
+    "F11\n\n\nF11"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 2
+    },
+    "W\n\n\n2",
+    "F\n\n\n3",
+    "P\n\n<sup>Ins</sup>\n1\n<i class='fa fa-mouse-pointer'></i>",
+    "B\n\n\n5",
+    {
+      "x": 5.5
+    },
+    "J\n\n\n6",
+    "L\n\n<i class='mss mss-Unicode-Page-Up-5'></i>\n0",
+    "U\n\n↑\n8",
+    "Y\n\n<i class='mss mss-Unicode-Page-Down-5'></i>\n9"
+  ],
+  [
+    {
+      "y": -0.5
+    },
+    "À\n\n\nx",
+    "Q\n\n\n4",
+    {
+      "x": 13.5
+    },
+    ";\n:\n\n7",
+    "_\n-\n<i class='kb kb-Multimedia-Mute-1'></i>\n-"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 2,
+      "fa": [
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "R\n\n\n[\n\n\n\n\n\n⎇",
+    "S\n\n\n]\n\n\n\n\n\n⇧",
+    "T\n\n\n\"]\n\n\n\n\n\n<i class='kb kb-Unicode-Control-1'></i>",
+    "G\n\n\n»",
+    {
+      "x": 5.5
+    },
+    "M\n\n<i class='kb kb-Line-Start'></i>\n{<i class='kb kb-Return-2'></i>",
+    "N\n\n<i class='kb kb-Arrows-Left'></i>\n{\n\n\n\n\n\n<i class='kb kb-Unicode-Control-1'></i>",
+    "E\n\n↓\n(\n\n\n\n\n\n⇧",
+    "I\n\n<i class='kb kb-Arrows-Right'></i>\n)\n\n\n\n\n\n⎇"
+  ],
+  [
+    {
+      "y": -0.5,
+      "c": "#8eb0bb"
+    },
+    "Esc\n\n\n«",
+    {
+      "c": "#cccccc"
+    },
+    "A\n\n\n[\"\n\n\n\n\n\n◆",
+    {
+      "x": 13.5
+    },
+    "O\n\n<i class='kb kb-Line-End'></i>\n}\n\n\n\n\n\n◆",
+    {
+      "c": "#8eb0bb"
+    },
+    "\"\n'\n<i class='kb kb-Multimedia-Volume-Up-2'></i>\n}<i class='kb kb-Return-2'></i>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 2,
+      "c": "#cccccc",
+      "f": 5
+    },
+    "X\n\n\n@",
+    {
+      "f": 5
+    },
+    "C\n\n<sup><i class='fa fa-copy'></i></sup>\n#",
+    {
+      "f": 5
+    },
+    "D\n\n<sup><i class='fa fa-paste'></i></sup>\n$",
+    {
+      "f": 5
+    },
+    "V\n\n\n%",
+    {
+      "x": 5.5,
+      "f": 5
+    },
+    "K\n\n\n^",
+    {
+      "f": 5
+    },
+    "H\n\n\n&",
+    {
+      "f": 5
+    },
+    "<\n,\n<sup>{</sup>\n*",
+    {
+      "f": 5
+    },
+    ">\n.\n<sup>}</sup>\n="
+  ],
+  [
+    {
+      "y": -0.5,
+      "c": "#8eb0bb",
+      "f": 5
+    },
+    "Z\n\n\n~",
+    {
+      "c": "#cccccc",
+      "f": 5
+    },
+    "REP\n\n\n!",
+    {
+      "x": 13.5,
+      "f": 5
+    },
+    "?\n/\n\n+",
+    {
+      "c": "#8eb0bb",
+      "f": 4
+    },
+    "=>\n->\n<i class='kb kb-Multimedia-Volume-Down-2'></i>\n`"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 2,
+      "t": "#000000",
+      "f": 5
+    },
+    "<i class='fa fa-microphone'></i>",
+    "Ç",
+    {
+      "x": 9.5,
+      "a": 7
+    },
+    "AltGr",
+    {
+      "a": 4
+    },
+    "~\n`"
+  ],
+  [
+    {
+      "r": 30,
+      "rx": 5.5,
+      "ry": 4.25,
+      "y": -0.25,
+      "x": 1,
+      "h": 1.5
+    },
+    "_"
+  ],
+  [
+    {
+      "y": -0.5,
+      "t": "#000000\n\n\n\n\n\n\n\n\n#013766",
+      "h": 1.5
+    },
+    "<i class='kb kb-Line-Start-End'></i>\n\n\n\n\n\n\n\n\nNAV"
+  ],
+  [
+    {
+      "r": 65,
+      "rx": 13.25,
+      "y": 6.1,
+      "x": -0.75,
+      "t": "#000000",
+      "a": 5
+    },
+    "⇧\n<sup>OSM</sup>"
+  ],
+  [
+    {
+      "r": 75,
+      "rx": 5.5,
+      "y": -1.25,
+      "x": 3.5,
+      "a": 4
+    },
+    "<i class='kb kb-Unicode-Lock-Closed-1'></i>"
+  ],
+  [
+    {
+      "x": 2.5,
+      "f": 3
+    },
+    "Cmpse\n\n\n\n\n\n\n\n\n⎄",
+    {
+      "a": 7,
+      "f": 1
+    },
+    "Toggle PLOVER"
+  ],
+  [
+    {
+      "r": -75,
+      "rx": 12,
+      "y": -1.25,
+      "x": -4.5,
+      "a": 4,
+      "f": 5
+    },
+    "\n\n<i class='kb kb-Unicode-ClearScreen-1'></i>"
+  ],
+  [
+    {
+      "x": -4.5
+    },
+    "\n\n<i class='kb kb-Arrows-Left'></i>",
+    "\n\n<i class='kb kb-Arrows-Right'></i>"
+  ],
+  [
+    {
+      "r": -65,
+      "rx": 13.25,
+      "y": -2,
+      "x": -4,
+      "a": 5
+    },
+    "⇧\n<sup>OSM</sup>"
+  ],
+  [
+    {
+      "r": -30,
+      "rx": 12,
+      "y": -0.25,
+      "x": -2,
+      "a": 4,
+      "h": 1.5
+    },
+    "<i class='kb kb-Unicode-DeleteRight-Big'></i>\n<i class='kb kb-Unicode-BackSpace-DeleteLeft-Big'></i>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": -1,
+      "t": "#000000\n\n\n\n\n\n\n\n\n#ff0000",
+      "h": 1.5
+    },
+    "<i class='kb kb-Return-2'></i>\n\n\n\n\n\n\n\n\nSYM"
+  ]
+]
