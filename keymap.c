@@ -249,6 +249,7 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
         switch (keycode) {
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
                 // Earlier return if this has not been considered tapped yet
                 if (record->tap.count == 0) { return; }
                 // Get the base tapping keycode of a mod- or layer-tap key
@@ -261,6 +262,10 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
         switch (keycode) {
             // Keycodes to shift
             case KC_A ... KC_Z:
+            case A_GRAVE:
+            case E_ACUTE:
+            case E_GRAVE:
+            case C_CDILA:
                 if (record->event.pressed) {
                     if (get_oneshot_mods() & MOD_MASK_SHIFT) {
                         caps_word_lock_disable();
@@ -278,6 +283,8 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
             case OS_RSFT:
             case KC_LPRN:
             case KC_RPRN:
+            case DED_CIR:
+            case DED_UML:
                 // If chording mods, disable caps word
                 if (record->event.pressed && (get_mods() != MOD_LSFT) && (get_mods() != 0)) {
                     caps_word_lock_disable();
