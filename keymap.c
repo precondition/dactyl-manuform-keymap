@@ -7,8 +7,8 @@
 #include "print.h"
 #endif
 
-// All custom keycodes and aliases can be found in keymap.h
-#include "keymap.h"
+// All custom keycodes and aliases can be found in precondtion_keymap.h
+#include "precondition_keymap.h"
 
 /*MAKE SURE THAT ADJUST AND QK_BOOT ARE ACCESSIBLE ON BOTH HALVES!*/
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

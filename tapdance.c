@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap.h"
+#include "precondition_keymap.h"
 
 static void sentence_end(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {

@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap.h"
+#include "precondition_keymap.h"
 #include "action_tapping.h" // necessary for action_tapping_process
 #ifdef CONSOLE_ENABLE
 #include "print.h"
