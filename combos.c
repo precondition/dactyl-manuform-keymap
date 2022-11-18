@@ -12,7 +12,6 @@ enum combo_events {
     BSPCEV_EVERY,
     BSPCU_YOU,
     BSPCA_AND,
-    BSPCN_NOT,
     BSPCW_WITH,
     BSPCF_FOR,
     BSPCH_HERE,
@@ -20,6 +19,7 @@ enum combo_events {
     BSPCM_MENT,
     BSPCG_ING,
     BSPCO_OUGH,
+    BSPCOL_OULD,
     BSPCI_ION,
     BSPCIS_IONS,
     BSPCTA_THAT,
@@ -36,7 +36,6 @@ enum combo_events {
     // that do not involve the backspace thumb key because these
     // combinations of keys do not generate too many conflicts
     // in normal typing.
-    JU_JUST,
     HV_HAVE,
     QK_QMK,
     KB_KEYBOARD,
@@ -70,6 +69,7 @@ const uint16_t PROGMEM BSPC_T_COMBO[]     = {KC_BSPC,  HOME_T,  COMBO_END};
 const uint16_t PROGMEM BSPC_M_COMBO[]     = {KC_BSPC,  KC_M,    COMBO_END};
 const uint16_t PROGMEM BSPC_G_COMBO[]     = {KC_BSPC,  KC_G,    COMBO_END};
 const uint16_t PROGMEM BSPC_O_COMBO[]     = {KC_BSPC,  HOME_O,  COMBO_END};
+const uint16_t PROGMEM BSPC_O_L_COMBO[]   = {KC_BSPC,  HOME_O,  KC_L,    COMBO_END};
 const uint16_t PROGMEM BSPC_I_COMBO[]     = {KC_BSPC,  HOME_I,  COMBO_END};
 const uint16_t PROGMEM BSPC_I_S_COMBO[]   = {KC_BSPC,  HOME_I,  HOME_S,  COMBO_END};
 const uint16_t PROGMEM BSPC_Q_COMBO[]     = {KC_BSPC,  KC_Q,    COMBO_END};
@@ -79,7 +79,6 @@ const uint16_t PROGMEM K_B_COMBO[]        = {KC_K,     KC_B,    COMBO_END};
 const uint16_t PROGMEM BSPC_T_A_COMBO[]   = {KC_BSPC,  HOME_T,  HOME_A,  COMBO_END};
 const uint16_t PROGMEM BSPC_D_N_COMBO[]   = {KC_BSPC,  KC_D,    HOME_N,  COMBO_END};
 const uint16_t PROGMEM BSPC_I_T_COMBO[]   = {KC_BSPC,  HOME_I,  HOME_T,  COMBO_END};
-const uint16_t PROGMEM J_U_COMBO[]        = {KC_J,     KC_U,    COMBO_END};
 const uint16_t PROGMEM H_V_COMBO[]        = {KC_H,     KC_V,    COMBO_END};
 const uint16_t PROGMEM Q_K_COMBO[]        = {KC_Q,     KC_K,    COMBO_END};
 const uint16_t PROGMEM W_A_COMBO[]        = {KC_W,     HOME_A,  COMBO_END};
@@ -96,7 +95,6 @@ combo_t key_combos[] = {
     [BSPCEV_EVERY]    = COMBO_ACTION(BSPC_E_V_COMBO),
     [BSPCU_YOU]       = COMBO_ACTION(BSPC_U_COMBO),
     [BSPCA_AND]       = COMBO_ACTION(BSPC_A_COMBO),
-    [BSPCN_NOT]       = COMBO_ACTION(BSPC_N_COMBO),
     [BSPCW_WITH]      = COMBO_ACTION(BSPC_W_COMBO),
     [BSPCF_FOR]       = COMBO_ACTION(BSPC_F_COMBO),
     [BSPCH_HERE]      = COMBO_ACTION(BSPC_H_COMBO),
@@ -104,6 +102,7 @@ combo_t key_combos[] = {
     [BSPCM_MENT]      = COMBO_ACTION(BSPC_M_COMBO),
     [BSPCG_ING]       = COMBO_ACTION(BSPC_G_COMBO),
     [BSPCO_OUGH]      = COMBO_ACTION(BSPC_O_COMBO),
+    [BSPCOL_OULD]     = COMBO_ACTION(BSPC_O_L_COMBO),
     [BSPCI_ION]       = COMBO_ACTION(BSPC_I_COMBO),
     [BSPCIS_IONS]     = COMBO_ACTION(BSPC_I_S_COMBO),
     [BSPCTA_THAT]     = COMBO_ACTION(BSPC_T_A_COMBO),
@@ -112,7 +111,6 @@ combo_t key_combos[] = {
     [BSPCTS_THIS]     = COMBO_ACTION(BSPC_T_S_COMBO),
     [BSPCDN_DONT]     = COMBO_ACTION(BSPC_D_N_COMBO),
     [BSPCIT_IN_THE]   = COMBO_ACTION(BSPC_I_T_COMBO),
-    [JU_JUST]         = COMBO_ACTION(J_U_COMBO),
     [HV_HAVE]         = COMBO_ACTION(H_V_COMBO),
     [QK_QMK]          = COMBO_ACTION(Q_K_COMBO),
     [KB_KEYBOARD]     = COMBO_ACTION(K_B_COMBO),
@@ -130,7 +128,7 @@ combo_t key_combos[] = {
 void process_combo_event(uint16_t combo_index, bool pressed) {
     // Process mod-taps before the combo is fired,
     // this helps making modifier-aware combos,
-    // like UYCLN_INDEX or BSPCN_NOT, more fluid
+    // like UYCLN_INDEX more fluid
     // when I use them with home row mods.
     action_tapping_process((keyrecord_t){});
     mod_state = get_mods();
@@ -173,12 +171,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         }
         break;
 
-        case JU_JUST:
-            if (pressed) {
-                SEND_STRING("just");
-            }
-        break;
-
         case HV_HAVE:
             if (pressed) {
                 SEND_STRING("have");
@@ -215,19 +207,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             if (pressed) {
                 SEND_STRING("and");
             }
-        break;
-
-        case BSPCN_NOT:
-            if (pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    del_mods(MOD_MASK_CTRL);
-                    SEND_STRING("n't");
-                    set_mods(mod_state);
-                }
-                else {
-                    SEND_STRING("not");
-                }
-        }
         break;
 
         case BSPCW_WITH:
@@ -268,15 +247,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
         case BSPCO_OUGH:
             if (pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    del_mods(MOD_MASK_CTRL);
-                    SEND_STRING("ould");
-                    set_mods(mod_state);
-                } else {
-                    SEND_STRING("ough");
-                }
+                SEND_STRING("ough");
             }
         break;
+
+        case BSPCOL_OULD:
+            if (pressed) {
+                SEND_STRING("ould");
+            }
+            break;
 
         case BSPCI_ION:
             if (pressed) {
