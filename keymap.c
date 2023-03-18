@@ -211,7 +211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_5x6(
         KC_UNDO,KC_AGIN,_______,_______,_______,_______,    _______,_______,KC_INT8,KC_LNG9, PB_10 ,_______,
         _______,_______,_______,KC_FIND,_______, EE_CLR,    _______, NK_ON ,_______,_______,_______,_______,
-        QK_GESC,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT, QK_RBT,    RCG_SWP,_______,KC_LSPO,KC_RSPC,_______,KC_NUHS,
+        QK_GESC,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT, QK_RBT,    RCG_SWP,_______,SC_LSPO,SC_RSPC,_______,KC_NUHS,
         KC_NUBS,_______, KC_CUT,KC_COPY,KC_PSTE,QK_BOOT,    QK_BOOT, NK_OFF,_______,_______,KC_PSLS,_______,
                         _______,_______,                                    _______,_______,
                                         _______,_______,    _______,_______,
