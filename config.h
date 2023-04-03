@@ -6,10 +6,6 @@
 #define TAPPING_TERM 170
 #define TAPPING_TERM_PER_KEY // See bottom of keymap.c
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-// No longer necessary with “[IGNORE_MOD_TAP_INTERRUPT by default](https://github.com/qmk/qmk_firmware/pull/15741)”
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // This prevents accidental repeats of the tap-hold keys when typing quickly.
 #define TAPPING_FORCE_HOLD_PER_KEY
 
