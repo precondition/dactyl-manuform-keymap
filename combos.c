@@ -138,10 +138,10 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     uint8_t idx = 0;
     uint16_t combo_keycode;
     while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
-        uprintf("0x%04X\tNA\tNA\t0x%X\t%u\t0x%02X\t0x%02X\t0\n",
+        uprintf("0x%04X\t%u\t%u\t0x%X\t%u\t0x%02X\t0x%02X\t0\n",
             combo_keycode,
-            /* Not Available */
-            /* Not Available */
+            254,
+            254,
             layer_state|default_layer_state,
             pressed,
             get_mods(),
