@@ -18,8 +18,8 @@ SWAP_HANDS_ENABLE = yes
 LTO_ENABLE = yes
 COMMAND_ENABLE = no
 KEY_LOCK_ENABLE = no
-SPACE_CADET_ENABLE = yes
-GRAVE_ESC_ENABLE = yes
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 
 # Load the necessary external C files if and only if
