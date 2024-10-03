@@ -87,10 +87,10 @@ enum custom_keycodes {
     // French grave accented letters
     E_GRAVE,
     A_GRAVE,
-    // "Yank Inner CODE"
-    // Macro for
-    // $yi{
-    YICODE,
+    // Macro for 
+    // std::cout << | << "\n";
+    // (with | representing the cursor position)
+    COUTLN,
     REPEAT,
     // "Opening brace"
     // Macro for
