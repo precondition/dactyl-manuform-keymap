@@ -131,8 +131,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     // like UYCLN_INDEX more fluid
     // when I use them with home row mods.
     action_tapping_process((keyrecord_t){});
-    mod_state = get_mods();
-    oneshot_mod_state = get_oneshot_mods();
+    const uint8_t mod_state = get_mods();
+    const uint8_t oneshot_mod_state = get_oneshot_mods();
 #ifdef CONSOLE_ENABLE
     combo_t *combo = &key_combos[combo_index];
     uint8_t idx = 0;

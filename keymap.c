@@ -316,7 +316,9 @@ static void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
             case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
                 return;
         }
-        last_modifier = oneshot_mod_state | mod_state;
+        if (record->event.pressed) {
+            last_modifier = get_oneshot_mods() | get_mods();
+        }
         switch (keycode) {
             case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             case QK_MOD_TAP ... QK_MOD_TAP_MAX:
@@ -358,8 +360,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_caps_word_lock(keycode, record);
     process_repeat_key(keycode, record);
 
-    mod_state = get_mods();
-    oneshot_mod_state = get_oneshot_mods();
+    const uint8_t mod_state = get_mods();
+    const uint8_t oneshot_mod_state = get_oneshot_mods();
     switch (keycode) {
 
 
