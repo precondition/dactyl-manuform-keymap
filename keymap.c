@@ -5,6 +5,7 @@
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif
+#include "version.h" // For QK_VERS
 
 // All custom keycodes and aliases can be found in precondtion_keymap.h
 #include "precondition_keymap.h"
@@ -194,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | UNDO  | AGAIN |-------+-------+-------+-------| |-------+-------+-------+-------| PB_10 |      |
  * |-------+-------|       | FIND  |       |EE_CLR | |       |NKROon |       |       |-------+------|
  * |       |       |-------+-------+-------+-------| |-------+-------+-------+-------|       |      |
- * |-------+-------|   ⏹   |   ⏯   |   ⏭   |QK_RBT | |       |       |  (/⇧  |  )/⇧  |-------+------|
+ * |-------+-------|   ⏹   |   ⏯   |   ⏭   |QK_RBT | |QK_VERS|       |  (/⇧  |  )/⇧  |-------+------|
  * |` ~/Esc|   ⏮   |-------+-------+-------+-------| |-------+-------+-------+-------|       |\NUHS||
  * |-------+-------|  CUT  | COPY  | PASTE |QK_BOOT| |QK_BOOT|NKROoff|       |       |-------+------|
  * |\NUBS| |       |-------+-------+---------------' `---------------+-------+-------| KP /  |      |
@@ -210,7 +211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_5x6(
         KC_UNDO,KC_AGIN,_______,_______,_______,_______,    _______,_______,KC_INT8,KC_LNG9, PB_10 ,_______,
         _______,_______,_______,KC_FIND,_______, EE_CLR,    _______, NK_ON ,_______,_______,_______,_______,
-        QK_GESC,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT, QK_RBT,    _______,_______,SC_LSPO,SC_RSPC,_______,KC_NUHS,
+        QK_GESC,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT, QK_RBT,    QK_VERS,_______,SC_LSPO,SC_RSPC,_______,KC_NUHS,
         KC_NUBS,_______, KC_CUT,KC_COPY,KC_PSTE,QK_BOOT,    QK_BOOT, NK_OFF,_______,_______,KC_PSLS,_______,
                         _______,_______,                                    _______,_______,
                                         _______,_______,    _______,_______,
@@ -554,6 +555,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             tap_code16(KC_DOUBLE_QUOTE);
             tap_code(KC_RIGHT_BRACKET);
+        }
+        return false;
+
+    case QK_VERS:
+        if (record->event.pressed) {
+            SEND_STRING(
+                    QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION "(" QMK_GIT_HASH ")" \
+                    ", Built on; " QMK_BUILDDATE
+                    );
         }
         return false;
 
