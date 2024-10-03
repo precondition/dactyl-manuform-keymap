@@ -2,7 +2,6 @@
  * for the Dactyl Manuform 5x6 Keyboard */
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif
