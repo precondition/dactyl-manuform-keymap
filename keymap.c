@@ -599,3 +599,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 };
 #endif
+
+#ifdef TAP_DANCE_ENABLE
+    // Due to keymap introspection, the old `SRC += tapdance.c` technique in rules.mk no longer works
+    #include "tapdance.c"
+#endif

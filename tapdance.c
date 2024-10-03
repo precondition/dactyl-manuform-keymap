@@ -1,6 +1,3 @@
-#include QMK_KEYBOARD_H
-#include "precondition_keymap.h"
-
 static void sentence_end(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
 
