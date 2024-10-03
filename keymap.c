@@ -442,7 +442,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if ((mod_state|oneshot_mod_state) & MOD_MASK_SHIFT) {
             del_mods(MOD_MASK_SHIFT);
             del_oneshot_mods(MOD_MASK_SHIFT);
-            send_string("=>");
+            SEND_STRING("=>");
             set_mods(mod_state);
           } else {
             SEND_STRING("->");
@@ -523,7 +523,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COUTLN:
         if (record->event.pressed) {
             // ; and : keysyms are swapped on my OS layout
-            send_string("std;;cout <<  << \"\\n\":");
+            SEND_STRING("std;;cout <<  << \"\\n\":");
             for (int i = 0; i < 9; ++i)  {
                 tap_code(KC_LEFT);
             }
