@@ -273,18 +273,18 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
                     }
                 }
             // Keycodes that enable caps word but shouldn't get shifted
-            case KC_MINS:
-            case KC_BSPC:
-            case KC_UNDS:
-            case KC_PIPE:
-            case REPEAT:
             case CAPS_WORD_LOCK:
-            case OS_LSFT:
-            case OS_RSFT:
-            case KC_LPRN:
-            case KC_RPRN:
             case DED_CIR:
             case DED_UML:
+            case KC_BSPC:
+            case KC_LPRN:
+            case KC_MINS:
+            case KC_PIPE:
+            case KC_RPRN:
+            case KC_UNDS:
+            case OS_LSFT:
+            case OS_RSFT:
+            case REPEAT:
                 // If chording mods, disable caps word
                 if (record->event.pressed && (get_mods() != MOD_LSFT) && (get_mods() != 0)) {
                     caps_word_lock_disable();
