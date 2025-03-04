@@ -523,7 +523,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COUTLN:
         if (record->event.pressed) {
             // ; and : keysyms are swapped on my OS layout
-            SEND_STRING("std;;cout <<  << \"\\n\":");
+            SEND_STRING_DELAY("std;;cout <<  << \"\\n\":", 10);
             for (int i = 0; i < 9; ++i)  {
                 tap_code(KC_LEFT);
             }
