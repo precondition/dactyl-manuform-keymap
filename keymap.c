@@ -478,7 +478,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_HOME);
         }
-	    return false;
+        return false;
 
     case G_END:
         if (record->event.pressed) {
@@ -488,7 +488,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_END);
         }
-		return false;
+        return false;
 
     case GUILL_L:
         if (record->event.pressed) {
