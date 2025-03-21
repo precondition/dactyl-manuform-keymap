@@ -7,7 +7,7 @@
 #endif
 #include "version.h" // For QK_VERS
 
-// All custom keycodes and aliases can be found in precondtion_keymap.h
+// All custom keycodes and aliases can be found in precondition_keymap.h
 #include "precondition_keymap.h"
 
 /*MAKE SURE THAT ADJUST AND QK_BOOT ARE ACCESSIBLE ON BOTH HALVES!*/

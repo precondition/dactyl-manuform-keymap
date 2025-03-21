@@ -2,7 +2,7 @@ static void sentence_end(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
 
         // Double tapping TD_DOT produces
-        // ". <one-shot-shift>" i.e. dot, space and capitalize next letter.
+        // ". <one-shot shift>" i.e. dot, space and capitalize next letter.
         // This helps to quickly end a sentence and begin another one
         // without having to hit shift.
         case 2:
