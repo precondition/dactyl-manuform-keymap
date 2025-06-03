@@ -11,6 +11,7 @@ enum layer_names {
     _SYM,
     _NAV,
     _GNAV,
+    _BNAV,
 #ifdef MOUSEKEY_ENABLE
     _MOUSE,
 #endif
@@ -21,6 +22,7 @@ enum layer_names {
 #define NAV_TAB LT(_NAV, KC_TAB)
 #define NAV MO(_NAV)
 #define GNAV MO(_GNAV)
+#define BNAV OSL(_BNAV)
 #define SYM MO(_SYM)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
@@ -72,6 +74,8 @@ enum layer_names {
 #define DED_CIR ALGR(KC_6)
 #define DED_UML S(ALGR(KC_QUOT))
 
+#define TMUX_PREFIX_KEY C(KC_B)
+
 enum custom_keycodes {
     ARROW_R = SAFE_RANGE,
     // g navigation to move through screen lines in Vim
@@ -112,6 +116,24 @@ enum custom_keycodes {
     // "QMK Version"
     // Prints the keyboard name, QMK version and build date
     QK_VERS,
+    // tmux window navigation
+    B_CREAT,
+    B_PREV,
+    B_NEXT,
+    // tmux pane navigation
+    B_VERT,
+    B_HORIZ,
+    B_UP,
+    B_LEFT,
+    B_DOWN,
+    B_RIGHT,
+    // tmux copy mode and paste buffer
+    B_PASTE,
+    B_CPY_M,
+    // tmux zoom
+    B_ZOOM,
+    // tmux close pane
+    B_CLOSE,
 };
 
 #ifdef TAP_DANCE_ENABLE
