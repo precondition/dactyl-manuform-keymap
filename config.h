@@ -29,6 +29,11 @@
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
+// Custom (i.e. not part of QMK core) config to define the delay to wait for
+// before pressing the next key in a sequence of keys defined as a part of a
+// macro/custom keycode.
+#define KEY_SEQ_DELAY 10
+
 // Shamelessly stolen mouse key settings from @pierrechevalier83 //
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
