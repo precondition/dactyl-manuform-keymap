@@ -23,9 +23,15 @@ This keymap contains many nifty QMK tricks that can inspire you for your own key
 4. `CAPS_WORD_LOCK`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code. This is a hand-rolled version of [Caps Word](https://docs.qmk.fm/#/feature_caps_word) that works on the basis of Caps Lock, unlike the core QMK feature which is based on weak Shifts. That makes it easier to keep track of its state and better handles corner cases with less firmware size.
 5. `REPEAT`: Repeat the last (modified) keystroke. This is used to eliminate the same-finger use that stems from double-tapping the same key. Ideally, this should be a thumb key but I couldn't fit it in my cluster in a satisfying manner.
 6. `QK_VERS`: Types out firmware build information in the format `QMK_KEYBOARD/QMK_KEYMAP @ QMK_VERSION( QMK_GIT_HASH), Built on: QMK_BUILDDATE` (e.g. `handwired/dactyl_manuform/5x6/precondition @ 0.22.7-dirty(4ebb065f94*), Built on: 2024-10-03-22:50:02`)
+7. Auto escape base-layer dead keys: Automatically press space after dead keys such as '"\`^. If you're used to US intl. with AltGr dead keys on Linux but only have access to US intl. with base-layer dead keys on Windows, you'll like this.
 
 ### OS Setup
 
 * OS: Xubuntu Linux
 * Regional keyboard layout: Modified English US intl. with AltGr dead keys
     * Swapped the shift pairs of the semicolon key
+
+AND
+
+* OS: Windows 11
+* Regional keyboard layout: English US intl. (with base-layer dead keys)
