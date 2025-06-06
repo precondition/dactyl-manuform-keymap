@@ -13,6 +13,7 @@ NKRO_ENABLE = no
 STENO_ENABLE = yes
 STENO_PROTOCOL = geminipr
 SWAP_HANDS_ENABLE = yes
+KEY_OVERRIDE_ENABLE = yes
 
 # Space savings
 LTO_ENABLE = yes
