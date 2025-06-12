@@ -668,6 +668,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code16(KC_DOUBLE_QUOTE);
+            if (base_dead_keys) {
+                tap_code(KC_SPACE);
+            }
         }
         return false;
 
