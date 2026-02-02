@@ -3,7 +3,7 @@
 KEYMAP_FOLDER = keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition
 .PHONY: %
 %:
-	-keymapviz -k dactyl_manuform5x6 -t ascii -r $(KEYMAP_FOLDER)/keymap.c -c $(KEYMAP_FOLDER)/visualisation/keymapviz/keymapviz.ini > /dev/null
+	-keymapviz -k dactyl_manuform5x6 -t fancy -r $(KEYMAP_FOLDER)/keymap.c -c $(KEYMAP_FOLDER)/visualisation/keymapviz/keymapviz.ini > /dev/null
 
 CONSOLE_ENABLE = no    # USER_PRINT is currently bugged, see issue #24987 on qmk/qmk_firmware
 MOUSEKEY_ENABLE = yes
