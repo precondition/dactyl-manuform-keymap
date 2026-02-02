@@ -421,7 +421,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
 
-
     case KC_SPC:
         if (oneshot_mod_state & MOD_MASK_SHIFT) {
             if (record->event.pressed) {
@@ -576,21 +575,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
 
-    case COUTLN:
-        if (record->event.pressed) {
-            if (base_dead_keys) {
-                // The double quotes will consume the space next to them.
-                SEND_STRING_DELAY("std::cout <<  << \" \\n\" ;", KEY_SEQ_DELAY);
-            } else {
-                // ; and : keysyms are swapped on my OS layout
-                SEND_STRING_DELAY("std;;cout <<  << \"\\n\":", KEY_SEQ_DELAY);
-            }
-            for (int i = 0; i < 9; ++i)  {
-                tap_code(KC_LEFT);
-            }
-        }
-        return false;
-
     case O_BRACE:
         if (record->event.pressed) {
             tap_code16(KC_LEFT_CURLY_BRACE);
@@ -622,6 +606,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_SPACE);
             }
             tap_code(KC_RIGHT_BRACKET);
+        }
+        return false;
+
+    case COUTLN:
+        if (record->event.pressed) {
+            if (base_dead_keys) {
+                // The double quotes will consume the space next to them.
+                SEND_STRING_DELAY("std::cout <<  << \" \\n\" ;", KEY_SEQ_DELAY);
+            } else {
+                // ; and : keysyms are swapped on my OS layout
+                SEND_STRING_DELAY("std;;cout <<  << \"\\n\":", KEY_SEQ_DELAY);
+            }
+            for (int i = 0; i < 9; ++i)  {
+                tap_code(KC_LEFT);
+            }
         }
         return false;
 
