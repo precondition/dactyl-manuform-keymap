@@ -52,7 +52,7 @@ enum combo_events {
     EIGHTNINE_DOT,
     PT_MOUSE,
 
-    // Vertical combos mimicking vim arrows.
+    // Vertical combos mimicking Vim arrows.
     JM_LEFT,
     LN_DOWN,
     UE_UP,
