@@ -74,7 +74,7 @@ enum layer_names {
 #define TMUX_PREFIX_KEY C(KC_B)
 
 enum custom_keycodes {
-    ARROW_R = SAFE_RANGE,
+    ARROW_R = QK_USER,
     // g navigation to move through screen lines in Vim
     G_DOWN,
     G_UP,
