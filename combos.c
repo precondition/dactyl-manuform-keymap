@@ -58,6 +58,9 @@ enum combo_events {
     UE_UP,
     YI_RIGHT,
 
+    MK_HOME,
+    IDOT_END,
+
     // This must be the last item in the enum.
     // This is used to automatically update the combo count.
     COMBO_LENGTH
@@ -101,6 +104,8 @@ const uint16_t PROGMEM L_N_COMBO[]        = {KC_L,     HOME_N,  COMBO_END};
 const uint16_t PROGMEM U_E_COMBO[]        = {KC_U,     HOME_E,  COMBO_END};
 const uint16_t PROGMEM Y_I_COMBO[]        = {KC_Y,     HOME_I,  COMBO_END};
 const uint16_t PROGMEM SCLN_O_COMBO[]     = {KC_SCLN,  HOME_O,  COMBO_END};
+const uint16_t PROGMEM M_K_COMBO[]        = {KC_M,     KC_K,    COMBO_END};
+const uint16_t PROGMEM I_DOT_COMBO[]      = {HOME_I,   TD_DOT,  COMBO_END};
 
 combo_t key_combos[] = {
     [BSPCEV_EVERY]    = COMBO_ACTION(BSPC_E_V_COMBO),
@@ -138,6 +143,8 @@ combo_t key_combos[] = {
     [LN_DOWN]         = COMBO(L_N_COMBO, KC_DOWN),
     [UE_UP]           = COMBO(U_E_COMBO, KC_UP),
     [YI_RIGHT]        = COMBO(Y_I_COMBO, KC_RIGHT),
+    [MK_HOME]         = COMBO(M_K_COMBO, KC_HOME),
+    [IDOT_END]        = COMBO(I_DOT_COMBO, KC_END),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
