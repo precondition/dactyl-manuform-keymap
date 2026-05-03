@@ -389,8 +389,7 @@ static void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     const bool is_combo = record->event.type == COMBO_EVENT;
-    uprintf("%s\t0x%04X\t%u\t%u\t0x%X\t%u\t0x%02X\t0x%02X\t%u\n",
-         get_keycode_string(keycode),
+    uprintf("0x%04X\t%u\t%u\t0x%X\t%u\t0x%02X\t0x%02X\t%u\t%s\n",
          keycode,
          is_combo ? 254 : record->event.key.row,
          is_combo ? 254 : record->event.key.col,
@@ -398,7 +397,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          record->event.pressed,
          get_mods(),
          get_oneshot_mods(),
-         record->tap.count
+         record->tap.count,
+         get_keycode_string(keycode)
          );
 #endif
     process_caps_word_lock(keycode, record);
