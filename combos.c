@@ -58,6 +58,7 @@ enum combo_events {
     UE_UP,
     YI_RIGHT,
 
+    // Vertical combos for home and end, inspired by the above cursor combos.
     MK_HOME,
     IDOT_END,
 
