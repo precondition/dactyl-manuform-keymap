@@ -52,6 +52,12 @@ enum combo_events {
     EIGHTNINE_DOT,
     PT_MOUSE,
 
+    // Vertical combos mimicking vim arrows.
+    JM_LEFT,
+    LN_DOWN,
+    UE_UP,
+    YI_RIGHT,
+
     // This must be the last item in the enum.
     // This is used to automatically update the combo count.
     COMBO_LENGTH
@@ -90,6 +96,11 @@ const uint16_t PROGMEM DOT_SLASH_COMBO[]  = {TD_DOT,   KC_SLSH, COMBO_END};
 const uint16_t PROGMEM ZERO_EIGHT_COMBO[] = {KC_0,     KC_8,    COMBO_END};
 const uint16_t PROGMEM EIGHT_NINE_COMBO[] = {KC_8,     KC_9,    COMBO_END};
 const uint16_t PROGMEM P_T_COMBO[]        = {KC_P,     HOME_T,  COMBO_END};
+const uint16_t PROGMEM J_M_COMBO[]        = {KC_J,     KC_M,    COMBO_END};
+const uint16_t PROGMEM L_N_COMBO[]        = {KC_L,     HOME_N,  COMBO_END};
+const uint16_t PROGMEM U_E_COMBO[]        = {KC_U,     HOME_E,  COMBO_END};
+const uint16_t PROGMEM Y_I_COMBO[]        = {KC_Y,     HOME_I,  COMBO_END};
+const uint16_t PROGMEM SCLN_O_COMBO[]     = {KC_SCLN,  HOME_O,  COMBO_END};
 
 combo_t key_combos[] = {
     [BSPCEV_EVERY]    = COMBO_ACTION(BSPC_E_V_COMBO),
@@ -123,6 +134,10 @@ combo_t key_combos[] = {
     [EIGHTNINE_DOT]   = COMBO(EIGHT_NINE_COMBO, KC_DOT),
     [UYCLN_INDEX]     = COMBO_ACTION(U_Y_SCLN_COMBO),
     [PT_MOUSE]        = COMBO(P_T_COMBO, MOUSE),
+    [JM_LEFT]         = COMBO(J_M_COMBO, KC_LEFT),
+    [LN_DOWN]         = COMBO(L_N_COMBO, KC_DOWN),
+    [UE_UP]           = COMBO(U_E_COMBO, KC_UP),
+    [YI_RIGHT]        = COMBO(Y_I_COMBO, KC_RIGHT),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
