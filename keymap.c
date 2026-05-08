@@ -316,6 +316,7 @@ static void process_caps_word_lock(uint16_t keycode, const keyrecord_t *record) 
             case OS_LSFT:
             case OS_RSFT:
             case REPEAT:
+            case KC_1 ... KC_0:
                 // If chording mods, disable caps word
                 if (record->event.pressed && (get_mods() != MOD_LSFT) && (get_mods() != 0)) {
                     caps_word_lock_disable();
