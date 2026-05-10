@@ -866,9 +866,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #ifdef KEY_OVERRIDE_ENABLE
 const key_override_t colon_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COLON, KC_SEMICOLON);
 const key_override_t slash_key_override = ko_make_basic(MOD_BIT(KC_LALT), KC_SLASH, KC_BACKSLASH);
+const key_override_t quote_key_override = ko_make_basic(MOD_BIT(KC_LALT), KC_QUOTE, KC_GRAVE);
 
 const key_override_t *key_overrides[] = {
     &colon_key_override,
-    &slash_key_override
+    &slash_key_override,
+    &quote_key_override
 };
 #endif
