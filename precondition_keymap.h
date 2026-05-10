@@ -27,6 +27,7 @@ enum layer_names {
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define PLOVER TG(_PLOVER)
+#define SYM_SLSH LT(_SYM, KC_SLASH)
 
 #ifdef MOUSEKEY_ENABLE
 #    define MOUSE MO(_MOUSE)
@@ -48,9 +49,9 @@ enum layer_names {
 #define HOME_R LALT_T(KC_R)
 #define HOME_S LSFT_T(KC_S)
 #define HOME_T LCTL_T(KC_T)
-#define HOME2_C LALT_T(KC_C)
-#define HOME2_N LSFT_T(KC_N)
-#define HOME2_S LGUI_T(KC_S)
+#define HOME2_R LGUI_T(KC_R)
+#define HOME2_N LALT_T(KC_N)
+#define HOME2_S LSFT_T(KC_S)
 #define HOME2_T LCTL_T(KC_T)
 
 // Right-hand home row mods
@@ -58,10 +59,10 @@ enum layer_names {
 #define HOME_I LALT_T(KC_I)
 #define HOME_E RSFT_T(KC_E)
 #define HOME_N RCTL_T(KC_N)
-#define HOME2_D LALT_T(KC_D)
-#define HOME2_B LALT_T(KC_BACKSPACE)
-#define HOME2_A RGUI_T(KC_A)
-#define HOME2_I RCTL_T(KC_I)
+#define HOME2_E RSFT_T(KC_E)
+#define RETURN  RCTL_T(KC_ENTER)
+#define HOME2_A LALT_T(KC_A)
+#define HOME2_I RGUI_T(KC_I)
 
 // One Shot Modifiers
 #define OS_LSFT OSM(MOD_LSFT)
