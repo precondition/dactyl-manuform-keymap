@@ -70,6 +70,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______,KC_DOWN,    KC_LEFT,_______,
                                         _______,_______,    _______,_______
   ),
+    // Using OS_LSFT instead of OS_RSFT on the right hand because
+    // DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD only works on left shifts.
 
 /*                 ┌───────┬───────┬───────┬───────┐ ┌───────┬───────┬───────┬───────┐
  * ┌───────┬───────┤  F2   │  F3   │  F4   │  F5   │ │  F6   │  F7   │  F8   │  F9   ├───────┬──────┐
