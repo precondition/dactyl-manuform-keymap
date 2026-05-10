@@ -34,6 +34,8 @@
 // macro/custom keycode.
 #define KEY_SEQ_DELAY 10
 
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+
 // Shamelessly stolen mouse key settings from @pierrechevalier83 //
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
