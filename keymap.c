@@ -409,6 +409,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     const uint8_t mod_state = get_mods();
     const uint8_t oneshot_mod_state = get_oneshot_mods();
+    bool retv = true;
     switch (keycode) {
 
 
@@ -417,22 +418,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             if (caps_word_lock_on) {
                 caps_word_lock_disable();
-                return false;
+                retv = false;
+                break;
             } else {
                 caps_word_lock_enable();
-                return false;
+                retv = false;
+                break;
             }
         }
-        return false;
+        retv = false;
+        break;
 
     case KC_SPC:
         if (oneshot_mod_state & MOD_MASK_SHIFT) {
             if (record->event.pressed) {
                 tap_code(KC_MINS); // The one-shot shift will convert it to an underscore
             }
-            return false;
+            retv = false;
+            break;
         }
-        return true;
+        retv = true;
+        break;
 
     case KC_BSPC:
     {
@@ -449,16 +455,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_DEL);
                 delkey_registered = true;
                 set_mods(mod_state);
-                return false;
+                retv = false;
+                break;
             }
         } else {
             if (delkey_registered) {
                 unregister_code(KC_DEL);
                 delkey_registered = false;
-                return false;
+                retv = false;
+                break;
             }
         }
-        return true;
+        retv = true;
+        break;
     }
 
      case A_GRAVE:
@@ -478,7 +487,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              set_oneshot_mods(oneshot_mod_state);
              tap_code(KC_A);
          }
-         return false;
+         retv = false;
+         break;
 
      case E_GRAVE:
          if (record->event.pressed) {
@@ -494,7 +504,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              set_oneshot_mods(oneshot_mod_state);
              tap_code(KC_E);
          }
-         return false;
+         retv = false;
+         break;
 
     case ARROW_R:
       if (record->event.pressed) {
@@ -507,7 +518,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("->");
           }
       }
-      return false;
+      retv = false;
+      break;
 
     case G_DOWN:
         if (record->event.pressed) {
@@ -517,7 +529,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_DOWN);
         }
-        return false;
+        retv = false;
+        break;
 
     case G_UP:
         if (record->event.pressed) {
@@ -527,7 +540,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_UP);
         }
-        return false;
+        retv = false;
+        break;
 
     case G_HOME:
         if (record->event.pressed) {
@@ -537,7 +551,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_HOME);
         }
-        return false;
+        retv = false;
+        break;
 
     case G_END:
         if (record->event.pressed) {
@@ -547,7 +562,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_G);
             unregister_code(KC_END);
         }
-        return false;
+        retv = false;
+        break;
 
     case GUILL_L:
         if (record->event.pressed) {
@@ -558,7 +574,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_SPACE);
             tap_code(KC_SPACE);
         }
-        return false;
+        retv = false;
+        break;
 
     case GUILL_R:
         if (record->event.pressed) {
@@ -569,7 +586,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(KC_GT);
             tap_code16(KC_GT);
         }
-        return false;
+        retv = false;
+        break;
 
     case UPDIR:
         if (record->event.pressed) {
@@ -577,21 +595,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_DOT);
             tap_code(KC_SLSH);
         }
-        return false;
+        retv = false;
+        break;
 
     case O_BRACE:
         if (record->event.pressed) {
             tap_code16(KC_LEFT_CURLY_BRACE);
             tap_code(KC_ENTER);
         }
-        return false;
+        retv = false;
+        break;
 
     case C_BRACE:
         if (record->event.pressed) {
             tap_code16(KC_RIGHT_CURLY_BRACE);
             tap_code(KC_ENTER);
         }
-        return false;
+        retv = false;
+        break;
 
     case O_BRQOT:
         if (record->event.pressed) {
@@ -601,7 +622,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_SPACE);
             }
         }
-        return false;
+        retv = false;
+        break;
 
     case C_BRQOT:
         if (record->event.pressed) {
@@ -611,7 +633,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             tap_code(KC_RIGHT_BRACKET);
         }
-        return false;
+        retv = false;
+        break;
 
     case COUTLN:
         if (record->event.pressed) {
@@ -626,7 +649,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_LEFT);
             }
         }
-        return false;
+        retv = false;
+        break;
 
     case QK_VERS:
         if (record->event.pressed) {
@@ -635,7 +659,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     ", Built on: " QMK_BUILDDATE
                     );
         }
-        return false;
+        retv = false;
+        break;
 
     // tmux window navigation
     case B_CREAT:
@@ -643,21 +668,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_C);
         }
-        return false;
+        retv = false;
+        break;
 
     case B_PREV:
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_P);
         }
-        return false;
+        retv = false;
+        break;
 
     case B_NEXT:
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_N);
         }
-        return false;
+        retv = false;
+        break;
 
     // tmux pane navigation
     case B_VERT:
@@ -665,7 +693,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code16(KC_PERCENT);
         }
-        return false;
+        retv = false;
+        break;
 
     case B_HORIZ:
         if (record->event.pressed) {
@@ -675,35 +704,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_SPACE);
             }
         }
-        return false;
+        retv = false;
+        break;
 
     case B_UP:
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_UP);
         }
-        return false;
+        retv = false;
+        break;
 
     case B_LEFT:
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_LEFT);
         }
-        return false;
+        retv = false;
+        break;
 
     case B_DOWN:
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_DOWN);
         }
-        return false;
+        retv = false;
+        break;
 
     case B_RIGHT:
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_RIGHT);
         }
-        return false;
+        retv = false;
+        break;
 
     // tmux copy mode and paste buffer
     case B_PASTE:
@@ -711,14 +745,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_RIGHT_BRACKET);
         }
-        return false;
+        retv = false;
+        break;
 
     case B_CPY_M:
         if (record->event.pressed) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_LEFT_BRACKET);
         }
-        return false;
+        retv = false;
+        break;
 
     // tmux zoom
     case B_ZOOM:
@@ -726,7 +762,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_Z);
         }
-        return false;
+        retv = false;
+        break;
 
     // tmux clone pane
     case B_CLOSE:
@@ -734,7 +771,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code16(TMUX_PREFIX_KEY);
             tap_code(KC_X);
         }
-        return false;
+        retv = false;
+        break;
 
     case DED_CIR:
     {
@@ -744,7 +782,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             unregister_code16(dead_circumflex);
         }
-        return true;
+        retv = true;
+        break;
     }
 
     case DED_UML:
@@ -755,7 +794,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             unregister_code16(dead_umlaut);
         }
-        return true;
+        retv = true;
+        break;
     }
 
     case C_CDILA:
@@ -775,7 +815,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_COMMA);
             unregister_weak_mods(MOD_BIT(KC_RALT));
         }
-        return false;
+        retv = false;
+        break;
 
 
     case E_ACUTE:
@@ -788,22 +829,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             unregister_code(KC_E);
             unregister_weak_mods(MOD_BIT(KC_RALT));
         }
-        return false;
+        retv = false;
+        break;
 
     // Toggle `base_dead_keys` dynamically at runtime.
     case BDED_ON:
         if (record->event.pressed) {
             base_dead_keys = true;
         }
-        return false;
+        retv = false;
+        break;
 
     case BDED_OF:
         if (record->event.pressed) {
             base_dead_keys = false;
         }
-        return false;
+        retv = false;
+        break;
     }
-    return true;
+    return retv;
 };
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
