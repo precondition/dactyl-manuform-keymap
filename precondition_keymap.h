@@ -87,7 +87,7 @@ enum custom_keycodes {
     // French grave accented letters
     E_GRAVE,
     A_GRAVE,
-    // Macro for 
+    // Macro for
     // std::cout << | << "\n";
     // (with | representing the cursor position)
     COUTLN,
@@ -132,8 +132,12 @@ enum custom_keycodes {
     B_CLOSE,
     // Useful dead keys for French
     //  Dead circumflex (e.g. ^ + e = ê)
+    //  The same as KC_CIRCUMFLEX on US intl but setting it as a separate
+    //  keycode helps to exclude it from `post_process_record_user`.
     DED_CIR,
     //  Dead Umlaut (e.g. ¨ + e = ë)
+    //  The same as KC_DOUBLE_QUOTE on US intl but setting it as a separate
+    //  keycode helps to exclude it from `post_process_record_user`.
     DED_UML,
     // Toggle `base_dead_keys` dynamically at run time.
     BDED_ON, // base dead keys ON  (corresponds to US Intl.)
