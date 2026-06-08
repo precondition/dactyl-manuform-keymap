@@ -36,6 +36,8 @@
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
+#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL
+
 // Shamelessly stolen mouse key settings from @pierrechevalier83 //
 
 // Set the mouse settings to a comfortable speed/accuracy trade-off
