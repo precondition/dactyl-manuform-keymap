@@ -7,7 +7,7 @@ KEYMAP_FOLDER = keyboards/handwired/dactyl_manuform/5x6/keymaps/precondition
 
 CONSOLE_ENABLE = yes    # USER_PRINT is currently bugged, see issue #24987 on qmk/qmk_firmware
 MOUSEKEY_ENABLE = yes
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 COMBO_ENABLE = yes
 NKRO_ENABLE = no
 STENO_ENABLE = yes

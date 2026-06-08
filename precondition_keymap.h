@@ -188,15 +188,6 @@ KEYCODE_STRING_NAMES_USER(
     KEYCODE_STRING_NAME(BDED_OF),
 );
 
-#ifdef TAP_DANCE_ENABLE
-enum {
-    DOT_TD,
-};
-
-#define TD_DOT TD(DOT_TD)
-#else
-#define TD_DOT KC_DOT
-#endif
 
 
 // The lowest row of thumb keys is wired a little differently from the layout macro on my specific build

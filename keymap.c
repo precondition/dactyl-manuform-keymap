@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            UNDO, REDO  , KC_GRV, BNAV  , KC_F4 , KC_F5 ,    DED_UML,DED_CIR,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
         A_GRAVE, KC_Q  , KC_W  , KC_F  , KC_P  , KC_B  ,    KC_J   , KC_L  , KC_U  , KC_Y  ,KC_COLN,KC_MINS,
          KC_ESC, HOME_A, HOME_R, HOME_S, HOME_T, KC_G  ,    KC_M   , HOME_N, HOME_E, HOME_I, HOME_O,KC_QUOT,
-           KC_Z, REPEAT, KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, TD_DOT,KC_SLSH,ARROW_R,
+           KC_Z, REPEAT, KC_X  , KC_C  , KC_D  , KC_V  ,    KC_K   , KC_H  ,KC_COMM, KC_DOT,KC_SLSH,ARROW_R,
                          TG_MIC,C_CDILA,                                    KC_RALT, KC_GRV,
                                         NAV_TAB, KC_SPC,    KC_BSPC,SYM_ENT,
                                         COMPOSE,OS_LSFT,    OS_RSFT, KC_UP ,
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_PLOVER] = LAYOUT_5x6(
         _______,_______,_______,_______,_______,_______,    _______,_______,_______,_______,_______,_______,
         KC_J   , KC_X  , KC_L  , KC_C  , KC_P  , KC_K  ,    KC_F   , KC_M  , KC_U  ,  KC_O ,  KC_Y ,KC_MINS,
-        REPEAT ,HOME2_R,HOME2_N,HOME2_S,HOME2_T, KC_B  ,    KC_H   , RETURN,OS_LSFT,HOME2_A,HOME2_I, TD_DOT,
+        REPEAT ,HOME2_R,HOME2_N,HOME2_S,HOME2_T, KC_B  ,    KC_H   , RETURN,OS_LSFT,HOME2_A,HOME2_I, KC_DOT,
         KC_Q   , KC_ESC, KC_UP , KC_G  , KC_D  , KC_V  ,    KC_QUOT,KC_BSPC, KC_W  ,KC_RGHT,KC_COLN,KC_COMM,
                         _______,_______,                                    _______,_______,
                                         NAV_TAB, KC_SPC,    HOME2_E,SYM_SLSH,
@@ -858,12 +858,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 };
 #endif
-
-#ifdef TAP_DANCE_ENABLE
-    // Due to keymap introspection, the old `SRC += tapdance.c` technique in rules.mk no longer works
-    #include "tapdance.c"
-#endif
-
 
 #ifdef KEY_OVERRIDE_ENABLE
 const key_override_t colon_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COLON, KC_SEMICOLON);

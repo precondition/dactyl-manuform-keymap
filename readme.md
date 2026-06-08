@@ -6,7 +6,7 @@ Figure 1. Heatmap of key presses coming from all layers. Unlike the ASCII art in
 
 This keymap uses Colemak-DH for its alpha base with the addition of common French accented keys in direct access and dead keys for the less common ones. For use in English, French, and programming.
 
-Notably, [home row mods](https://precondition.github.io/home-row-mods) are used, as well as tap dance and combos.
+Notably, [home row mods](https://precondition.github.io/home-row-mods) are used, as well as combos.
 
 Aside from the usual combos that expand to a single special character or command like <kbd>\\</kbd> or <kbd>Caps Word Lock</kbd>, you can find, what I've dubbed, “steno-lite” combos in `combos.c`. Taking inspiration from machine stenography, common n-grams, word parts and words that are too short to abbreviate (in a text expansion program such as AutoKey) are assigned a key chord/combo, most frequently involving the <kbd>Backspace</kbd> key. Using <kbd>Backspace</kbd>+<kbd>Letter(s)</kbd> has the benefit of greatly reducing potential combo misfires as you're unlikely to type a letter and simultaneously delete it.
 
@@ -18,12 +18,11 @@ Keymap visualisation diagrams are automatically generated with the help of [keym
 This keymap contains many nifty QMK tricks that can inspire you for your own keymap. Here's a non-exhaustive list.
 
 1. Home row mods: All the modifiers on the home row.
-2. `TD_DOT`: Double tap the dot key to produce <kbd>.</kbd><kbd>space</kbd><kbd>One-Shot Shift</kbd> to quickly flow from one sentence to another.
-3. One-Shot Swap Hand: For one-handed typing.
-4. `CAPS_WORD_LOCK`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code. This is a hand-rolled version of [Caps Word](https://docs.qmk.fm/#/feature_caps_word) that works on the basis of Caps Lock, unlike the core QMK feature which is based on weak Shifts. That makes it easier to keep track of its state and better handles corner cases with less firmware size.
-5. `REPEAT`: Repeat the last (modified) keystroke. This is used to eliminate the same-finger use that stems from double-tapping the same key. Ideally, this should be a thumb key but I couldn't fit it in my cluster in a satisfying manner.
-6. `QK_VERS`: Types out firmware build information in the format `QMK_KEYBOARD/QMK_KEYMAP @ QMK_VERSION( QMK_GIT_HASH), Built on: QMK_BUILDDATE` (e.g. `handwired/dactyl_manuform/5x6/precondition @ 0.22.7-dirty(4ebb065f94*), Built on: 2024-10-03-22:50:02`)
-7. Auto escape base-layer dead keys: Automatically press space after dead keys such as '"\`^. If you're used to US intl. with AltGr dead keys on Linux but only have access to US intl. with base-layer dead keys on Windows, you'll like this.
+2. One-Shot Swap Hand: For one-handed typing.
+3. `CAPS_WORD_LOCK`: Capitalizes the next word you type and then automatically toggle off Caps Lock. Perfect for typing all-caps IDENTIFIERS in code. This is a hand-rolled version of [Caps Word](https://docs.qmk.fm/#/feature_caps_word) that works on the basis of Caps Lock, unlike the core QMK feature which is based on weak Shifts. That makes it easier to keep track of its state and better handles corner cases with less firmware size.
+4. `REPEAT`: Repeat the last (modified) keystroke. This is used to eliminate the same-finger use that stems from double-tapping the same key. Ideally, this should be a thumb key but I couldn't fit it in my cluster in a satisfying manner.
+5. `QK_VERS`: Types out firmware build information in the format `QMK_KEYBOARD/QMK_KEYMAP @ QMK_VERSION( QMK_GIT_HASH), Built on: QMK_BUILDDATE` (e.g. `handwired/dactyl_manuform/5x6/precondition @ 0.22.7-dirty(4ebb065f94*), Built on: 2024-10-03-22:50:02`)
+6. Auto escape base-layer dead keys: Automatically press space after dead keys such as '"\`^. If you're used to US intl. with AltGr dead keys on Linux but only have access to US intl. with base-layer dead keys on Windows, you'll like this.
 
 ### OS Setup
 
