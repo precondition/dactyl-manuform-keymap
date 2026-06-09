@@ -642,8 +642,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // The double quotes will consume the space next to them.
                 SEND_STRING_DELAY("std::cout <<  << \" \\n\" ;", KEY_SEQ_DELAY);
             } else {
-                // ; and : keysyms are swapped on my OS layout
-                SEND_STRING_DELAY("std;;cout <<  << \"\\n\":", KEY_SEQ_DELAY);
+                SEND_STRING_DELAY("std::cout <<  << \"\\n\";", KEY_SEQ_DELAY);
             }
             for (int i = 0; i < 9; ++i)  {
                 tap_code(KC_LEFT);
