@@ -19,8 +19,8 @@
 
 #define COMBO_TERM 70
 
-// Limits the max. amount of layers to 8 to save firmware memory.
-#define LAYER_STATE_8BIT
+// Limits the max. amount of layers to 16 to save firmware memory.
+#define LAYER_STATE_16BIT
 
 // Save firmware space
 // Strip away all prints except `uprintf`

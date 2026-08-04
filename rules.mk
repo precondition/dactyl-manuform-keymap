@@ -10,12 +10,13 @@ MOUSEKEY_ENABLE = yes
 TAP_DANCE_ENABLE = no
 COMBO_ENABLE = yes
 NKRO_ENABLE = no
-STENO_ENABLE = yes
+STENO_ENABLE = no
 STENO_PROTOCOL = geminipr
-SWAP_HANDS_ENABLE = yes
+SWAP_HANDS_ENABLE = no
 KEY_OVERRIDE_ENABLE = yes
 KEYCODE_STRING_ENABLE = yes
-CAPS_WORD_ENABLE = yes
+CAPS_WORD_ENABLE = no
+REPEAT_KEY_ENABLE = yes
 
 # Space savings
 LTO_ENABLE = yes
@@ -33,3 +34,5 @@ endif
 ifeq ($(strip $(SWAP_HANDS_ENABLE)), yes)
 	SRC += swap_hand.c
 endif
+
+SRC += magic_thumb_keys.c

@@ -2,16 +2,16 @@
 
 #include QMK_KEYBOARD_H
 
-uint16_t last_keycode;
 bool caps_word_lock_on;
 
 enum layer_names {
     _COLEMAK_DH,
-    _PLOVER,
+    _XYLOCUP,
     _SYM,
     _NAV,
     _GNAV,
     _BNAV,
+    _ALTTABCP,
 #ifdef MOUSEKEY_ENABLE
     _MOUSE,
 #endif
@@ -26,7 +26,7 @@ enum layer_names {
 #define SYM MO(_SYM)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
-#define PLOVER TG(_PLOVER)
+#define XYLOCUP TG(_XYLOCUP)
 #define SYM_SLSH LT(_SYM, KC_SLASH)
 
 #ifdef MOUSEKEY_ENABLE
@@ -60,7 +60,7 @@ enum layer_names {
 #define HOME_E RSFT_T(KC_E)
 #define HOME_N RCTL_T(KC_N)
 #define HOME2_E RSFT_T(KC_E)
-#define RETURN  RCTL_T(KC_ENTER)
+#define HOMERET  RCTL_T(KC_ENTER)
 #define HOME2_A LALT_T(KC_A)
 #define HOME2_I RGUI_T(KC_I)
 
@@ -71,6 +71,9 @@ enum layer_names {
 #define C_CDILA ALGR(KC_COMMA)
 
 #define TMUX_PREFIX_KEY C(KC_B)
+
+// The tap keycode will get entirely overridden by process_magic_left.
+#define MAGIC_L LT(_ALTTABCP, KC_COPY)
 
 enum custom_keycodes {
     ARROW_R = QK_USER,
@@ -142,10 +145,26 @@ enum custom_keycodes {
     // Toggle `base_dead_keys` dynamically at run time.
     BDED_ON, // base dead keys ON  (corresponds to US Intl.)
     BDED_OF, // base dead keys OFF (corresponds to US Intl. with AltGr dead keys)
+    // Right magic key.
+    MAGIC_R,
+    // Quoted paste.
+    // Especially useful to paste Windows-style backslash file paths in a MSYS
+    // terminal.
+    QOTPAST,
 };
 
+bool base_dead_keys;
+
+// summoned by magic.
+uint16_t last_summoned_keycode;
+
+void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_keypos[]);
+void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev_keypos[]);
 
 
+// Used to extract the basic tapping keycode from a dual-role key.
+// Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
+#define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
 
 // The lowest row of thumb keys is wired a little differently from the layout macro on my specific build
 #undef LAYOUT_5x6
