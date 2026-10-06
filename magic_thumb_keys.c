@@ -481,7 +481,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
                     } else {
                         // rationale: avoid SFS.
                         // ngram: « eanl » (TODO%)
-                        // examples: « cleanly »,  « cleanliest »,
+                        // examples: « cleanly »,  « cleanliest »
                         tap_code(KC_L);
                         last_summoned_keycode = KC_L;
                     }
