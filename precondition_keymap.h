@@ -11,10 +11,7 @@ enum layer_names {
     _NAV,
     _GNAV,
     _BNAV,
-    _ALTTABCP,
-#ifdef MOUSEKEY_ENABLE
     _MOUSE,
-#endif
     _ADJUST,
 };
 
@@ -35,6 +32,19 @@ enum layer_names {
 #else
 #    define MOUSE KC_TRNS
 #    define MS_CAPS KC_CAPS
+// Keep the _MOUSE layer (it also holds non-mouse keys and MAGIC_L relies on
+// it) but make its mouse keycodes fall through to the layer below.
+// The QMK keycodes enum is already defined by QMK_KEYBOARD_H at this point, so
+// these macros only shadow the enum names in the keymap.
+#    define MS_UP   KC_TRNS
+#    define MS_DOWN KC_TRNS
+#    define MS_LEFT KC_TRNS
+#    define MS_RGHT KC_TRNS
+#    define MS_WHLU KC_TRNS
+#    define MS_WHLD KC_TRNS
+#    define MS_BTN1 KC_TRNS
+#    define MS_BTN2 KC_TRNS
+#    define MS_BTN3 KC_TRNS
 #endif
 
 
@@ -73,7 +83,7 @@ enum layer_names {
 #define TMUX_PREFIX_KEY C(KC_B)
 
 // The tap keycode will get entirely overridden by process_magic_left.
-#define MAGIC_L LT(_ALTTABCP, KC_COPY)
+#define MAGIC_L LT(_MOUSE, KC_COPY)
 
 enum custom_keycodes {
     ARROW_R = QK_USER,
