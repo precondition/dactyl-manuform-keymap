@@ -122,8 +122,11 @@ void process_magic_key_left(void) {
             }
             break;
 
-        case KC_G:
-            switch (GET_TAP_KC(penultimate_keycode)) {
+        case KC_G: {
+            // A key pressed with Ctrl, LAlt or GUI is a keyboard shortcut, not
+            // a typed letter, e.g. Ctrl+U to clear the command line.
+            const bool is_after_shortcut = prev_mods[1] & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT));
+            switch (is_after_shortcut ? KC_NO : GET_TAP_KC(penultimate_keycode)) {
 
                 case KC_A ... KC_Z:
                 case KC_1 ... KC_0:
@@ -147,6 +150,7 @@ void process_magic_key_left(void) {
                     break;
             }
             break;
+        }
 
         case KC_I:
         case HOME_I:
