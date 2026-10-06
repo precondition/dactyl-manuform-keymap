@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │   Q   │   X   ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤   Y   │ - =  │
  * ├───────┼───────┤  N/⎇  │  S/⇧  │  T/⎈  │   B   │ │   H   │  ⏎/⎈  │1-SHOT⇧│  A/⎇  ├───────┼──────┤
  * │QK_REP │  R/◆  ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤  I/◆  │ . ,  │
- * ├───────┼───────┤  TAB  │   G   │   D   │   V   │ │  ' "  │ BSPC  │   W   │  / ?  ├───────┼──────┤
+ * ├───────┼───────┤⇥/AltGr│   G   │   D   │   V   │ │  ' "  │ BSPC  │   W   │  / ?  ├───────┼──────┤
  * │   J   │  ESC  ├───────┼───────┼───────┴───────┘ └───────┴───────┼───────┼───────┤  : ;  │CAPS_W│
  * └───────┴───────┤       │       │                                 │S(KC_W)│ AltGr ├───────┴──────┘
  *                 └───────┴───────┘                                 └───────┴───────┘
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            UNDO, REDO  ,DED_CIR, BNAV  , KC_F4 , KC_F5 ,    DED_UML, LAEDER,E_GRAVE,E_ACUTE, KC_F10, KC_F11,
         KC_Q   , KC_X  , KC_L  , KC_C  , KC_P  , KC_K  ,    KC_F   , KC_M  , KC_U  ,  KC_O ,  KC_Y ,KC_MINS,
         QK_REP ,HOME2_R,HOME2_N,HOME2_S,HOME2_T, KC_B  ,    KC_H   ,HOMERET,OS_RSFT,HOME2_A,HOME2_I, KC_DOT,
-        KC_J   , KC_ESC, KC_TAB, KC_G  , KC_D  , KC_V  ,    KC_QUOT,KC_BSPC, KC_W  ,KC_SLSH,KC_COLN,CAPS_WORD_LOCK,
+ KC_J   , KC_ESC,RALT_T(KC_TAB), KC_G  , KC_D  , KC_V  ,    KC_QUOT,KC_BSPC, KC_W  ,KC_SLSH,KC_COLN,CAPS_WORD_LOCK,
                         _______,_______,                                    S(KC_W),KC_RALT,
                                       OSL(_NAV), KC_SPC,    HOME2_E,OSL(_SYM),
                                         _______,MAGIC_L,    MAGIC_R,_______,
