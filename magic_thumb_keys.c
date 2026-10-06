@@ -229,6 +229,22 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
             last_summoned_keycode = KC_L;
             break;
 
+        case KC_O:
+            switch (penultimate_keycode) {
+                case KC_T:
+                case HOME2_T:
+                    /*
+                     * « top » (0.015466%) > « toa » (0.000580%)
+                     */
+                    summon_same_finger_home_key(prev_keypos[1]);
+                    break;
+
+                default:
+                    summon_same_finger_home_key(prev_keypos[0]);
+                    break;
+            }
+            break;
+
         case KC_Q:
             // rationale: TODO
             // ngram: « q! » (TODO%)
