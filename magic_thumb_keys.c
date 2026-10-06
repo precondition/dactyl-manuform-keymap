@@ -211,6 +211,11 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
             }
             break;
 
+        case KC_L:
+            // examples: « alors »
+            summon_same_finger_home_key(prev_keypos[1]);
+            break;
+
         case KC_N:
         case HOME2_N:
             // rationale: avoid SFS.
