@@ -944,11 +944,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // To eliminate the LSB on the common « ck » bigram.
     // Not if either key has a mod (held or one-shot), e.g. to type camelCase
     // like « HilcParameter » or shortcuts like Ctrl+C followed by P.
+    // Only within ADAPTIVE_KEY_TERM of the C press. The 16-bit press times
+    // wrap around after ≈65 s, so last_input_activity_elapsed() rules out long
+    // pauses.
+    // See https://github.com/qmk/qmk_firmware/issues/26464
     case KC_P:
     case KC_K:
         if (record->event.pressed) {
             const bool is_preceded_by_c = prev_keycode(0) == KC_C;
-            const bool is_within_adaptive_key_term = last_input_activity_elapsed() < ADAPTIVE_KEY_TERM;
+            const bool is_within_adaptive_key_term = last_input_activity_elapsed() < ADAPTIVE_KEY_TERM
+                && TIMER_DIFF_16(record->event.time, prev_records[0].event.time) < ADAPTIVE_KEY_TERM;
             if (!(mod_state | oneshot_mod_state | prev_mods[0]) && is_preceded_by_c && is_within_adaptive_key_term) {
                 const uint16_t alt_keycode = keycode == KC_P ? KC_K : KC_P;
                 tap_code(alt_keycode);
