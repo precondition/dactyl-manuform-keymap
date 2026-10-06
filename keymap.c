@@ -350,6 +350,17 @@ static void push_prev_key(const keyrecord_t *record, uint16_t keycode, uint8_t m
     prev_mods[0] = mods;
 }
 
+// Left shift the history to forget the last key.
+// [ KC_C, KC_B, KC_A ] → [ KC_B, KC_A, KC_NO ]
+static void pop_prev_key(void) {
+    for (int i = 0; i < PREV_KEYS_WINDOW_LENGTH - 1; ++i) {
+        prev_records[i] = prev_records[i + 1];
+        prev_mods[i] = prev_mods[i + 1];
+    }
+    prev_records[PREV_KEYS_WINDOW_LENGTH - 1] = (keyrecord_t){ 0 };
+    prev_mods[PREV_KEYS_WINDOW_LENGTH - 1] = 0;
+}
+
 // Index of the key that prev_records[i] stands for, skipping QK_REP entries.
 static uint8_t resolve_prev_rep(uint8_t i) {
     while (i < PREV_KEYS_WINDOW_LENGTH - 1 && prev_records[i].keycode == QK_REP) {
@@ -996,7 +1007,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef REPEAT_KEY_ENABLE
     if (record->event.pressed) {
-        if (get_repeat_key_count() < 1) {
+        if (keycode == KC_BACKSPACE) {
+            // Backspace deletes the last character, so it takes the last key
+            // off the history instead of entering it.
+            pop_prev_key();
+            should_push_prev_key = false;
+        } else if (get_repeat_key_count() < 1) {
             // Keys that QMK does not remember (mods, layer keys, one-shot
             // keys, REP2, …) do not enter the history.
             if (should_push_prev_key) {
