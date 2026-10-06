@@ -32,6 +32,10 @@ void summon_same_finger_home_key(const keypos_t keypos) {
     }
 }
 
+// Whether the last G MAGIC_L summoned « git␣ » rather than « gs␣ »: both end
+// with a space, so last_summoned_keycode cannot tell them apart.
+static bool has_summoned_git = false;
+
 void process_magic_key_left(void) {
     const uint16_t penultimate_keycode = prev_keycode(1) == MAGIC_L || prev_keycode(1) == MAGIC_R ? last_summoned_keycode : prev_keycode(1);
     switch (prev_keycode(0)) {
@@ -137,6 +141,7 @@ void process_magic_key_left(void) {
                     tap_code(KC_S);
                     tap_code(KC_SPACE);
                     last_summoned_keycode = KC_SPACE;
+                    has_summoned_git = false;
                     break;
 
                 default:
@@ -147,6 +152,7 @@ void process_magic_key_left(void) {
                     tap_code(KC_T);
                     tap_code(KC_SPACE);
                     last_summoned_keycode = KC_SPACE;
+                    has_summoned_git = true;
                     break;
             }
             break;
@@ -793,7 +799,8 @@ void process_magic_key_right(void) {
              */
             switch (last_summoned_keycode) {
                 case KC_SPACE:
-                    if (prev_keycode(1) == KC_G) {
+                    if (prev_keycode(1) == KC_G && has_summoned_git) {
+                        // After « git␣ » only, not after « gs␣ ».
                         // Avoid the KC_G MAGIC_L KC_C SFS.
                         // ngram: « commit␣ »
                         tap_code(KC_C);
@@ -805,7 +812,8 @@ void process_magic_key_right(void) {
                         tap_code(KC_SPACE);
                         last_summoned_keycode = KC_SPACE;
                     } else {
-                        // e.g., KC_T MAGIC_L MAGIC_R for "I creaTED THE ".
+                        // e.g., KC_T MAGIC_L MAGIC_R for "I creaTED THE ",
+                        // KC_G MAGIC_L MAGIC_R for "brinGS THE ".
                         tap_code(KC_T);
                         tap_code(KC_H);
                         tap_code(KC_E);
