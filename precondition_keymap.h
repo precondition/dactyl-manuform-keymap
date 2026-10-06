@@ -19,17 +19,13 @@ enum layer_names {
 #define NAV MO(_NAV)
 #define GNAV MO(_GNAV)
 #define BNAV OSL(_BNAV)
-#define SYM MO(_SYM)
 #define ADJUST MO(_ADJUST)
 #define SYM_ENT LT(_SYM, KC_ENT)
 #define XYLOCUP TG(_XYLOCUP)
-#define SYM_SLSH LT(_SYM, KC_SLASH)
 
 #ifdef MOUSEKEY_ENABLE
-#    define MOUSE MO(_MOUSE)
 #    define MS_CAPS LT(_MOUSE, KC_CAPS)
 #else
-#    define MOUSE KC_TRNS
 #    define MS_CAPS KC_CAPS
 // Keep the _MOUSE layer (it also holds non-mouse keys and MAGIC_L relies on
 // it) but make its mouse keycodes fall through to the layer below.
@@ -100,24 +96,14 @@ enum custom_keycodes {
     // « French quotation marks »
     GUILL_R,
     GUILL_L,
-    // Macro to refer to the parent directory in Linux ../
-    UPDIR,
     // French grave accented letters
     E_GRAVE,
     A_GRAVE,
-    // Macro for
-    // std::cout << | << "\n";
-    // (with | representing the cursor position)
-    COUTLN,
     REPEAT,
     // "Opening brace"
     // Macro for
     // {<enter>
     O_BRACE,
-    // "Closing brace"
-    // Macro for
-    // }<enter>
-    C_BRACE,
     CAPS_WORD_LOCK,
     // "Opening Bracket-Quote"
     // Macro for

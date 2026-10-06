@@ -612,15 +612,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         retv = false;
         break;
 
-    case UPDIR:
-        if (record->event.pressed) {
-            tap_code(KC_DOT);
-            tap_code(KC_DOT);
-            tap_code(KC_SLSH);
-        }
-        retv = false;
-        break;
-
     case O_BRACE:
         if (record->event.pressed) {
             tap_code16(KC_LEFT_CURLY_BRACE);
@@ -628,14 +619,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_ENTER);
             tap_code(KC_UP);
             tap_code(KC_TAB);
-        }
-        retv = false;
-        break;
-
-    case C_BRACE:
-        if (record->event.pressed) {
-            tap_code16(KC_RIGHT_CURLY_BRACE);
-            tap_code(KC_ENTER);
         }
         retv = false;
         break;
@@ -658,34 +641,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_SPACE);
             }
             tap_code(KC_RIGHT_BRACKET);
-        }
-        retv = false;
-        break;
-
-    case COUTLN:
-        if (record->event.pressed) {
-            // Not SEND_STRING: it pulls in QMK's send_string code and its
-            // ASCII-to-keycode lookup table, which costs flash.
-            // With dead keys, the double quotes consume the space next to them.
-            static const uint16_t dead_keys_keycodes[] = {
-                // « std::cout <<  << " \n" ; »
-                KC_S, KC_T, KC_D, KC_COLN, KC_COLN, KC_C, KC_O, KC_U, KC_T, KC_SPC,
-                KC_LT, KC_LT, KC_SPC, KC_SPC, KC_LT, KC_LT, KC_SPC,
-                KC_DQUO, KC_SPC, KC_BSLS, KC_N, KC_DQUO, KC_SPC, KC_SCLN, KC_NO
-            };
-            static const uint16_t keycodes[] = {
-                // « std::cout <<  << "\n"; »
-                KC_S, KC_T, KC_D, KC_COLN, KC_COLN, KC_C, KC_O, KC_U, KC_T, KC_SPC,
-                KC_LT, KC_LT, KC_SPC, KC_SPC, KC_LT, KC_LT, KC_SPC,
-                KC_DQUO, KC_BSLS, KC_N, KC_DQUO, KC_SCLN, KC_NO
-            };
-            for (const uint16_t *kc = base_dead_keys ? dead_keys_keycodes : keycodes; *kc != KC_NO; ++kc) {
-                tap_code16(*kc);
-                wait_ms(KEY_SEQ_DELAY);
-            }
-            for (int i = 0; i < 9; ++i)  {
-                tap_code(KC_LEFT);
-            }
         }
         retv = false;
         break;
@@ -1139,13 +1094,10 @@ KEYCODE_STRING_NAMES_USER(
     KEYCODE_STRING_NAME(G_END),
     KEYCODE_STRING_NAME(GUILL_R),
     KEYCODE_STRING_NAME(GUILL_L),
-    KEYCODE_STRING_NAME(UPDIR),
     KEYCODE_STRING_NAME(E_GRAVE),
     KEYCODE_STRING_NAME(A_GRAVE),
-    KEYCODE_STRING_NAME(COUTLN),
     KEYCODE_STRING_NAME(REPEAT),
     KEYCODE_STRING_NAME(O_BRACE),
-    KEYCODE_STRING_NAME(C_BRACE),
     KEYCODE_STRING_NAME(CAPS_WORD_LOCK),
     KEYCODE_STRING_NAME(O_BRQOT),
     KEYCODE_STRING_NAME(C_BRQOT),
