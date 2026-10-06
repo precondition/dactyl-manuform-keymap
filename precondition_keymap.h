@@ -53,6 +53,20 @@ enum layer_names {
 #define REDO LCTL(KC_Y)
 #define COMPOSE KC_APP
 #define TG_MIC KC_F20 // Default binding for XF86AudioMicMute
+/*
+ * Paste key options in QMK:
+ *
+ * C(KC_V)    - Ctrl+V. Works in most GUI apps on Windows and Linux, but fails
+ *              in terminal applications.
+ *
+ * G(KC_V)    - Cmd+V. Standard for macOS GUI apps.
+ *
+ * S(KC_INS)  - Shift+Insert. The universal winner on Windows and Linux: works in
+ *              terminals, and GUI applications. Unsupported on macOS.
+ *
+ * KC_PASTE   - Basically unusable. Almost no apps support this obscure HID keycode.
+ */
+#define PASTE S(KC_INS)
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
