@@ -14,9 +14,6 @@
 // so it requires explicit undef to disable)
 #undef PERMISSIVE_HOLD
 
-// Other settings //
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-
 #define COMBO_TERM 70
 
 // Limits the max. amount of layers to 16 to save firmware memory.
