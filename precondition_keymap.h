@@ -5,7 +5,6 @@
 bool caps_word_lock_on;
 
 enum layer_names {
-    _COLEMAK_DH,
     _XYLOCUP,
     _SYM,
     _NAV,
@@ -69,20 +68,12 @@ enum layer_names {
 #define PASTE S(KC_INS)
 
 // Left-hand home row mods
-#define HOME_A LGUI_T(KC_A)
-#define HOME_R LALT_T(KC_R)
-#define HOME_S LSFT_T(KC_S)
-#define HOME_T LCTL_T(KC_T)
 #define HOME2_R LGUI_T(KC_R)
 #define HOME2_N LALT_T(KC_N)
 #define HOME2_S LSFT_T(KC_S)
 #define HOME2_T LCTL_T(KC_T)
 
 // Right-hand home row mods
-#define HOME_O RGUI_T(KC_O)
-#define HOME_I LALT_T(KC_I)
-#define HOME_E RSFT_T(KC_E)
-#define HOME_N RCTL_T(KC_N)
 #define HOME2_E RSFT_T(KC_E)
 #define HOMERET  RCTL_T(KC_ENTER)
 #define HOME2_A LALT_T(KC_A)
