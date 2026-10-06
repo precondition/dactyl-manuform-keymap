@@ -242,8 +242,15 @@ static void process_caps_word_lock(uint16_t keyc, const keyrecord_t *record) {
     // This switch(keycode) cannnot be fused with the second switch(keycode)
     // because this first switch conditionally changes the value of `keycode`.
     // The second switch has to be able to take this change into account.
-    uint16_t keycode = keyc ==  MAGIC_L || keyc == MAGIC_R ? last_summoned_keycode : keyc;
+    // Magic keys are treated as letters here because what they summon is not
+    // known yet: process_record_user calls this again with
+    // last_summoned_keycode once they have summoned.
+    uint16_t keycode = keyc;
     switch (keycode) {
+        case MAGIC_L:
+            // Held for its layer, not tapped
+            if (record->tap.count == 0) { return; }
+            break;
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case QK_LAYER_TAP ...  MAGIC_L - 1 :
         case MAGIC_L + 1 ... QK_LAYER_TAP_MAX:
@@ -851,6 +858,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             process_magic_key_left();
         }
+        process_caps_word_lock(last_summoned_keycode, record);
         retv = false;
         break;
 
@@ -861,6 +869,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 process_magic_key_right();
             }
+            process_caps_word_lock(last_summoned_keycode, record);
         }
         retv = true;
         break;
