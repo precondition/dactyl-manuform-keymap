@@ -986,6 +986,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         retv = true;
         break;
 
+    case KC_GRAVE:
+        if (base_dead_keys && record->event.pressed) {
+            register_code(KC_GRAVE);
+            tap_code(KC_SPACE);
+            retv = false;
+            break;
+        }
+        retv = true;
+        break;
+
     case LAEDER:
         const bool is_shift_on = (mod_state | oneshot_mod_state) & MOD_MASK_SHIFT;
         const uint16_t laeder_keycode = base_dead_keys ^ is_shift_on ? KC_LALT : COMPOSE;
@@ -1053,7 +1063,7 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_QUOTE:
         case KC_DOUBLE_QUOTE:
         case KC_TILDE:
-        case KC_GRAVE:
+        //case KC_GRAVE:
         case KC_CIRCUMFLEX:
             if (base_dead_keys && record->event.pressed) {
                 tap_code(KC_SPACE);
