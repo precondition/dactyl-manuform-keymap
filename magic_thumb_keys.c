@@ -131,6 +131,17 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
         case KC_E:
         case HOME2_E:
             switch (penultimate_keycode) {
+                case KC_B:
+                    // « between␣ »
+                    tap_code(KC_T);
+                    tap_code(KC_W);
+                    tap_code(KC_E);
+                    tap_code(KC_E);
+                    tap_code(KC_N);
+                    tap_code(KC_SPACE);
+                    last_summoned_keycode = KC_SPACE;
+                    break;
+
                 case KC_R:
                 case HOME2_R:
                     /*
