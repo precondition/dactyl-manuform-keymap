@@ -438,21 +438,9 @@ static bool is_letter_keycode(uint16_t keycode) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
-    const bool is_combo = record->event.type == COMBO_EVENT;
-    // Two calls because get_keycode_string() returns a pointer to a single
-    // static buffer: with both in one call, both %s print the same string.
-    uprintf("0x%04X\t%u\t%u\t0x%X\t%u\t0x%02X\t0x%02X\t%u\t%s\t",
-         keycode,
-         is_combo ? 254 : record->event.key.row,
-         is_combo ? 254 : record->event.key.col,
-         layer_state|default_layer_state,
-         record->event.pressed,
-         get_mods(),
-         get_oneshot_mods(),
-         record->tap.count,
-         get_keycode_string(keycode)
-         );
-    uprintf("%s\n", get_keycode_string(last_summoned_keycode));
+    // Logged at the end of this function, with the layers as they were when
+    // the key event came in.
+    const layer_state_t console_layer_state = layer_state|default_layer_state;
 #endif
 #ifndef REPEAT_KEY_ENABLE
     process_repeat_key(keycode, record);
@@ -1036,6 +1024,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         last_oneshot_mods = oneshot_mod_state;
     }
+
+#ifdef CONSOLE_ENABLE
+    // Printed last so that last_summoned_keycode is what this key summoned.
+    // The layers and mods are those from when the key event came in.
+    const bool is_combo = record->event.type == COMBO_EVENT;
+    // Two calls because get_keycode_string() returns a pointer to a single
+    // static buffer: with both in one call, both %s print the same string.
+    uprintf("0x%04X\t%u\t%u\t0x%X\t%u\t0x%02X\t0x%02X\t%u\t%s\t",
+         keycode,
+         is_combo ? 254 : record->event.key.row,
+         is_combo ? 254 : record->event.key.col,
+         console_layer_state,
+         record->event.pressed,
+         mod_state,
+         oneshot_mod_state,
+         record->tap.count,
+         get_keycode_string(keycode)
+         );
+    uprintf("%s\n", get_keycode_string(last_summoned_keycode));
+#endif
 
     return retv;
 };
