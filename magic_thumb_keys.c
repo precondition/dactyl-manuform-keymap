@@ -82,7 +82,8 @@ void process_magic_key_left(void) {
         case HOME_E:
             switch (penultimate_keycode) {
                 case KC_B:
-                    // « between␣ »
+                    // rationale: reduce typing and typos.
+                    // ngram: « between␣ »
                     tap_code(KC_T);
                     tap_code(KC_W);
                     tap_code(KC_E);
@@ -790,6 +791,7 @@ void process_magic_key_right(void) {
                 case KC_SPACE:
                     if (prev_keycode(1) == KC_G) {
                         // Avoid the KC_G MAGIC_L KC_C SFS.
+                        // ngram: « commit␣ »
                         tap_code(KC_C);
                         tap_code(KC_O);
                         tap_code(KC_M);
