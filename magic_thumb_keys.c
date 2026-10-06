@@ -121,11 +121,23 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
             break;
 
         case KC_B:
-            // rationale: avoid SFB.
-            // ngram: « bd » (0.01193%)
-            // examples: « :bd » (buffer delete), « lambda », « kbd »
-            tap_code(KC_D);
-            last_summoned_keycode = KC_D;
+            switch (penultimate_keycode) {
+                case KC_SEMICOLON:
+                case KC_COLON:
+                case KC_M:
+                case KC_K:
+                    // rationale: avoid SFB.
+                    // ngram: « bd » (0.01193%)
+                    // examples: « :bd » (buffer delete), « lambda », « kbd »
+                    tap_code(KC_D);
+                    last_summoned_keycode = KC_D;
+                    break;
+
+                default:
+                    // examples: « about », « obtention »
+                    summon_same_finger_home_key(prev_keypos[1]);
+                    break;
+            }
             break;
 
         case KC_E:
