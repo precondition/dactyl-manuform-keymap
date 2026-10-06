@@ -483,6 +483,15 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
             }
             break;
 
+        case KC_H:
+            // rationale: typing & typo reduction (too many accidental h⏎ and oh⏎)
+            // ngram: « how » (0.02984%)
+            // examples: « how »,  « show », « somehow », « however »
+            tap_code(KC_O);
+            tap_code(KC_W);
+            last_summoned_keycode = KC_W;
+            break;
+
         case KC_I:
         case HOME2_I:
             switch (penultimate_keycode) {
