@@ -122,13 +122,29 @@ void process_magic_key_left(void) {
             break;
 
         case KC_G:
-            // rationale: reduce typing.
-            // ngram: « git␣ » (0.30964%)
-            // examples: « git st », « git add », « git commit »
-            tap_code(KC_I);
-            tap_code(KC_T);
-            tap_code(KC_SPACE);
-            last_summoned_keycode = KC_SPACE;
+            switch (GET_TAP_KC(penultimate_keycode)) {
+
+                case KC_A ... KC_Z:
+                case KC_1 ... KC_0:
+                case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+                    // rationale: avoid SFB.
+                    // ngram: « gs␣ » (0.009239%)
+                    // examples: « things in », « settings and », « main(args string[]) »
+                    tap_code(KC_S);
+                    tap_code(KC_SPACE);
+                    last_summoned_keycode = KC_SPACE;
+                    break;
+
+                default:
+                    // rationale: reduce typing.
+                    // ngram: « git␣ » (0.30964%)
+                    // examples: « git st », « git add », « git commit »
+                    tap_code(KC_I);
+                    tap_code(KC_T);
+                    tap_code(KC_SPACE);
+                    last_summoned_keycode = KC_SPACE;
+                    break;
+            }
             break;
 
         case KC_I:
@@ -429,14 +445,15 @@ void process_magic_key_right(void) {
             break;
 
         case KC_G:
-            // rationale: avoid SFB.
-            // ngram: « gs » (0.01907%)
-            // examples: « settings », « things », « strings », « mappings »
             if (prev_keycode(1) == KC_SLASH) {
                 // « :%s/re/p/gc »
                 tap_code(KC_C);
                 last_summoned_keycode = KC_C;
             } else {
+                // rationale: avoid SFS.
+                // ngram: « ges » (0.02286%)
+                // examples: « messages »,  « changes »,  « pages »,  « gestion »
+                tap_code(KC_E);
                 tap_code(KC_S);
                 last_summoned_keycode = KC_S;
             }
