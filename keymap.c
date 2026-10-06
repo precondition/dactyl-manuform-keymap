@@ -1118,7 +1118,7 @@ const key_override_t lt_slash_key_override = ko_make_basic(MOD_BIT(KC_LALT), SYM
 const key_override_t quote_key_override = ko_make_basic(MOD_BIT(KC_LALT), KC_QUOTE, KC_GRAVE);
 const key_override_t dot_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, KC_COMMA, 1 << _XYLOCUP);
 const key_override_t minus_key_override = ko_make_with_layers_and_negmods(
-        MOD_MASK_SHIFT, KC_MINS, KC_EQUAL, ~0, ~MOD_MASK_SHIFT);
+        MOD_MASK_SHIFT, KC_MINS, KC_EQUAL, ~0, MOD_MASK_ALT);
 const key_override_t shift_ins_key_override = ko_make_basic(MOD_MASK_SHIFT, S(KC_INS), C(S(KC_V)));
 // TODO: LShift+RShift+KC_BACKSPACE = Shift+KC_DELETE (to delete entries in Firefox)
 const key_override_t backspace_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BACKSPACE, KC_DELETE);
