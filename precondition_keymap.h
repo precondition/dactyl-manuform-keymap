@@ -188,8 +188,23 @@ bool base_dead_keys;
 // summoned by magic.
 uint16_t last_summoned_keycode;
 
-void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_keypos[]);
-void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev_keypos[]);
+// History of the last keys remembered by QMK's repeat key feature, with their
+// mods, sorted from most recent to least recent:
+// prev_records[0] = last key
+// prev_records[1] = penultimate key
+// prev_records[2] = antepenultimate key
+// Keys that QMK does not remember (mods, layer keys, one-shot keys, …) do not
+// enter the history. QK_REP presses enter it with the QK_REP keycode.
+#define PREV_KEYS_WINDOW_LENGTH 3
+extern keyrecord_t prev_records[PREV_KEYS_WINDOW_LENGTH];
+extern uint8_t prev_mods[PREV_KEYS_WINDOW_LENGTH];
+
+// Shorthands for prev_records[i].keycode and prev_records[i].event.key.
+uint16_t prev_keycode(uint8_t i);
+keypos_t prev_keypos(uint8_t i);
+
+void process_magic_key_left(void);
+void process_magic_key_right(void);
 
 
 // Used to extract the basic tapping keycode from a dual-role key.

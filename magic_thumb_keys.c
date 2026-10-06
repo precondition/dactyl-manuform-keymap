@@ -32,9 +32,9 @@ void summon_same_finger_home_key(const keypos_t keypos) {
     }
 }
 
-void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_keypos[]) {
-    const uint16_t penultimate_keycode = prev_keycodes[1] == MAGIC_L || prev_keycodes[1] == MAGIC_R ? last_summoned_keycode : prev_keycodes[1];
-    switch (prev_keycodes[0]) {
+void process_magic_key_left(void) {
+    const uint16_t penultimate_keycode = prev_keycode(1) == MAGIC_L || prev_keycode(1) == MAGIC_R ? last_summoned_keycode : prev_keycode(1);
+    switch (prev_keycode(0)) {
 
         case KC_A:
         case HOME2_A:
@@ -54,7 +54,7 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
                     break;
 
                 default:
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
@@ -74,7 +74,7 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
 
                 default:
                     // examples: « about », « obtention »
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
@@ -117,7 +117,7 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
                     // examples: TODO
                     //set_oneshot_layer(_SYM, ONESHOT_START);
                     //last_summoned_keycode = OSL(_SYM);
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
@@ -145,14 +145,14 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
                     break;
 
                 default:
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
 
         case KC_L:
             // examples: « alors »
-            summon_same_finger_home_key(prev_keypos[1]);
+            summon_same_finger_home_key(prev_keypos(1));
             break;
 
         case KC_N:
@@ -175,11 +175,11 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
                     /*
                      * « top » (0.015466%) > « toa » (0.000580%)
                      */
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
 
                 default:
-                    summon_same_finger_home_key(prev_keypos[0]);
+                    summon_same_finger_home_key(prev_keypos(0));
                     break;
             }
             break;
@@ -223,7 +223,7 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
                     break;
 
                 default:
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
@@ -331,17 +331,17 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
             break;
 
         default:
-            summon_same_finger_home_key(prev_keypos[0]);
+            summon_same_finger_home_key(prev_keypos(0));
             break;
 
     }
 }
 
 
-void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev_keypos[]) {
-    const uint16_t penultimate_keycode = prev_keycodes[1] == MAGIC_L || prev_keycodes[1] == MAGIC_R ? last_summoned_keycode : prev_keycodes[1];
-    const bool is_preceded_by_the = prev_keycodes[1] == MAGIC_R && prev_keycodes[2] == KC_SPACE;
-    switch (prev_keycodes[0]) {
+void process_magic_key_right(void) {
+    const uint16_t penultimate_keycode = prev_keycode(1) == MAGIC_L || prev_keycode(1) == MAGIC_R ? last_summoned_keycode : prev_keycode(1);
+    const bool is_preceded_by_the = prev_keycode(1) == MAGIC_R && prev_keycode(2) == KC_SPACE;
+    switch (prev_keycode(0)) {
 
         case KC_A:
         case HOME2_A:
@@ -361,7 +361,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
                     break;
 
                 default:
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
@@ -412,7 +412,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
             // rationale: avoid SFB.
             // ngram: « gs » (0.01907%)
             // examples: « settings », « things », « strings », « mappings »
-            if (prev_keycodes[1] == KC_SLASH) {
+            if (prev_keycode(1) == KC_SLASH) {
                 // « :%s/re/p/gc »
                 tap_code(KC_C);
                 last_summoned_keycode = KC_C;
@@ -452,7 +452,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
 
                 default:
                     // rationale: avoid SFS.
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
@@ -472,7 +472,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
             switch (penultimate_keycode) {
                 case KC_A:
                 case HOME2_A:
-                    if (prev_keycodes[2] != KC_E && prev_keycodes[2] != HOME2_E) {
+                    if (prev_keycode(2) != KC_E && prev_keycode(2) != HOME2_E) {
                         // rationale: avoid SFS.
                         // ngram: « ano » (TODO%)
                         // examples: « another »,  « piano »,  « anonyme »,  « nano »
@@ -491,7 +491,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
                     // rationale: avoid SFB:
                     // ngram: « nl » (TODO%)
                     // examples: « only »,  « unless »,  « online »,  « enlever »,  « unlikely »
-                    summon_same_finger_home_key(prev_keypos[0]);
+                    summon_same_finger_home_key(prev_keypos(0));
                     break;
             }
             break;
@@ -568,7 +568,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
         case HOME2_T:
             switch (penultimate_keycode) {
                 default:
-                    summon_same_finger_home_key(prev_keypos[0]);
+                    summon_same_finger_home_key(prev_keypos(0));
                     break;
             }
             break;
@@ -593,7 +593,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
             break;
 
         case KC_U:
-            switch (prev_keycodes[1]) {
+            switch (prev_keycode(1)) {
                 case KC_H:
                     // examples: « thumb »,  « human »,  « humain », « thumbnails »
                     /*
@@ -606,7 +606,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
                 default:
                     // rationale: avoid SFS.
                     // examples: « but »,  « put »,  « custom »,  « input »,  « such »,  « dessus »
-                    summon_same_finger_home_key(prev_keypos[1]);
+                    summon_same_finger_home_key(prev_keypos(1));
                     break;
             }
             break;
@@ -759,7 +759,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
              */
             switch (last_summoned_keycode) {
                 case KC_SPACE:
-                    if (prev_keycodes[1] == KC_G) {
+                    if (prev_keycode(1) == KC_G) {
                         // Avoid the KC_G MAGIC_L KC_C SFS.
                         SEND_STRING("commit ");
                         last_summoned_keycode = KC_SPACE;
@@ -777,7 +777,7 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
             break;
 
         default:
-            summon_same_finger_home_key(prev_keypos[0]);
+            summon_same_finger_home_key(prev_keypos(0));
             break;
 
     }

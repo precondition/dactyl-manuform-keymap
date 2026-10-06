@@ -333,14 +333,39 @@ static void process_caps_word_lock(uint16_t keyc, const keyrecord_t *record) {
     }
 }
 
-// The `prev_keycodes` array is sorted from most recent to least recent:
-// prev_keycodes[0] = last keycode
-// prev_keycodes[1] = penultimate keycode
-// prev_keycodes[2] = antepenultimate keycode
-#define PREV_KEYS_WINDOW_LENGTH 3
-static uint16_t prev_keycodes[PREV_KEYS_WINDOW_LENGTH] = { KC_NO };
-static keypos_t prev_keypos[PREV_KEYS_WINDOW_LENGTH] = { 0 };
+keyrecord_t prev_records[PREV_KEYS_WINDOW_LENGTH] = { 0 };
+uint8_t prev_mods[PREV_KEYS_WINDOW_LENGTH] = { 0 };
 static uint8_t last_oneshot_mods = 0;
+
+uint16_t prev_keycode(uint8_t i) {
+    return prev_records[i].keycode;
+}
+
+keypos_t prev_keypos(uint8_t i) {
+    return prev_records[i].event.key;
+}
+
+#ifdef REPEAT_KEY_ENABLE
+// Set when QMK's repeat key feature remembers the key being pressed, so that
+// it gets pushed to prev_records. The push is deferred to the end of
+// process_record_user so that prev_records[0] is still the previous key while
+// the current one is being processed.
+static bool should_push_prev_key = false;
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    should_push_prev_key = true;
+    return true;
+}
+
+static void push_prev_key(const keyrecord_t *record, uint16_t keycode, uint8_t mods) {
+    for (int i = PREV_KEYS_WINDOW_LENGTH - 1 ; i > 0 ; --i) {
+        prev_records[i] = prev_records[i - 1];
+        prev_mods[i] = prev_mods[i - 1];
+    }
+    prev_records[0] = *record;
+    prev_records[0].keycode = keycode;
+    prev_mods[0] = mods;
+}
+#endif
 
 #ifndef REPEAT_KEY_ENABLE
 static void process_repeat_key(uint16_t keycode, const keyrecord_t *record) {
@@ -431,9 +456,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     const uint8_t mod_state = get_mods();
     const uint8_t oneshot_mod_state = get_oneshot_mods();
-    // Any mod other than Shift and AltGr (Ctrl, LAlt, GUI) means a keyboard
-    // shortcut, not typing.
-    const bool is_shortcut = (mod_state | oneshot_mod_state) & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT));
     bool retv = true;
     switch (keycode) {
 
@@ -882,7 +904,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (get_repeat_key_count() > 0) {
             tap_code(last_summoned_keycode);
         } else {
-            process_magic_key_left(prev_keycodes, prev_keypos);
+            process_magic_key_left();
         }
         retv = false;
         break;
@@ -892,7 +914,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (get_repeat_key_count() > 0) {
                 tap_code(last_summoned_keycode);
             } else {
-                process_magic_key_right(prev_keycodes, prev_keypos);
+                process_magic_key_right();
             }
         }
         retv = true;
@@ -920,14 +942,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Adaptive swap: CP CK
     // To eliminate the LSB on the common « ck » bigram.
-    // Not with any mod (held or one-shot), e.g. to type camelCase like
-    // « HilcParameter » or shortcuts like Ctrl+P.
+    // Not if either key has a mod (held or one-shot), e.g. to type camelCase
+    // like « HilcParameter » or shortcuts like Ctrl+C followed by P.
     case KC_P:
     case KC_K:
         if (record->event.pressed) {
-            const bool is_preceded_by_c = prev_keycodes[0] == KC_C;
+            const bool is_preceded_by_c = prev_keycode(0) == KC_C;
             const bool is_within_adaptive_key_term = last_input_activity_elapsed() < ADAPTIVE_KEY_TERM;
-            if (!(mod_state | oneshot_mod_state) && is_preceded_by_c && is_within_adaptive_key_term && get_last_mods() == get_mods()) {
+            if (!(mod_state | oneshot_mod_state | prev_mods[0]) && is_preceded_by_c && is_within_adaptive_key_term) {
                 const uint16_t alt_keycode = keycode == KC_P ? KC_K : KC_P;
                 tap_code(alt_keycode);
                 last_summoned_keycode = alt_keycode;
@@ -945,8 +967,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed
                 && last_input_activity_elapsed() < ADAPTIVE_KEY_TERM
                 && get_last_mods() == get_mods()
-                && is_letter_keycode(prev_keycodes[0])
-                && (GET_TAP_KC(prev_keycodes[1])) == KC_I) {
+                && is_letter_keycode(prev_keycode(0))
+                && (GET_TAP_KC(prev_keycode(1))) == KC_I) {
             const uint16_t alt_keycode = keycode == KC_X ? KC_Y : KC_X;
             tap_code(alt_keycode);
             last_summoned_keycode = alt_keycode;
@@ -982,36 +1004,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef REPEAT_KEY_ENABLE
     if (record->event.pressed) {
-        if (keycode == KC_BACKSPACE && last_summoned_keycode != KC_N) {
-            // Left shift the contents of the array.
-            // [ KC_C, KC_B, KC_A ] → [ KC_B, KC_A, KC_NO ]
-            for (int i = 0; i < PREV_KEYS_WINDOW_LENGTH - 1; ++i) {
-                prev_keycodes[i] = prev_keycodes[i + 1];
-                prev_keypos[i] = prev_keypos[i + 1];
+        if (get_repeat_key_count() < 1) {
+            // Keys that QMK does not remember (mods, layer keys, one-shot
+            // keys, …) do not enter the history.
+            if (should_push_prev_key) {
+                push_prev_key(get_last_record(), get_last_keycode(), get_last_mods());
+                should_push_prev_key = false;
             }
-            prev_keycodes[PREV_KEYS_WINDOW_LENGTH - 1] = KC_NO;
-            prev_keypos[PREV_KEYS_WINDOW_LENGTH - 1] = (keypos_t){ 0 };
         } else {
-            // Right shift the contents of the array, except for the head.
-            // [ KC_C, KC_B, KC_A ] → [ KC_C, KC_C, KC_B ]
-            for (int i = PREV_KEYS_WINDOW_LENGTH - 1 ; i > 0 ; --i) {
-                prev_keycodes[i] = prev_keycodes[i - 1];
-                prev_keypos[i] = prev_keypos[i - 1];
-            }
-            prev_keypos[0] = record->event.key;
-            if (get_repeat_key_count() < 1) {
-                // WARNING: keyboard shortcuts are deliberately recorded as KC_NO.
-                // A key pressed with Ctrl, LAlt or GUI is a shortcut, not
-                // typing, so it must not feed the adaptive keys and magic keys
-                // that read `prev_keycodes`. Otherwise, e.g., Ctrl+C followed
-                // by P would trigger the CP → CK swap.
-                // Shift and AltGr are kept since Shift+letter and AltGr+letter
-                // are still typing.
-                // QMK's own repeat key is unaffected: it uses get_last_keycode().
-                prev_keycodes[0] = is_shortcut ? KC_NO : get_last_keycode();
-            } else {
-                prev_keycodes[0] = QK_REP;
-            }
+            // QMK does not remember QK_REP but the magic rules need it,
+            // e.g. « o↻k ». Keep the position of the QK_REP key itself.
+            push_prev_key(record, QK_REP, get_mods());
         }
     }
 #else
