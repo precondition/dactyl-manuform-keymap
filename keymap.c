@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├───────┼───────┤NumLock│ScrLock│  Ins  │ BNAV  │ │       │ PGUP  │  UP   │ PGDN  ├───────┼──────┤
  * │       │       ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤       │ MUTE │
  * ├───────┼───────┤1-SHOT⎇│1-SHOT⇧│1-SHOT⎈│ GNAV  │ │ HOME  │ LEFT  │ DOWN  │ RGHT  ├───────┼──────┤
- * │CAPS/MS│1-SHOT◆├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤  END  │ VOLU │
+ * │ REP2  │1-SHOT◆├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤  END  │ VOLU │
  * ├───────┼───────┤Ctrl+A │Ctrl+C │Ctrl+V │       │ │PrintSc│       │   {   │   }   ├───────┼──────┤
  * │       │       ├───────┼───────┼───────┴───────┘ └───────┴───────┼───────┼───────┤  Ins  │ VOLD │
  * └───────┴───────┤       │       │                                 │ BRID  │ BRIU  ├───────┴──────┘
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = LAYOUT_5x6(
         KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,    KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 , KC_F11,
         _______,_______,KC_NUM,KC_SCRL,KC_INS  ,  BNAV ,    _______,KC_PGUP, KC_UP ,KC_PGDN,_______,KC_MUTE,
-        MS_CAPS,OS_LGUI,OS_LALT,OS_LSFT,OS_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT, KC_END,KC_VOLU,
+        REP2   ,OS_LGUI,OS_LALT,OS_LSFT,OS_LCTL,  GNAV ,    KC_HOME,KC_LEFT,KC_DOWN,KC_RGHT, KC_END,KC_VOLU,
         _______,_______,C(KC_A),C(KC_C),C(KC_V),_______,    KC_PSCR,_______,KC_LCBR,KC_RCBR,KC_INS ,KC_VOLD,
                         _______,_______,                                    KC_BRID,KC_BRIU,
                                          _______,_______,   _______,_______,
@@ -351,7 +351,14 @@ keypos_t prev_keypos(uint8_t i) {
 // process_record_user so that prev_records[0] is still the previous key while
 // the current one is being processed.
 static bool should_push_prev_key = false;
+// Set while REP2 replays keys.
+static bool is_rep2_replaying = false;
+
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    // REP2 must not overwrite the keys it is about to repeat.
+    if (keycode == REP2) {
+        return false;
+    }
     should_push_prev_key = true;
     return true;
 }
@@ -364,6 +371,14 @@ static void push_prev_key(const keyrecord_t *record, uint16_t keycode, uint8_t m
     prev_records[0] = *record;
     prev_records[0].keycode = keycode;
     prev_mods[0] = mods;
+}
+
+// Index of the key that prev_records[i] stands for, skipping QK_REP entries.
+static uint8_t resolve_prev_rep(uint8_t i) {
+    while (i < PREV_KEYS_WINDOW_LENGTH - 1 && prev_records[i].keycode == QK_REP) {
+        ++i;
+    }
+    return i;
 }
 #endif
 
@@ -993,6 +1008,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         retv = true;
         break;
 
+#ifdef REPEAT_KEY_ENABLE
+    case REP2:
+        // Replay the last two keys through QMK's repeat key machinery so
+        // that custom keycodes, mod-taps and mods behave like with QK_REP.
+        if (record->event.pressed) {
+            // Copy the last two keys first since replaying them updates the
+            // history. QK_REP entries stand for the key they repeated.
+            const uint8_t sources[2] = { resolve_prev_rep(1), resolve_prev_rep(0) };
+            keyrecord_t records[2];
+            uint8_t mods[2];
+            for (int i = 0; i < 2; ++i) {
+                records[i] = prev_records[sources[i]];
+                mods[i] = prev_mods[sources[i]];
+            }
+            keyevent_t event = record->event;
+            is_rep2_replaying = true;
+            for (int i = 0; i < 2; ++i) {
+                if (!records[i].keycode || records[i].keycode == QK_REP) {
+                    continue;
+                }
+                set_last_record(records[i].keycode, &records[i]);
+                set_last_mods(mods[i]);
+                event.pressed = true;
+                repeat_key_invoke(&event);
+                event.pressed = false;
+                repeat_key_invoke(&event);
+            }
+            is_rep2_replaying = false;
+        }
+        retv = false;
+        break;
+#endif
+
     case LAEDER:
         const bool is_shift_on = (mod_state | oneshot_mod_state) & MOD_MASK_SHIFT;
         const uint16_t laeder_keycode = base_dead_keys ^ is_shift_on ? KC_LALT : COMPOSE;
@@ -1011,11 +1059,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (get_repeat_key_count() < 1) {
             // Keys that QMK does not remember (mods, layer keys, one-shot
-            // keys, …) do not enter the history.
+            // keys, REP2, …) do not enter the history.
             if (should_push_prev_key) {
                 push_prev_key(get_last_record(), get_last_keycode(), get_last_mods());
                 should_push_prev_key = false;
             }
+        } else if (is_rep2_replaying) {
+            // Keys replayed by REP2 enter the history as themselves.
+            push_prev_key(get_last_record(), get_last_keycode(), get_last_mods());
         } else {
             // QMK does not remember QK_REP but the magic rules need it,
             // e.g. « o↻k ». Keep the position of the QK_REP key itself.
@@ -1153,5 +1204,6 @@ KEYCODE_STRING_NAMES_USER(
     KEYCODE_STRING_NAME(MAGIC_R),
     KEYCODE_STRING_NAME(QOTPAST),
     KEYCODE_STRING_NAME(LAEDER),
+    KEYCODE_STRING_NAME(REP2),
 );
 #endif

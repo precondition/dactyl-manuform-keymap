@@ -181,6 +181,9 @@ enum custom_keycodes {
     // sequences in apps like Word.  Compose key (menu) on Linux.
     // Shift inverts the meaning.
     LAEDER,
+    // Like QK_REP but repeats the last two keys (with their mods), e.g.
+    // « ↓␣ » or « ⇧⇥⏎ ».
+    REP2,
 };
 
 bool base_dead_keys;
