@@ -952,12 +952,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Adaptive swap: CP CK
     // To eliminate the LSB on the common « ck » bigram.
+    // Not with any mod (held or one-shot), e.g. to type camelCase like
+    // « HilcParameter » or shortcuts like Ctrl+P.
     case KC_P:
     case KC_K:
         if (record->event.pressed) {
             const bool is_preceded_by_c = prev_keycodes[0] == KC_C;
             const bool is_within_adaptive_key_term = last_input_activity_elapsed() < ADAPTIVE_KEY_TERM;
-            if (!is_shortcut && is_preceded_by_c && is_within_adaptive_key_term && get_last_mods() == get_mods()) {
+            if (!(mod_state | oneshot_mod_state) && is_preceded_by_c && is_within_adaptive_key_term && get_last_mods() == get_mods()) {
                 const uint16_t alt_keycode = keycode == KC_P ? KC_K : KC_P;
                 tap_code(alt_keycode);
                 last_summoned_keycode = alt_keycode;
