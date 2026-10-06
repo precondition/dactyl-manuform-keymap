@@ -136,9 +136,6 @@ enum custom_keycodes {
     // Macro for
     // "]
     C_BRQOT,
-    // "QMK Version"
-    // Prints the keyboard name, QMK version and build date
-    QK_VERS,
     // tmux window navigation
     B_CREAT,
     B_PREV,

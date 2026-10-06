@@ -5,7 +5,6 @@
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif
-#include "version.h" // For QK_VERS
 
 // All custom keycodes and aliases can be found in precondition_keymap.h
 #include "precondition_keymap.h"
@@ -221,7 +220,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │ UNDO  │ AGAIN ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤ PB_10 │      │
  * ├───────┼───────┤ KP_2  │ KP_3  │ KP_1  │ KP_5  │ │ KP_6  │ KP_0  │ KP_8  │ KP_9  ├───────┼──────┤
  * │   X   │ KP_4  ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤ KP_7  │ PMNS │
- * ├───────┼───────┤   ⏹   │   ⏯   │   ⏭   │QK_RBT │ │QK_VERS│NKROon │  (/⇧  │  )/⇧  ├───────┼──────┤
+ * ├───────┼───────┤   ⏹   │   ⏯   │   ⏭   │QK_RBT │ │       │NKROon │  (/⇧  │  )/⇧  ├───────┼──────┤
  * │` ~/Esc│   ⏮   ├───────┼───────┼───────┼───────┤ ├───────┼───────┼───────┼───────┤       │\NUHS|│
  * ├───────┼───────┤  CUT  │ COPY  │ PASTE │QK_BOOT│ │QK_BOOT│NKROoff│       │       ├───────┼──────┤
  * │\NUBS| │       ├───────┼───────┼───────┴───────┘ └───────┴───────┼───────┼───────┤ KP /  │      │
@@ -237,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_5x6(
         KC_UNDO,KC_AGIN,_______,_______,_______,_______,    BDED_ON,BDED_OF,KC_INT8,KC_LNG9, PB_10 ,_______,
            KC_X,KC_KP_4,KC_KP_2,KC_KP_3,KC_KP_1,KC_KP_5,    KC_KP_6,KC_KP_0,KC_KP_8,KC_KP_9,KC_KP_7,KC_PMNS,
-        QK_GESC,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT, QK_RBT,    QK_VERS, NK_ON ,SC_LSPO,SC_RSPC,_______,KC_NUHS,
+        QK_GESC,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT, QK_RBT,    _______, NK_ON ,SC_LSPO,SC_RSPC,_______,KC_NUHS,
         KC_NUBS,_______, KC_CUT,KC_COPY,KC_PSTE,QK_BOOT,    QK_BOOT, NK_OFF,_______,_______,KC_PSLS,_______,
                         _______,_______,                                    _______,_______,
                                         _______,_______,    _______,KC_KP_ENTER,
@@ -701,16 +700,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             for (int i = 0; i < 9; ++i)  {
                 tap_code(KC_LEFT);
             }
-        }
-        retv = false;
-        break;
-
-    case QK_VERS:
-        if (record->event.pressed) {
-            SEND_STRING(
-                    QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION "(" QMK_GIT_HASH ")" \
-                    ", Built on: " QMK_BUILDDATE
-                    );
         }
         retv = false;
         break;
@@ -1183,7 +1172,6 @@ KEYCODE_STRING_NAMES_USER(
     KEYCODE_STRING_NAME(CAPS_WORD_LOCK),
     KEYCODE_STRING_NAME(O_BRQOT),
     KEYCODE_STRING_NAME(C_BRQOT),
-    KEYCODE_STRING_NAME(QK_VERS),
     KEYCODE_STRING_NAME(B_CREAT),
     KEYCODE_STRING_NAME(B_PREV),
     KEYCODE_STRING_NAME(B_NEXT),
