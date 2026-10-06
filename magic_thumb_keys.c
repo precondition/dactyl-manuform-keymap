@@ -172,15 +172,21 @@ void process_magic_key_left(void) {
 
         case KC_N:
         case HOME_N:
-            // rationale: avoid SFS.
-            // ngram: « nal » (0.02550%)
-            // examples: "final",  "terminal",  "personally",  "original", "national"
-            /*
-             * Especially important to avoid the double SFS in « onal ».
-             */
-            tap_code(KC_A);
-            tap_code(KC_L);
-            last_summoned_keycode = KC_L;
+            if ((penultimate_keycode == KC_A || penultimate_keycode == HOME_A) && prev_keycode(2) != KC_E && prev_keycode(2) != HOME_E) {
+                // rationale: avoid SFS.
+                // ngram: « ano » (TODO%)
+                // examples: « another »,  « piano »,  « anonyme »,  « nano »
+                tap_code(KC_O);
+                last_summoned_keycode = KC_O;
+            } else {
+                // rationale: avoid SFB:
+                // ngram: « nly␣ » (0.01736%)
+                // examples: « only if »,  « only one »,  « cleanly undo »,  « certainly helps »
+                tap_code(KC_L);
+                tap_code(KC_Y);
+                tap_code(KC_SPACE);
+                last_summoned_keycode = KC_SPACE;
+            }
             break;
 
         case KC_O:
@@ -504,35 +510,6 @@ void process_magic_key_right(void) {
             last_summoned_keycode = KC_R;
             break;
 
-        case KC_N:
-        case HOME_N:
-            switch (penultimate_keycode) {
-                case KC_A:
-                case HOME_A:
-                    if (prev_keycode(2) != KC_E && prev_keycode(2) != HOME_E) {
-                        // rationale: avoid SFS.
-                        // ngram: « ano » (TODO%)
-                        // examples: « another »,  « piano »,  « anonyme »,  « nano »
-                        tap_code(KC_O);
-                        last_summoned_keycode = KC_O;
-                    } else {
-                        // rationale: avoid SFS.
-                        // ngram: « eanl » (TODO%)
-                        // examples: « cleanly »,  « cleanliest »
-                        tap_code(KC_L);
-                        last_summoned_keycode = KC_L;
-                    }
-                    break;
-
-                default:
-                    // rationale: avoid SFB:
-                    // ngram: « nl » (TODO%)
-                    // examples: « only »,  « unless »,  « online »,  « enlever »,  « unlikely »
-                    summon_same_finger_home_key(prev_keypos(0));
-                    break;
-            }
-            break;
-
         case KC_M:
             // rationale: avoid SFS.
             // ngram: « m␣" » (TODO%)
@@ -543,6 +520,19 @@ void process_magic_key_right(void) {
                 tap_code(KC_SPACE);
             }
             last_summoned_keycode = KC_DOUBLE_QUOTE;
+            break;
+
+        case KC_N:
+        case HOME_N:
+            // rationale: avoid SFS.
+            // ngram: « nal » (0.02550%)
+            // examples: "final",  "terminal",  "personally",  "original", "national"
+            /*
+             * Especially important to avoid the double SFS in « onal ».
+             */
+            tap_code(KC_A);
+            tap_code(KC_L);
+            last_summoned_keycode = KC_L;
             break;
 
         case KC_O:
