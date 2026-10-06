@@ -290,14 +290,25 @@ void process_magic_key_left(void) {
             // rationale: avoid LSB and SFS.
             // ngram: « :find␣ » (TODO%)
             // examples: TODO
-            SEND_STRING("find ");
+            tap_code(KC_F);
+            tap_code(KC_I);
+            tap_code(KC_N);
+            tap_code(KC_D);
+            tap_code(KC_SPACE);
             last_summoned_keycode = KC_SPACE;
             break;
 
         case KC_PERCENT:
             // rationale: reduce typing.
             // ngram: « %s/\v//gc »
-            SEND_STRING("s/\\v//gc");
+            tap_code(KC_S);
+            tap_code(KC_SLASH);
+            tap_code(KC_BACKSLASH);
+            tap_code(KC_V);
+            tap_code(KC_SLASH);
+            tap_code(KC_SLASH);
+            tap_code(KC_G);
+            tap_code(KC_C);
             tap_code(KC_LEFT);
             tap_code(KC_LEFT);
             tap_code(KC_LEFT);
@@ -734,7 +745,9 @@ void process_magic_key_right(void) {
             // examples: « git commit the », « :find the »,
             switch (last_summoned_keycode) {
                 case KC_SPACE:
-                    SEND_STRING("the");
+                    tap_code(KC_T);
+                    tap_code(KC_H);
+                    tap_code(KC_E);
                     last_summoned_keycode = KC_SPACE;
                     break;
 
@@ -761,11 +774,19 @@ void process_magic_key_right(void) {
                 case KC_SPACE:
                     if (prev_keycode(1) == KC_G) {
                         // Avoid the KC_G MAGIC_L KC_C SFS.
-                        SEND_STRING("commit ");
+                        tap_code(KC_C);
+                        tap_code(KC_O);
+                        tap_code(KC_M);
+                        tap_code(KC_M);
+                        tap_code(KC_I);
+                        tap_code(KC_T);
+                        tap_code(KC_SPACE);
                         last_summoned_keycode = KC_SPACE;
                     } else {
                         // e.g., KC_T MAGIC_L MAGIC_R for "I creaTED THE ".
-                        SEND_STRING("the");
+                        tap_code(KC_T);
+                        tap_code(KC_H);
+                        tap_code(KC_E);
                         last_summoned_keycode = KC_E;
                     }
                     break;
