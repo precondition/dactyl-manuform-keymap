@@ -274,7 +274,19 @@ void process_magic_key_left(const uint16_t prev_keycodes[], const keypos_t prev_
             break;
 
         case KC_U:
-            summon_same_finger_home_key(prev_keypos[1]);
+            switch (penultimate_keycode) {
+                case KC_K:
+                    // rationale: avoid SFS
+                    // ngram: « kub » (TODO%)
+                    // examples: « kubectl », « kubernetes », « kubelet »
+                    tap_code(KC_B);
+                    last_summoned_keycode = KC_B;
+                    break;
+
+                default:
+                    summon_same_finger_home_key(prev_keypos[1]);
+                    break;
+            }
             break;
 
         case KC_V:
