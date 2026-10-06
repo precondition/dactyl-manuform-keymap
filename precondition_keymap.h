@@ -151,6 +151,12 @@ enum custom_keycodes {
     // Especially useful to paste Windows-style backslash file paths in a MSYS
     // terminal.
     QOTPAST,
+    // Leader key but not quite, hence the intentional typo.
+    // Literally just KC_LALT but without all the special handling that OSL &
+    // co. do with modifier keys when on Windows as use for the Alt leader key
+    // sequences in apps like Word.  Compose key (menu) on Linux.
+    // Shift inverts the meaning.
+    LAEDER,
 };
 
 bool base_dead_keys;
