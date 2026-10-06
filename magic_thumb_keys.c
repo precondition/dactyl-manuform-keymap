@@ -40,7 +40,6 @@ void process_magic_key_left(void) {
         case HOME_A:
             switch (penultimate_keycode) {
                 case KC_SPACE:
-                case KC_L:
                 case KC_M:
                 case KC_F:
                 case KC_H:
