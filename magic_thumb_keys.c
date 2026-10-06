@@ -533,11 +533,19 @@ void process_magic_key_right(const uint16_t prev_keycodes[], const keypos_t prev
             switch (penultimate_keycode) {
                 case KC_A:
                 case HOME2_A:
-                    // rationale: avoid SFS.
-                    // ngram: « ano » (TODO%)
-                    // examples: « another »,  « piano »,  « anonyme »,  « nano »
-                    tap_code(KC_O);
-                    last_summoned_keycode = KC_O;
+                    if (prev_keycodes[2] != KC_E && prev_keycodes[2] != HOME2_E) {
+                        // rationale: avoid SFS.
+                        // ngram: « ano » (TODO%)
+                        // examples: « another »,  « piano »,  « anonyme »,  « nano »
+                        tap_code(KC_O);
+                        last_summoned_keycode = KC_O;
+                    } else {
+                        // rationale: avoid SFS.
+                        // ngram: « eanl » (TODO%)
+                        // examples: « cleanly »,  « cleanliest »,
+                        tap_code(KC_L);
+                        last_summoned_keycode = KC_L;
+                    }
                     break;
 
                 default:
