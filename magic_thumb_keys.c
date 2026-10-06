@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "precondition_keymap.h"
 
-/* Magic rules version 4.0 */
+/* Magic rules version 5.0 */
 
 /*
  * "Magic key" is AKL jargon (https://layouts.wiki/reference/terminology/magic/).
