@@ -37,7 +37,7 @@ void process_magic_key_left(void) {
     switch (prev_keycode(0)) {
 
         case KC_A:
-        case HOME2_A:
+        case HOME_A:
             switch (penultimate_keycode) {
                 case KC_SPACE:
                 case KC_L:
@@ -80,7 +80,7 @@ void process_magic_key_left(void) {
             break;
 
         case KC_E:
-        case HOME2_E:
+        case HOME_E:
             switch (penultimate_keycode) {
                 case KC_B:
                     // « between␣ »
@@ -94,7 +94,7 @@ void process_magic_key_left(void) {
                     break;
 
                 case KC_R:
-                case HOME2_R:
+                case HOME_R:
                     /*
                      * « rex » (0.00018%) < « req » (0.01271%)
                      */
@@ -133,7 +133,7 @@ void process_magic_key_left(void) {
             break;
 
         case KC_I:
-        case HOME2_I:
+        case HOME_I:
             switch (penultimate_keycode) {
                 case KC_SPACE:
                     // rationale: avoid SFS.
@@ -156,7 +156,7 @@ void process_magic_key_left(void) {
             break;
 
         case KC_N:
-        case HOME2_N:
+        case HOME_N:
             // rationale: avoid SFS.
             // ngram: « nal » (0.02550%)
             // examples: "final",  "terminal",  "personally",  "original", "national"
@@ -171,7 +171,7 @@ void process_magic_key_left(void) {
         case KC_O:
             switch (penultimate_keycode) {
                 case KC_T:
-                case HOME2_T:
+                case HOME_T:
                     /*
                      * « top » (0.015466%) > « toa » (0.000580%)
                      */
@@ -193,7 +193,7 @@ void process_magic_key_left(void) {
             break;
 
         case KC_R:
-        case HOME2_R:
+        case HOME_R:
             // rationale: avoid SFB and SKB.
             // ngram: « rr » (0.09392%)
             // examples: « bizarre », « correct », « erreur », « array »
@@ -202,7 +202,7 @@ void process_magic_key_left(void) {
             break;
 
         case KC_T:
-        case HOME2_T:
+        case HOME_T:
             // rationale: avoid SFS.
             // ngram: « ted » (0.04675%)
             // examples: « expected », « dedicated », « accented »
@@ -355,7 +355,7 @@ void process_magic_key_right(void) {
     switch (prev_keycode(0)) {
 
         case KC_A:
-        case HOME2_A:
+        case HOME_A:
             switch (penultimate_keycode) {
                 case KC_SPACE:
                 case KC_L:
@@ -398,7 +398,7 @@ void process_magic_key_right(void) {
         case KC_F:
             switch (penultimate_keycode) {
                 case KC_I:
-                case HOME2_I:
+                case HOME_I:
                     // rationale: avoid SFS.
                     // ngram: « ify » (0.00332%)
                     // examples: « specify »,  « modify »,  « simplify »
@@ -443,7 +443,7 @@ void process_magic_key_right(void) {
             break;
 
         case KC_I:
-        case HOME2_I:
+        case HOME_I:
             switch (penultimate_keycode) {
                 case KC_H:
                     // rationale: avoid SFS.
@@ -479,11 +479,11 @@ void process_magic_key_right(void) {
             break;
 
         case KC_N:
-        case HOME2_N:
+        case HOME_N:
             switch (penultimate_keycode) {
                 case KC_A:
-                case HOME2_A:
-                    if (prev_keycode(2) != KC_E && prev_keycode(2) != HOME2_E) {
+                case HOME_A:
+                    if (prev_keycode(2) != KC_E && prev_keycode(2) != HOME_E) {
                         // rationale: avoid SFS.
                         // ngram: « ano » (TODO%)
                         // examples: « another »,  « piano »,  « anonyme »,  « nano »
@@ -543,7 +543,7 @@ void process_magic_key_right(void) {
             break;
 
         case KC_R:
-        case HOME2_R:
+        case HOME_R:
             // rationale: avoid SFS.
             // ngram: « ree » (0.02534%)
             // examples: « free »,  « screen »,  « three »,  « freeze »
@@ -561,7 +561,7 @@ void process_magic_key_right(void) {
             break;
 
         case KC_S:
-        case HOME2_S:
+        case HOME_S:
             // rationale: avoid SFB.
             // ngram: « sg » (0.00539%)
             // examples: « msg », « disgusted »,  « disguised »
@@ -576,7 +576,7 @@ void process_magic_key_right(void) {
             break;
 
         case KC_T:
-        case HOME2_T:
+        case HOME_T:
             switch (penultimate_keycode) {
                 default:
                     summon_same_finger_home_key(prev_keypos(0));
