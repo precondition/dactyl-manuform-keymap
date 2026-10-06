@@ -325,6 +325,16 @@ void process_magic_key_left(void) {
             last_summoned_keycode = KC_DOT;
             break;
 
+        case KC_LABK:
+        case KC_RABK:
+        case KC_PIPE:
+            // rationale: avoid SFB.
+            // ngram: « << », « >> », « || »
+            // examples: quotes, indent actions
+            tap_code16(prev_keycode(0));
+            last_summoned_keycode = prev_keycode(0);
+            break;
+
         case KC_ESC:
             // rationale: avoid SFS and reduce typing.
             // ngram: « ⎋:x⏎ »
