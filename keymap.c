@@ -443,7 +443,7 @@ static bool is_letter_keycode(uint16_t keycode) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     const bool is_combo = record->event.type == COMBO_EVENT;
-    uprintf("0x%04X\t%u\t%u\t0x%X\t%u\t0x%02X\t0x%02X\t%u\t%s\n",
+    uprintf("0x%04X\t%u\t%u\t0x%X\t%u\t0x%02X\t0x%02X\t%u\t%s\t%s\n",
          keycode,
          is_combo ? 254 : record->event.key.row,
          is_combo ? 254 : record->event.key.col,
@@ -452,7 +452,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          get_mods(),
          get_oneshot_mods(),
          record->tap.count,
-         get_keycode_string(keycode)
+         get_keycode_string(keycode),
+         get_keycode_string(last_summoned_keycode)
          );
 #endif
 #ifndef REPEAT_KEY_ENABLE
