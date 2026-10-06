@@ -1015,21 +1015,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Adaptive swap: CP CK
     // To eliminate the LSB on the common « ck » bigram.
     case KC_P:
-        if (record->event.pressed && prev_keycodes[0] == KC_C) {
-            tap_code(KC_K);
-            last_summoned_keycode = KC_K;
-            retv = false;
-            break;
-        }
-        retv = true;
-        break;
-
     case KC_K:
-        if (record->event.pressed && prev_keycodes[0] == KC_C) {
-            tap_code(KC_P);
-            last_summoned_keycode = KC_P;
-            retv = false;
-            break;
+        if (record->event.pressed) {
+            const bool is_preceded_by_c = prev_keycodes[0] == KC_C;
+            const bool is_within_adaptive_key_term = last_input_activity_elapsed() < ADAPTIVE_KEY_TERM;
+            if (is_preceded_by_c && is_within_adaptive_key_term && get_last_mods() == get_mods()) {
+                const uint16_t alt_keycode = keycode == KC_P ? KC_K : KC_P;
+                tap_code(alt_keycode);
+                last_summoned_keycode = alt_keycode;
+                retv = false;
+                break;
+            }
         }
         retv = true;
         break;
@@ -1037,19 +1033,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Adaptive swap: I_X I_Y
     // To eliminate the SFS on the common « i_y » skipgram.
     case KC_X:
-        if (record->event.pressed && is_letter_keycode(prev_keycodes[0]) && (GET_TAP_KC(prev_keycodes[1])) == KC_I) {
-            tap_code(KC_Y);
-            last_summoned_keycode = KC_Y;
-            retv = false;
-            break;
-        }
-        retv = true;
-        break;
-
     case KC_Y:
-        if (record->event.pressed && is_letter_keycode(prev_keycodes[0]) && (GET_TAP_KC(prev_keycodes[1])) == KC_I) {
-            tap_code(KC_X);
-            last_summoned_keycode = KC_X;
+        if (record->event.pressed
+                && last_input_activity_elapsed() < ADAPTIVE_KEY_TERM
+                && get_last_mods() == get_mods()
+                && is_letter_keycode(prev_keycodes[0])
+                && (GET_TAP_KC(prev_keycodes[1])) == KC_I) {
+            const uint16_t alt_keycode = keycode == KC_X ? KC_Y : KC_X;
+            tap_code(alt_keycode);
+            last_summoned_keycode = alt_keycode;
             retv = false;
             break;
         }
