@@ -29,7 +29,7 @@ This keymap contains many nifty QMK tricks that can inspire you for your own key
 
 ### OS Setup
 
-* OS: Xubuntu Linux
+* OS: CachyOS niri
 * Regional keyboard layout: English US intl. with AltGr dead keys
 
 AND
