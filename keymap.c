@@ -1,6 +1,3 @@
-/* Colemak DHm with home row mods and hybrid steno
- * for the Dactyl Manuform 5x6 Keyboard */
-
 #include QMK_KEYBOARD_H
 #ifdef CONSOLE_ENABLE
 #include "print.h"

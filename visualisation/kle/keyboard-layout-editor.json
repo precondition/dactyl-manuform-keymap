@@ -12,58 +12,115 @@
       "t": "#000000\n\n\n#ff0000",
       "f": 5
     },
-    "`\n\n\nF2",
-    "\"\n\n\nF3",
+    "^◌\n\n\nF2",
+    {
+      "fa": [
+        4
+      ]
+    },
+    "BNAV\n\n\nF3",
+    {
+      "f": 5
+    },
     "F4\n\n\nF4",
+    {
+      "f": 5
+    },
     "F5\n\n\nF5",
     {
-      "x": 5.5
+      "x": 5.5,
+      "f": 5
     },
     "¨◌\n\n\nF6",
-    "^◌\n\n\nF7",
+    {
+      "f": 5
+    },
+    "⎄\n\n\nF7",
+    {
+      "f": 5
+    },
     "È\n\n\nF8",
+    {
+      "f": 5
+    },
     "É\n\n\nF9"
   ],
   [
     {
-      "y": -0.5
+      "y": -0.5,
+      "f": 5
     },
     "Undo\n\n\nF12",
+    {
+      "f": 5
+    },
     "Redo\n\n\nF1",
     {
-      "x": 13.5
+      "x": 13.5,
+      "f": 5
     },
     "F10\n\n\nF10",
+    {
+      "f": 5
+    },
     "F11\n\n\nF11"
   ],
   [
     {
       "y": -0.5,
-      "x": 2
+      "x": 2,
+      "f": 5
     },
-    "W\n\n\n2",
-    "F\n\n\n3",
-    "P\n\n<sup>Ins</sup>\n1\n<i class='fa fa-mouse-pointer'></i>",
-    "B\n\n\n5",
+    "L\n\n\n[",
     {
-      "x": 5.5
+      "f": 5
     },
-    "J\n\n\n6",
-    "L\n\n<i class='mss mss-Unicode-Page-Up-5'></i>\n0",
-    "U\n\n↑\n8",
-    "Y\n\n<i class='mss mss-Unicode-Page-Down-5'></i>\n9"
+    "C\n\n\n]",
+    {
+      "f": 5
+    },
+    "P\n\n<sup>Ins</sup>\n`",
+    {
+      "f": 5
+    },
+    "K\n\n\n>",
+    {
+      "x": 5.5,
+      "f": 5
+    },
+    "F\n\n\n{<i class='kb kb-Return-2'></i>",
+    {
+      "f": 5
+    },
+    "M\n\n<i class='mss mss-Unicode-Page-Up-5'></i>\n{",
+    {
+      "f": 5
+    },
+    "U\n\n↑\n(",
+    {
+      "f": 5
+    },
+    "O\n\n<i class='mss mss-Unicode-Page-Down-5'></i>\n)"
   ],
   [
     {
-      "y": -0.5
+      "y": -0.5,
+      "f": 5
     },
-    "À\n\n\nx",
-    "Q\n\n\n4",
+    "Q\n\n\n<",
     {
-      "x": 13.5
+      "f": 5
     },
-    ";\n:\n\n7",
-    "_\n-\n<i class='kb kb-Multimedia-Mute-1'></i>\n-"
+    "X\n\n\n\\",
+    {
+      "x": 13.5,
+      "f": 5
+    },
+    "Y\n\n\n}",
+    {
+      "f": 5
+    },
+    "=\n-\n<i class='kb kb-Multimedia-Mute-1'></i>\n-"
   ],
   [
     {
@@ -76,36 +133,36 @@
         4
       ]
     },
-    "R\n\n\n[\n\n\n\n\n\n⎇",
-    "S\n\n\n]\n\n\n\n\n\n⇧",
-    "T\n\n\n\"]\n\n\n\n\n\n<i class='kb kb-Unicode-Control-1'></i>",
-    "G\n\n\n»",
+    "N\n\n\n2\n\n\n\n\n\n⎇",
+    "S\n\n\n3\n\n\n\n\n\n⇧",
+    "T\n\n\n1\n\n\n\n\n\n<i class='kb kb-Unicode-Control-1'></i>",
+    "B\n\n\n5",
     {
       "x": 5.5
     },
-    "M\n\n<i class='kb kb-Line-Start'></i>\n{<i class='kb kb-Return-2'></i>",
-    "N\n\n<i class='kb kb-Arrows-Left'></i>\n{\n\n\n\n\n\n<i class='kb kb-Unicode-Control-1'></i>",
-    "E\n\n↓\n(\n\n\n\n\n\n⇧",
-    "I\n\n<i class='kb kb-Arrows-Right'></i>\n)\n\n\n\n\n\n⎇"
+    "H\n\n<i class='kb kb-Line-Start'></i>\n6",
+    "<i class='kb kb-Return-2'></i>\n\n<i class='kb kb-Arrows-Left'></i>\n0\n\n\n\n\n\n<i class='kb kb-Unicode-Control-1'></i>",
+    "\n\n↓\n8\n\n\n\n\n\n⇧",
+    "A\n\n<i class='kb kb-Arrows-Right'></i>\n9\n\n\n\n\n\n⎇"
   ],
   [
     {
       "y": -0.5,
       "c": "#8eb0bb"
     },
-    "Esc\n\n\n«",
+    "REP\n\n\nÀ",
     {
       "c": "#cccccc"
     },
-    "A\n\n\n[\"\n\n\n\n\n\n◆",
+    "R\n\n\n4\n\n\n\n\n\n◆",
     {
       "x": 13.5
     },
-    "O\n\n<i class='kb kb-Line-End'></i>\n}\n\n\n\n\n\n◆",
+    "I\n\n<i class='kb kb-Line-End'></i>\n7\n\n\n\n\n\n◆",
     {
       "c": "#8eb0bb"
     },
-    "\"\n'\n<i class='kb kb-Multimedia-Volume-Up-2'></i>\n}<i class='kb kb-Return-2'></i>"
+    ",\n.\n<i class='kb kb-Multimedia-Volume-Up-2'></i>\n."
   ],
   [
     {
@@ -114,11 +171,11 @@
       "c": "#cccccc",
       "f": 5
     },
-    "X\n\n\n@",
+    "Tab\n\n\n@",
     {
       "f": 5
     },
-    "C\n\n<sup><i class='fa fa-copy'></i></sup>\n#",
+    "G\n\n<sup><i class='fa fa-copy'></i></sup>\n#",
     {
       "f": 5
     },
@@ -126,47 +183,46 @@
     {
       "f": 5
     },
-    "V\n\n\n%",
+    "V\n\n\"<sup><i class='fa fa-paste'></i></sup>\"\n%",
     {
       "x": 5.5,
-      "f": 5
+      "fa": [
+        0,
+        0,
+        2
+      ]
     },
-    "K\n\n\n^",
+    "\"\n'\nPrtSc\n^",
+    "<i class='kb kb-Unicode-DeleteRight-Big'></i>\n<i class='kb kb-Unicode-BackSpace-DeleteLeft-Big'></i>\n\n&",
     {
       "f": 5
     },
-    "H\n\n\n&",
+    "W\n\n<sup>{</sup>\n*",
     {
       "f": 5
     },
-    "<\n,\n<sup>{</sup>\n*",
-    {
-      "f": 5
-    },
-    ">\n.\n<sup>}</sup>\n="
+    "?\n/\n<sup>}</sup>\n="
   ],
   [
     {
       "y": -0.5,
-      "c": "#8eb0bb",
-      "f": 5
+      "c": "#8eb0bb"
     },
-    "Z\n\n\n~",
+    "J\n\n\n~",
     {
-      "c": "#cccccc",
-      "f": 5
+      "c": "#cccccc"
     },
-    "REP\n\n\n!",
+    "Esc\n\n\n!",
     {
       "x": 13.5,
       "f": 5
     },
-    "?\n/\n\n+",
+    ";\n:\nIns\n+",
     {
       "c": "#8eb0bb",
-      "f": 4
+      "f": 3
     },
-    "=>\n->\n<i class='kb kb-Multimedia-Volume-Down-2'></i>\n`"
+    "\n\n<i class='kb kb-Multimedia-Volume-Down-2'></i>\n,\n\n\nCAPW"
   ],
   [
     {
@@ -179,13 +235,21 @@
     "Ç",
     {
       "x": 9.5,
-      "a": 7
+      "fa": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ]
     },
-    "AltGr",
-    {
-      "a": 4
-    },
-    "~\n`"
+    "\n\nBri−\n\n\n\n\n\n\nAltGr",
+    "\n\nBri+"
   ],
   [
     {
@@ -196,15 +260,16 @@
       "x": 1,
       "h": 1.5
     },
-    "_"
+    "_\n␣"
   ],
   [
     {
       "y": -0.5,
       "t": "#000000\n\n\n\n\n\n\n\n\n#013766",
+      "f": 5,
       "h": 1.5
     },
-    "<i class='kb kb-Line-Start-End'></i>\n\n\n\n\n\n\n\n\nNAV"
+    "OSL\n\n\n\n\n\n\n\n\nNAV"
   ],
   [
     {
@@ -215,7 +280,7 @@
       "t": "#000000",
       "a": 5
     },
-    "⇧\n<sup>OSM</sup>"
+    "<i class='fa fa-magic'></i> L"
   ],
   [
     {
@@ -235,9 +300,9 @@
     "Cmpse\n\n\n\n\n\n\n\n\n⎄",
     {
       "a": 7,
-      "f": 1
+      "f": 5
     },
-    "Toggle PLOVER"
+    ""
   ],
   [
     {
@@ -245,17 +310,16 @@
       "rx": 12,
       "y": -1.25,
       "x": -4.5,
-      "a": 4,
-      "f": 5
+      "a": 4
     },
-    "\n\n<i class='kb kb-Unicode-ClearScreen-1'></i>"
+    "<i class='kb kb-Unicode-ClearScreen-1'></i>"
   ],
   [
     {
       "x": -4.5
     },
-    "\n\n<i class='kb kb-Arrows-Left'></i>",
-    "\n\n<i class='kb kb-Arrows-Right'></i>"
+    "Down",
+    "Up"
   ],
   [
     {
@@ -265,7 +329,7 @@
       "x": -4,
       "a": 5
     },
-    "⇧\n<sup>OSM</sup>"
+    "<i class='fa fa-magic'></i> R"
   ],
   [
     {
@@ -276,7 +340,7 @@
       "a": 4,
       "h": 1.5
     },
-    "<i class='kb kb-Unicode-DeleteRight-Big'></i>\n<i class='kb kb-Unicode-BackSpace-DeleteLeft-Big'></i>"
+    "E"
   ],
   [
     {
@@ -285,6 +349,6 @@
       "t": "#000000\n\n\n\n\n\n\n\n\n#ff0000",
       "h": 1.5
     },
-    "<i class='kb kb-Return-2'></i>\n\n\n\n\n\n\n\n\nSYM"
+    "OSL\n\n\n\n\n\n\n\n\nSYM"
   ]
 ]
