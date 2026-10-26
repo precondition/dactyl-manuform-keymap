@@ -4,7 +4,7 @@ To be inserted in ~/qmk_firmware/keyboards/handwired/dactyl_manuform/5x6/keymaps
 ![Keymap diagram of the base, SYM, and NAV layers](visualisation/kle/kle-base-sym-nav.png)
 Figure 1. Base layer legends in black, SYM layer legends in red, and NAV layer legends in blue. Unlike the ASCII art inside keymap.c, this figure is not automatically generated and may thus go out of date.
 
-This keymap uses XYLOCUP, a totally deranged keymap I designed based on years of real keylogs fed into [jalo](https://github.com/tiagowright/jalo) with a custom set of metrics and weights. For use in English, French, and programming.
+This keymap uses XYLOCUP, a totally deranged keymap I designed based on years of real keylogs fed into [jalo](https://github.com/tiagowright/jalo) with a custom set of metrics and weights. Yes, the right hand home row with enter and a dedicated one-shot shift (not a modtap) looks crazy but it actually makes a lot of sense for my terminal-heavy usage of computers. For use in English, French, and programming.
 
 Notably, [home row mods](https://precondition.github.io/home-row-mods) are used, as well as combos and [magic keys](https://layouts.wiki/reference/terminology/magic/) on the thumbs (`MAGIC_L` and `MAGIC_R`, see `magic_thumb_keys.c`).
 
