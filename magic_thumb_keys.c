@@ -82,6 +82,12 @@ void process_magic_key_left(void) {
             }
             break;
 
+        case KC_C:
+            summon_same_finger_home_key(prev_keypos(0));
+            tap_code(KC_SPACE);
+            last_summoned_keycode = KC_SPACE;
+            break;
+
         case KC_E:
         case HOME_E:
             switch (penultimate_keycode) {
