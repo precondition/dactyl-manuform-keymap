@@ -215,8 +215,10 @@ void process_magic_key_left(void) {
             switch (penultimate_keycode) {
                 case KC_T:
                 case HOME_T:
+                case KC_L:
                     /*
                      * « top » (0.015466%) > « toa » (0.000580%)
+                     * « lon » (0.02627%) > « loa » (0.0092%)
                      */
                     summon_same_finger_home_key(prev_keypos(1));
                     break;
