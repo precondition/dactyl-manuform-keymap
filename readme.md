@@ -30,8 +30,7 @@ This keymap contains many nifty QMK tricks that can inspire you for your own key
 ### OS Setup
 
 * OS: Xubuntu Linux
-* Regional keyboard layout: Modified English US intl. with AltGr dead keys
-    * Swapped the shift pairs of the semicolon key
+* Regional keyboard layout: English US intl. with AltGr dead keys
 
 AND
 
