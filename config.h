@@ -28,6 +28,12 @@
 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
+// tap_code(KC_CAPS) blocks for TAP_HOLD_CAPS_DELAY (default 80ms) while the
+// matrix isn't scanned, so a key tapped quickly after toggling CAPS_WORD_LOCK
+// gets dropped (e.g. "DMS" → "MS"). The 80ms default is only needed by macOS,
+// which ignores very short Caps Lock taps; Linux is fine with a short delay.
+#define TAP_HOLD_CAPS_DELAY 10
+
 #define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_RIGHT_CTRL
 
 // Custom config settings that are not part of QMK core. //
