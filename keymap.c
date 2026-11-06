@@ -924,6 +924,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 const uint16_t alt_keycode = keycode == KC_P ? KC_K : KC_P;
                 tap_code(alt_keycode);
                 last_summoned_keycode = alt_keycode;
+                // Let the magic rules see the swapped key rather than the
+                // one pressed.
+                set_last_keycode(alt_keycode);
                 retv = false;
                 break;
             }
@@ -943,6 +946,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             const uint16_t alt_keycode = keycode == KC_X ? KC_Y : KC_X;
             tap_code(alt_keycode);
             last_summoned_keycode = alt_keycode;
+            // Let the magic rules see the swapped key rather than the one
+            // pressed.
+            set_last_keycode(alt_keycode);
             retv = false;
             break;
         }
