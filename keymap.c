@@ -979,9 +979,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     case LAEDER:
-        const bool is_shift_on = (mod_state | oneshot_mod_state) & MOD_MASK_SHIFT;
-        const uint16_t laeder_keycode = base_dead_keys ^ is_shift_on ? KC_LALT : COMPOSE;
+        // The keycode registered on press, so that the release unregisters
+        // the same one even if the mods changed in between.
+        static uint16_t laeder_keycode = KC_NO;
         if (record->event.pressed) {
+            const bool is_shift_on = (mod_state | oneshot_mod_state) & MOD_MASK_SHIFT;
+            laeder_keycode = base_dead_keys ^ is_shift_on ? KC_LALT : COMPOSE;
             register_code(laeder_keycode);
         } else {
             unregister_code(laeder_keycode);
