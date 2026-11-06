@@ -925,7 +925,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 && last_input_activity_elapsed() < ADAPTIVE_KEY_TERM
                 && get_last_mods() == get_mods()
                 && is_letter_keycode(prev_keycode(0))
-                && (GET_TAP_KC(prev_keycode(1))) == KC_I) {
+                && GET_TAP_KC(prev_keycode(1)) == KC_I) {
             const uint16_t alt_keycode = keycode == KC_X ? KC_Y : KC_X;
             tap_code(alt_keycode);
             last_summoned_keycode = alt_keycode;

@@ -186,7 +186,7 @@ void process_magic_key_right(void);
 
 // Used to extract the basic tapping keycode from a dual-role key.
 // Example: GET_TAP_KC(MT(MOD_RSFT, KC_E)) == KC_E
-#define GET_TAP_KC(dual_role_key) dual_role_key & 0xFF
+#define GET_TAP_KC(dual_role_key) ((dual_role_key) & 0xFF)
 
 // The lowest row of thumb keys is wired a little differently from the layout macro on my specific build
 #undef LAYOUT_5x6
