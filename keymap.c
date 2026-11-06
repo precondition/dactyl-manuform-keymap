@@ -433,6 +433,25 @@ static bool is_letter_keycode(uint16_t keycode) {
     }
 }
 
+static bool is_vowel_keycode(uint16_t keycode) {
+    switch (GET_TAP_KC(keycode)) {
+        case KC_A: case KC_E: case KC_I: case KC_O: case KC_U: case KC_Y:
+            return true;
+
+        default:
+            return false;
+    }
+}
+
+// Whether the key being pressed comes within ADAPTIVE_KEY_TERM of the last
+// key in the history. The 16-bit press times wrap around after ≈65 s, so
+// last_input_activity_elapsed() rules out long pauses.
+// See https://github.com/qmk/qmk_firmware/issues/26464
+static bool is_within_adaptive_key_term(const keyrecord_t *record) {
+    return last_input_activity_elapsed() < ADAPTIVE_KEY_TERM
+        && TIMER_DIFF_16(record->event.time, prev_records[0].event.time) < ADAPTIVE_KEY_TERM;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     // Logged at the end of this function, with the layers as they were when
@@ -896,17 +915,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // To eliminate the LSB on the common « ck » bigram.
     // Not if either key has a mod (held or one-shot), e.g. to type camelCase
     // like « HilcParameter » or shortcuts like Ctrl+C followed by P.
-    // Only within ADAPTIVE_KEY_TERM of the C press. The 16-bit press times
-    // wrap around after ≈65 s, so last_input_activity_elapsed() rules out long
-    // pauses.
-    // See https://github.com/qmk/qmk_firmware/issues/26464
+    // Only within ADAPTIVE_KEY_TERM of the C press.
     case KC_P:
     case KC_K:
         if (record->event.pressed) {
             const bool is_preceded_by_c = prev_keycode(0) == KC_C;
-            const bool is_within_adaptive_key_term = last_input_activity_elapsed() < ADAPTIVE_KEY_TERM
-                && TIMER_DIFF_16(record->event.time, prev_records[0].event.time) < ADAPTIVE_KEY_TERM;
-            if (!(mod_state | oneshot_mod_state | prev_mods[0]) && is_preceded_by_c && is_within_adaptive_key_term) {
+            if (!(mod_state | oneshot_mod_state | prev_mods[0]) && is_preceded_by_c && is_within_adaptive_key_term(record)) {
                 const uint16_t alt_keycode = keycode == KC_P ? KC_K : KC_P;
                 tap_code(alt_keycode);
                 last_summoned_keycode = alt_keycode;
@@ -980,11 +994,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case LAEDER:
         // The keycode registered on press, so that the release unregisters
-        // the same one even if the mods changed in between.
+        // the same one even if the mods or the history changed in between.
         static uint16_t laeder_keycode = KC_NO;
         if (record->event.pressed) {
-            const bool is_shift_on = (mod_state | oneshot_mod_state) & MOD_MASK_SHIFT;
-            laeder_keycode = base_dead_keys ^ is_shift_on ? KC_LALT : COMPOSE;
+            // Adaptive key: L[AEUIOY] LAEDER → L[AEUIOY]N
+            // E.g. « lan », « len », « lun », « lin », « lon », « lyn ».
+            // Also after a repeated L, e.g. « fallen », « pollen ».
+            // Same conditions as the CP CK adaptive swap.
+            const uint8_t l_index = resolve_prev_rep(1);
+            const bool is_after_l_vowel = GET_TAP_KC(prev_keycode(l_index)) == KC_L
+                && is_vowel_keycode(prev_keycode(0));
+            const bool has_mods = mod_state | oneshot_mod_state
+                | prev_mods[0] | prev_mods[1] | prev_mods[l_index];
+            if (is_after_l_vowel && !has_mods && is_within_adaptive_key_term(record)) {
+                laeder_keycode = KC_N;
+                last_summoned_keycode = KC_N;
+                // Let the magic rules see « n » rather than LAEDER.
+                set_last_keycode(KC_N);
+            } else {
+                const bool is_shift_on = (mod_state | oneshot_mod_state) & MOD_MASK_SHIFT;
+                laeder_keycode = base_dead_keys ^ is_shift_on ? KC_LALT : COMPOSE;
+            }
             register_code(laeder_keycode);
         } else {
             unregister_code(laeder_keycode);
