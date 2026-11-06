@@ -533,6 +533,24 @@ void process_magic_key_right(void) {
             last_summoned_keycode = KC_R;
             break;
 
+        case KC_L:
+            switch (prev_keycode(1)) {
+                case KC_A:
+                case HOME_A:
+                    // examples: « along »,  « alone »,  « alongside »,   « pantalon »,   « standalone »,
+                    tap_code(KC_O);
+                    tap_code(KC_N);
+                    last_summoned_keycode = KC_N;
+                    break;
+
+                default:
+                    // rationale: avoid SFB.
+                    // examples: « ln -s »
+                    summon_same_finger_home_key(prev_keypos(0));
+                    break;
+            }
+            break;
+
         case KC_M:
             // rationale: avoid SFS.
             // ngram: « m␣" » (TODO%)
