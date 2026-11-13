@@ -269,6 +269,8 @@ static void process_caps_word_lock(uint16_t keyc, const keyrecord_t *record) {
         case MAGIC_L:
         case MAGIC_R:
         case GET_TAP_KC(MAGIC_L):
+        // LAEDER can type « n » (adaptive key), so it never ends caps word.
+        case LAEDER:
             if (record->event.pressed) {
                 if (get_oneshot_mods() & MOD_MASK_SHIFT) {
                     caps_word_lock_disable();
